@@ -17,23 +17,23 @@ import { useRef } from 'react';
 // Services Section Component
 const services = [
   {
-    icon: <Truck className="w-10 h-10 text-primary" />,
+    icon: <Truck className="w-10 h-10 text-primary-foreground" />,
     title: "Sťahovanie bytov a rodinných domov",
     description: "Presťahujeme vás bez stresu a zbytočných starostí.",
     featured: true,
   },
   {
-    icon: <Box className="w-10 h-10 text-primary" />,
+    icon: <Box className="w-10 h-10 text-primary-foreground" />,
     title: "Sťahovanie firiem, skladov a prevádzok",
     description: "Efektívne plánovanie a spoľahlivá logistika pre minimálny výpadok prevádzky.",
   },
   {
-    icon: <Trash2 className="w-10 h-10 text-primary" />,
+    icon: <Trash2 className="w-10 h-10 text-primary-foreground" />,
     title: "Vypratávanie, likvidácia a odvoz odpadu",
     description: "Kompletné vypratávacie služby vrátane ekologickej likvidácie.",
   },
   {
-    icon: <Sparkles className="w-10 h-10 text-primary" />,
+    icon: <Sparkles className="w-10 h-10 text-primary-foreground" />,
     title: "Profesionálne upratovacie práce",
     description: "Jednorazové aj pravidelné upratovanie pre čistotu, na ktorú sa môžete spoľahnúť.",
   }
@@ -65,11 +65,6 @@ const HeroSection = () => {
   
   const motionProps = shouldReduceMotion ? {} : { style: { y, opacity } };
   
-  const logoVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
-  };
-
   const textVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.2, ease: "easeOut" } },
@@ -78,26 +73,9 @@ const HeroSection = () => {
   return (
     <section 
       ref={targetRef}
-      className="relative h-[calc(100vh)] mt-[-5rem] w-full flex items-center justify-center text-center text-primary-foreground bg-[#00202e]"
+      className="relative h-[calc(100vh-5rem)] w-full flex items-center justify-center text-center text-primary-foreground bg-[#00202e]"
     >
       <motion.div {...motionProps} className="relative z-10 p-4 flex flex-col items-center">
-         <motion.div 
-            className="mb-6"
-            variants={shouldReduceMotion ? undefined : logoVariants}
-            initial="hidden"
-            animate="visible"
-          >
-           <Image 
-             src="https://viandmo.com/wp-content/uploads/viandmo_logo_regular_white.svg" 
-             alt="Logo VI&MO - Sťahovanie a upratovanie Bratislava" 
-             width={240} 
-             height={63} 
-             priority 
-             className="h-auto"
-             style={{ width: 'auto', height: 'auto' }}
-             data-ai-hint="logo"
-           />
-         </motion.div>
          <motion.div
             variants={shouldReduceMotion ? undefined : textVariants}
             initial="hidden"
@@ -141,7 +119,7 @@ const ServicesSection = () => {
               >
                   <Card className={`text-left p-6 flex flex-col items-start shadow-lg rounded-xl transition-all duration-300 h-full bg-background/10`}>
                      <div className={`p-3 rounded-full mb-4 bg-primary-foreground/10`}>
-                        <Truck className="w-10 h-10 text-primary-foreground" />
+                        {service.icon}
                     </div>
                     <h3 className={`text-xl font-headline font-semibold mb-2 text-primary-foreground`}>{service.title}</h3>
                     <p className={`flex-grow text-primary-foreground/80`}>{service.description}</p>
@@ -255,7 +233,7 @@ const GuaranteesSection = () => {
 const CtaSection = () => {
     const shouldReduceMotion = useReducedMotion();
     return (
-      <section className="bg-primary text-secondary-foreground">
+      <section className="bg-primary text-primary-foreground">
         <motion.div 
             className="container py-16 md:py-20 text-center"
             variants={shouldReduceMotion ? undefined : sectionVariants}
@@ -271,7 +249,7 @@ const CtaSection = () => {
           </p>
           <motion.div whileHover={shouldReduceMotion ? {} : { scale: 1.05 }} transition={{ duration: 0.3 }}>
               <Link href="/contact" passHref>
-                <Button size="lg" variant="default" className="bg-secondary text-secondary-foreground hover:bg-secondary/90 px-8 py-6 text-lg rounded-full shadow-lg">
+                <Button size="lg" variant="secondary" className="px-8 py-6 text-lg rounded-full shadow-lg">
                   Chcem nezáväznú ponuku
                 </Button>
               </Link>
