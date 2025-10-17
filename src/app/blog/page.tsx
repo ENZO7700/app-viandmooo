@@ -1,25 +1,35 @@
 
+'use client';
+
+import { useState } from 'react';
 import { blogPosts } from '@/lib/blog-posts.tsx';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader } from '@/components/ui/card';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import type { Metadata } from 'next';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, MessagesSquare, Search } from 'lucide-react';
 import imageData from '@/lib/placeholder-images.json';
+import { Input } from '@/components/ui/input';
 
-export const metadata: Metadata = {
-  title: 'Blog: Tipy a Rady pre Sťahovanie a Upratovanie | VI&MO',
-  description: 'Prečítajte si naše tipy, triky a užitočné informácie týkajúce sa sťahovania, vypratávania a upratovacích služieb v Bratislave a okolí.',
-  openGraph: {
-      title: 'Blog: Tipy a Rady pre Sťahovanie a Upratovanie | VI&MO',
-      description: 'Na našom blogu nájdete praktické rady pre sťahovanie v Bratislave, tipy na vypratávanie a ďalšie užitočné informácie.',
-      url: '/blog',
-  }
-};
+// export const metadata: Metadata = {
+//   title: 'Blog: Tipy a Rady pre Sťahovanie a Upratovanie | VI&MO',
+//   description: 'Prečítajte si naše tipy, triky a užitočné informácie týkajúce sa sťahovania, vypratávania a upratovacích služieb v Bratislave a okolí.',
+//   openGraph: {
+//       title: 'Blog: Tipy a Rady pre Sťahovanie a Upratovanie | VI&MO',
+//       description: 'Na našom blogu nájdete praktické rady pre sťahovanie v Bratislave, tipy na vypratávanie a ďalšie užitočné informácie.',
+//       url: '/blog',
+//   }
+// };
 
 export default function BlogPage() {
+  const [searchTerm, setSearchTerm] = useState('');
   const sortedPosts = blogPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  const filteredPosts = sortedPosts.filter(post => 
+    post.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    post.summary.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="bg-muted/30">
@@ -43,46 +53,78 @@ export default function BlogPage() {
         </div>
       </section>
 
+      {/* Blog Archive Header */}
+      <section className="py-8 sticky top-0 z-40 bg-muted/80 backdrop-blur-md border-b">
+          <div className="container flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="relative w-full md:w-auto md:flex-grow max-w-md">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+              <Input 
+                type="search" 
+                placeholder="Hľadať v článkoch..." 
+                className="pl-10 w-full"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+            <Button asChild>
+              <Link href="/contact">
+                <MessagesSquare className="w-5 h-5 mr-2" />
+                Pridať recenziu
+              </Link>
+            </Button>
+          </div>
+      </section>
+
       {/* Blog Grid */}
       <section className="py-16 md:py-24">
         <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {sortedPosts.map((post) => (
-              <Card key={post.slug} className="flex flex-col overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl">
-                <Link href={`/blog/${post.slug}`} className="block">
-                  <div className="relative h-56 w-full">
-                    <Image
-                      src={post.image}
-                      alt={post.image_alt}
-                      fill
-                      className="object-cover"
-                      data-ai-hint={post.image_alt}
-                    />
-                  </div>
-                </Link>
-                <CardHeader>
-                  <h2 className="text-xl font-headline leading-snug">
-                    <Link href={`/blog/${post.slug}`} className="hover:text-primary transition-colors">
-                      {post.title}
+          {filteredPosts.length > 0 ? (
+             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {filteredPosts.map((post) => (
+                  <Card key={post.slug} className="flex flex-col overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl">
+                    <Link href={`/blog/${post.slug}`} className="block">
+                      <div className="relative h-56 w-full">
+                        <Image
+                          src={post.image}
+                          alt={post.image_alt}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          data-ai-hint={post.image_alt}
+                        />
+                      </div>
                     </Link>
-                  </h2>
-                   <p className="text-sm text-muted-foreground pt-2">
-                    Publikované {new Date(post.date).toLocaleDateString('sk-SK')}
-                  </p>
-                </CardHeader>
-                <CardContent className="flex-grow">
-                  <CardDescription>{post.summary}</CardDescription>
-                </CardContent>
-                <CardFooter>
-                  <Button asChild variant="link" className="p-0 h-auto text-primary">
-                    <Link href={`/blog/${post.slug}`}>
-                      Čítať viac <ArrowRight className="w-4 h-4 ml-2" />
-                    </Link>
-                  </Button>
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
+                    <CardHeader>
+                      <h2 className="text-xl font-headline leading-snug">
+                        <Link href={`/blog/${post.slug}`} className="hover:text-primary transition-colors">
+                          {post.title}
+                        </Link>
+                      </h2>
+                       <p className="text-sm text-muted-foreground pt-2">
+                        Publikované {new Date(post.date).toLocaleDateString('sk-SK')}
+                      </p>
+                    </CardHeader>
+                    <CardContent className="flex-grow">
+                      <CardDescription>{post.summary}</CardDescription>
+                    </CardContent>
+                    <CardFooter>
+                      <Button asChild variant="link" className="p-0 h-auto text-primary">
+                        <Link href={`/blog/${post.slug}`}>
+                          Čítať viac <ArrowRight className="w-4 h-4 ml-2" />
+                        </Link>
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                ))}
+            </div>
+          ) : (
+             <div className="text-center py-16">
+                <Search className="mx-auto h-12 w-12 text-muted-foreground" />
+                <h3 className="mt-4 text-xl font-semibold">Nenašli sa žiadne články</h3>
+                <p className="mt-2 text-muted-foreground">Skúste zmeniť hľadaný výraz.</p>
+             </div>
+          )}
+         
         </div>
       </section>
     </div>
