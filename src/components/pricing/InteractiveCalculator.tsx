@@ -138,17 +138,17 @@ export function InteractiveCalculator() {
     >
       <motion.div
         variants={itemVariants}
-        className="lg:col-span-2 bg-card/60 backdrop-blur-md rounded-2xl shadow-2xl shadow-black/20 border border-white/10"
+        className="lg:col-span-2 bg-card/80 backdrop-blur-md rounded-2xl shadow-2xl shadow-black/20 border border-white/10"
       >
-        <Card className="bg-transparent border-0">
+        <Card className="bg-transparent border-0 text-foreground">
             <CardHeader className="p-8">
             <CardTitle className="font-headline text-3xl text-foreground">Parametre vášho sťahovania</CardTitle>
             <CardDescription className="text-muted-foreground text-base">Zadajte detaily a získajte okamžitý odhad.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-8 px-8 pb-8">
                 
-                <motion.div variants={itemVariants} className="space-y-4 p-6 rounded-xl bg-muted/20 border border-white/5">
-                    <Label className="font-semibold text-lg flex items-center gap-2"><MapPin className="w-5 h-5 text-primary"/>Trasa sťahovania</Label>
+                <motion.div variants={itemVariants} className="space-y-4 p-6 rounded-xl bg-background/20 border border-white/10">
+                    <Label className="font-semibold text-lg flex items-center gap-2"><MapPin className="w-5 h-5 text-secondary"/>Trasa sťahovania</Label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
                         <div className="space-y-2">
                             <Label htmlFor="from-district">Odkiaľ?</Label>
@@ -177,15 +177,15 @@ export function InteractiveCalculator() {
                                 exit={{ opacity: 0, height: 0, marginTop: 0 }}
                                 className="space-y-2 overflow-hidden"
                             >
-                                <Label htmlFor="distance" className="flex items-center gap-2 font-semibold"><Car className="w-5 h-5 text-primary"/> Vzdialenosť mimo Bratislavy (jedna cesta, v km)</Label>
+                                <Label htmlFor="distance" className="flex items-center gap-2 font-semibold"><Car className="w-5 h-5 text-secondary"/> Vzdialenosť mimo Bratislavy (jedna cesta, v km)</Label>
                                 <Input id="distance" type="number" value={distance} onChange={(e) => setDistance(Math.max(0, Number(e.target.value)))} placeholder="Zadajte počet kilometrov"/>
                             </motion.div>
                         )}
                     </AnimatePresence>
                 </motion.div>
 
-                <motion.div variants={itemVariants} className="space-y-4 p-6 rounded-xl bg-muted/20 border border-white/5">
-                    <Label className="font-semibold text-lg flex items-center gap-2"><Package className="w-5 h-5 text-primary"/>Detaily nehnuteľnosti</Label>
+                <motion.div variants={itemVariants} className="space-y-4 p-6 rounded-xl bg-background/20 border border-white/10">
+                    <Label className="font-semibold text-lg flex items-center gap-2"><Package className="w-5 h-5 text-secondary"/>Detaily nehnuteľnosti</Label>
                     <div className="space-y-2">
                         <Label htmlFor="property-type">Typ nehnuteľnosti</Label>
                         <Select value={propertyType} onValueChange={(val) => setPropertyType(val as PropertyType)}>
@@ -196,10 +196,10 @@ export function InteractiveCalculator() {
                         </Select>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
-                        <div className="space-y-4 p-4 border rounded-lg bg-muted/30">
+                        <div className="space-y-4 p-4 border rounded-lg bg-background/30 border-white/10">
                             <Label className="font-medium">Adresa nakládky</Label>
                             <div className="space-y-2">
-                                <Label htmlFor="from-floor" className="text-sm font-normal flex justify-between">Poschodie: <span className="font-bold text-primary text-lg">{fromFloor[0]}</span></Label>
+                                <Label htmlFor="from-floor" className="text-sm font-normal flex justify-between">Poschodie: <span className="font-bold text-secondary text-lg">{fromFloor[0]}</span></Label>
                                 <Slider id="from-floor" value={fromFloor} onValueChange={setFromFloor} max={15} step={1} />
                             </div>
                             <div className="flex items-center space-x-2 pt-2">
@@ -207,10 +207,10 @@ export function InteractiveCalculator() {
                                 <Label htmlFor="from-elevator" className="text-sm font-normal">K dispozícii je výťah</Label>
                             </div>
                         </div>
-                        <div className="space-y-4 p-4 border rounded-lg bg-muted/30">
+                        <div className="space-y-4 p-4 border rounded-lg bg-background/30 border-white/10">
                             <Label className="font-medium">Adresa vykládky</Label>
                             <div className="space-y-2">
-                                <Label htmlFor="to-floor" className="text-sm font-normal flex justify-between">Poschodie: <span className="font-bold text-primary text-lg">{toFloor[0]}</span></Label>
+                                <Label htmlFor="to-floor" className="text-sm font-normal flex justify-between">Poschodie: <span className="font-bold text-secondary text-lg">{toFloor[0]}</span></Label>
                                 <Slider id="to-floor" value={toFloor} onValueChange={setToFloor} max={15} step={1} />
                             </div>
                             <div className="flex items-center space-x-2 pt-2">
@@ -221,18 +221,18 @@ export function InteractiveCalculator() {
                     </div>
                 </motion.div>
 
-                <motion.div variants={itemVariants} className="space-y-4 p-6 rounded-xl bg-muted/20 border border-white/5">
+                <motion.div variants={itemVariants} className="space-y-4 p-6 rounded-xl bg-background/20 border border-white/10">
                     <Label className="font-semibold text-lg">Pracovníci a doplnkové služby</Label>
                     <div className="space-y-2">
                         <div className="flex justify-between items-center">
-                            <Label htmlFor="workers" className="flex items-center gap-2"><Users className="w-5 h-5 text-primary"/> Počet pracovníkov</Label>
-                            <span className="font-bold text-primary text-lg">{workers[0]}</span>
+                            <Label htmlFor="workers" className="flex items-center gap-2"><Users className="w-5 h-5 text-secondary"/> Počet pracovníkov</Label>
+                            <span className="font-bold text-secondary text-lg">{workers[0]}</span>
                         </div>
                         <Slider id="workers" value={workers} onValueChange={setWorkers} min={1} max={5} step={1} />
                     </div>
                     <div className="flex items-center space-x-3 pt-4">
                         <Switch id="assembly" checked={assembly} onCheckedChange={setAssembly} />
-                        <Label htmlFor="assembly" className="flex items-center gap-2 font-normal"><HardHat className="w-5 h-5 text-primary"/> Požadujem demontáž a montáž nábytku</Label>
+                        <Label htmlFor="assembly" className="flex items-center gap-2 font-normal"><HardHat className="w-5 h-5 text-secondary"/> Požadujem demontáž a montáž nábytku</Label>
                     </div>
                 </motion.div>
             </CardContent>
@@ -244,7 +244,7 @@ export function InteractiveCalculator() {
            className="lg:col-span-1 sticky top-24"
         >
         <div
-           className="rounded-2xl bg-gradient-to-br from-primary to-secondary text-primary-foreground shadow-2xl shadow-primary/30"
+           className="rounded-2xl bg-gradient-to-br from-secondary to-[#004d48] text-primary-foreground shadow-2xl shadow-secondary/30"
         >
         <Card className="bg-transparent border-0 relative overflow-hidden">
          <div className="absolute inset-0 bg-black/10"></div>
@@ -259,7 +259,7 @@ export function InteractiveCalculator() {
              <p className="text-white/80 text-sm mt-2">vrátane DPH</p>
           </CardContent>
           <CardFooter className="flex-col gap-4 px-8 pb-8 relative z-10">
-             <Button asChild size="lg" className="w-full bg-white text-black hover:bg-white/90 rounded-full transition-transform duration-300 hover:scale-105 shadow-lg">
+             <Button asChild size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full transition-transform duration-300 hover:scale-105 shadow-lg">
                 <Link href="/contact">Chcem presnú ponuku</Link>
              </Button>
              <p className="text-xs text-white/70 text-center pt-2">Toto je len orientačná cena. Pre finálnu cenovú ponuku nás, prosím, kontaktujte.</p>

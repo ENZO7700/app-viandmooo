@@ -1,3 +1,4 @@
+
 'use client'
 
 import { Button } from '@/components/ui/button';
@@ -157,10 +158,10 @@ const ServicesSection = () => {
 
 // Why Us Section Component
 const whyUsPoints = [
-    { icon: <Award className="w-6 h-6 text-primary" />, text: "Viac ako 7 rokov preverených skúseností" },
-    { icon: <UserCheck className="w-6 h-6 text-primary" />, text: "Silný a zodpovedný tím profesionálov" },
-    { icon: <Wallet className="w-6 h-6 text-primary" />, text: "Férové ceny bez skrytých poplatkov" },
-    { icon: <ShieldCheck className="w-6 h-6 text-primary" />, text: "Plné poistenie zodpovednosti za škodu" },
+    { icon: <Award className="w-6 h-6 text-primary-foreground" />, text: "Viac ako 7 rokov preverených skúseností" },
+    { icon: <UserCheck className="w-6 h-6 text-primary-foreground" />, text: "Silný a zodpovedný tím profesionálov" },
+    { icon: <Wallet className="w-6 h-6 text-primary-foreground" />, text: "Férové ceny bez skrytých poplatkov" },
+    { icon: <ShieldCheck className="w-6 h-6 text-primary-foreground" />, text: "Plné poistenie zodpovednosti za škodu" },
 ];
 
 const WhyUsSection = () => {
@@ -168,7 +169,7 @@ const WhyUsSection = () => {
     return (
       <motion.section 
         id="preco-my" 
-        className="py-16 md:py-24 bg-muted/30 text-foreground"
+        className="py-16 md:py-24 bg-primary text-primary-foreground"
         variants={shouldReduceMotion ? undefined : sectionVariants}
         initial="hidden"
         whileInView="visible"
@@ -176,21 +177,21 @@ const WhyUsSection = () => {
       >
         <div className="container grid md:grid-cols-2 gap-12 items-center">
             <div>
-                <h2 className="text-3xl md:text-4xl font-headline font-bold text-primary mb-4">Prečo si vybrať VI&MO na sťahovanie v Bratislave?</h2>
-                <div className="space-y-4 text-muted-foreground leading-relaxed">
-                  <p>Hľadáte spoľahlivú firmu na sťahovanie v Bratislave, na ktorú sa môžete na 100% spoľahnúť? Sme tu pre vás už <strong className="text-foreground">viac ako 7 rokov</strong>. Počas tejto doby sme úspešne zrealizovali stovky sťahovaní – od malých bytov až po rozsiahle firemné priestory. Naše meno je synonymom pre <strong className="text-foreground">kvalitu, rýchlosť a ľudský prístup</strong>.</p>
+                <h2 className="text-3xl md:text-4xl font-headline font-bold text-background mb-4">Prečo si vybrať VI&MO na sťahovanie v Bratislave?</h2>
+                <div className="space-y-4 text-primary-foreground/90 leading-relaxed">
+                  <p>Hľadáte spoľahlivú firmu na sťahovanie v Bratislave, na ktorú sa môžete na 100% spoľahnúť? Sme tu pre vás už <strong className="text-background font-semibold">viac ako 7 rokov</strong>. Počas tejto doby sme úspešne zrealizovali stovky sťahovaní – od malých bytov až po rozsiahle firemné priestory. Naše meno je synonymom pre <strong className="text-background font-semibold">kvalitu, rýchlosť a ľudský prístup</strong>.</p>
                   <p>Vieme, že sťahovanie je viac než len prenos vecí. Je to začiatok novej etapy. Preto ku každej zákazke pristupujeme s maximálnou zodpovednosťou, aby bol váš prechod do nového čo najpríjemnejší. Postaráme sa o všetko – demontáž nábytku, precízne zabalenie, bezpečnú prepravu, a dokonca aj o finálne upratovanie.</p>
                 </div>
             </div>
             <div className="space-y-6">
                 {whyUsPoints.map((point, index) => (
                     <div key={index} className="flex items-start gap-4">
-                        <div className="flex-shrink-0 mt-1 bg-primary/10 p-3 rounded-full">
+                        <div className="flex-shrink-0 mt-1 bg-background/20 p-3 rounded-full">
                            {point.icon}
                         </div>
                         <div>
-                            <h3 className="text-lg font-semibold text-foreground">{point.text}</h3>
-                            <p className="text-muted-foreground">Naša prax a zohratý tím sú zárukou, že vaše veci sú v najlepších rukách. Procesy máme vyladené do detailov.</p>
+                            <h3 className="text-lg font-semibold text-background">{point.text}</h3>
+                            <p className="text-primary-foreground/80">Naša prax a zohratý tím sú zárukou, že vaše veci sú v najlepších rukách. Procesy máme vyladené do detailov.</p>
                         </div>
                     </div>
                 ))}
@@ -215,7 +216,7 @@ const GuaranteesSection = () => {
     return (
         <motion.section 
             id="garancie"
-            className="py-16 md:py-24 bg-background text-foreground"
+            className="py-16 md:py-24 bg-primary text-primary-foreground"
             variants={shouldReduceMotion ? undefined : sectionVariants}
             initial="hidden"
             whileInView="visible"
@@ -223,8 +224,8 @@ const GuaranteesSection = () => {
         >
             <div className="container">
                 <div className="text-center mb-12">
-                    <h2 className="text-3xl md:text-4xl font-headline font-bold text-primary">Naše Garancie a Výhody</h2>
-                    <p className="text-muted-foreground text-lg max-w-2xl mx-auto mt-2">Poskytujeme viac než len sťahovanie. Poskytujeme istotu a spoľahlivosť.</p>
+                    <h2 className="text-3xl md:text-4xl font-headline font-bold text-background">Naše Garancie a Výhody</h2>
+                    <p className="text-primary-foreground/80 text-lg max-w-2xl mx-auto mt-2">Poskytujeme viac než len sťahovanie. Poskytujeme istotu a spoľahlivosť.</p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {guarantees.map((item, index) => (
@@ -233,12 +234,12 @@ const GuaranteesSection = () => {
                             whileHover={shouldReduceMotion ? {} : { y: -5, scale: 1.02 }}
                             transition={{ duration: 0.3 }}
                           >
-                            <Card className="text-center p-6 flex flex-col items-center shadow-lg rounded-xl h-full bg-card/50">
-                                <div className="p-4 rounded-full mb-4 bg-primary/10 text-primary">
+                            <Card className="text-center p-6 flex flex-col items-center shadow-lg rounded-xl h-full bg-background/10 border-white/10">
+                                <div className="p-4 rounded-full mb-4 bg-background/20 text-primary-foreground">
                                     {item.icon}
                                 </div>
-                                <h3 className="text-xl font-headline font-semibold mb-2">{item.title}</h3>
-                                <p className="flex-grow text-muted-foreground text-sm">{item.description}</p>
+                                <h3 className="text-xl font-headline font-semibold mb-2 text-primary-foreground">{item.title}</h3>
+                                <p className="flex-grow text-primary-foreground/80 text-sm">{item.description}</p>
                             </Card>
                          </motion.div>
                     ))}
@@ -253,7 +254,7 @@ const GuaranteesSection = () => {
 const CtaSection = () => {
     const shouldReduceMotion = useReducedMotion();
     return (
-      <section className="bg-primary text-primary-foreground">
+      <section className="bg-secondary text-secondary-foreground">
         <motion.div 
             className="container py-16 md:py-20 text-center"
             variants={shouldReduceMotion ? undefined : sectionVariants}
@@ -264,12 +265,12 @@ const CtaSection = () => {
           <h2 className="text-3xl md:text-4xl font-headline font-bold mb-4">
             Pripravení na zmenu?
           </h2>
-          <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto text-primary-foreground/80">
+          <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto text-secondary-foreground/80">
             Nechajte starosti so sťahovaním na nás. Vyplňte krátky formulár a my vám obratom pripravíme cenovú ponuku šitú na mieru. Rýchlo, férovo a bez záväzkov.
           </p>
           <motion.div whileHover={shouldReduceMotion ? {} : { scale: 1.05 }} transition={{ duration: 0.3 }}>
               <Link href="/contact" passHref>
-                <Button size="lg" variant="secondary" className="px-8 py-6 text-lg rounded-full shadow-lg">
+                <Button size="lg" variant="default" className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-6 text-lg rounded-full shadow-lg">
                   Chcem nezáväznú ponuku
                 </Button>
               </Link>
@@ -284,7 +285,7 @@ const PricingSection = () => {
     return (
         <motion.section
             id="cennik"
-            className="py-16 md:py-24 bg-muted/40 text-foreground"
+            className="py-16 md:py-24 bg-primary text-primary-foreground"
             variants={shouldReduceMotion ? undefined : sectionVariants}
             initial="hidden"
             whileInView="visible"
@@ -292,8 +293,8 @@ const PricingSection = () => {
         >
             <div className="container">
                 <div className="text-center mb-12 max-w-3xl mx-auto">
-                    <h2 className="text-3xl md:text-4xl font-headline font-bold text-primary">Interaktívna cenová ponuka</h2>
-                    <p className="text-muted-foreground mt-3 text-lg">
+                    <h2 className="text-3xl md:text-4xl font-headline font-bold text-background">Interaktívna cenová ponuka</h2>
+                    <p className="text-primary-foreground/80 mt-3 text-lg">
                         Vyskúšajte našu kalkulačku a získajte okamžitý odhad ceny vášho sťahovania. Pre presnú ponuku šitú na mieru nás neváhajte kontaktovať.
                     </p>
                 </div>

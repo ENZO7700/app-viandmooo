@@ -42,10 +42,10 @@ export function ContactForm() {
     }
 
     return (
-        <Card className="p-6 md:p-8 shadow-lg rounded-xl">
+        <Card className="p-6 md:p-8 shadow-lg rounded-xl bg-card/80 border-white/10 text-card-foreground">
             <CardHeader className="p-0 mb-6">
-            <h2 className="text-3xl font-headline text-primary">Napíšte Nám</h2>
-            <p className="text-muted-foreground">Odpovieme vám čo najskôr.</p>
+            <h2 className="text-3xl font-headline text-background">Napíšte Nám</h2>
+            <p className="text-primary-foreground/80">Odpovieme vám čo najskôr.</p>
             </CardHeader>
             <CardContent className="p-0">
             <form ref={formRef} action={formAction} className="space-y-6">
@@ -73,7 +73,7 @@ export function ContactForm() {
                 <Textarea id="message" name="message" placeholder="Popíšte nám, s čím vám môžeme pomôcť..." rows={5} defaultValue={state.fields?.message}/>
                     <p className="text-destructive text-sm h-4">{getErrorForField('message')}</p>
                 </div>
-                <Button type="submit" size="lg" className="w-full py-6">Odoslať správu</Button>
+                <Button type="submit" size="lg" className="w-full py-6 bg-secondary text-secondary-foreground hover:bg-secondary/90">Odoslať správu</Button>
             </form>
             </CardContent>
         </Card>

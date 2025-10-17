@@ -29,22 +29,22 @@ const team = [
 
 const services = [
   {
-    icon: <Truck className="w-10 h-10 text-primary" />,
+    icon: <Truck className="w-10 h-10 text-primary-foreground" />,
     title: "Sťahovanie bytov a rodinných domov",
     description: "Presťahujeme vás bez stresu a zbytočných starostí.",
   },
   {
-    icon: <Box className="w-10 h-10 text-primary" />,
+    icon: <Box className="w-10 h-10 text-primary-foreground" />,
     title: "Sťahovanie firiem, skladov a prevádzok",
     description: "Efektívne plánovanie a spoľahlivá logistika pre minimálny výpadok prevádzky.",
   },
   {
-    icon: <Trash2 className="w-10 h-10 text-primary" />,
+    icon: <Trash2 className="w-10 h-10 text-primary-foreground" />,
     title: "Vypratávanie, likvidácia a odvoz odpadu",
     description: "Kompletné vypratávacie služby vrátane ekologickej likvidácie.",
   },
   {
-    icon: <Sparkles className="w-10 h-10 text-primary" />,
+    icon: <Sparkles className="w-10 h-10 text-primary-foreground" />,
     title: "Profesionálne upratovacie práce",
     description: "Jednorazové aj pravidelné upratovanie pre čistotu, na ktorú sa môžete spoľahnúť.",
   }
@@ -82,7 +82,7 @@ export default function AboutPageClient() {
 
       {/* Mission Section */}
       <motion.section 
-        className="py-16 md:py-24 bg-muted/30"
+        className="py-16 md:py-24 bg-primary text-primary-foreground"
         variants={shouldReduceMotion ? undefined : sectionVariants}
         initial="hidden"
         whileInView="visible"
@@ -90,10 +90,10 @@ export default function AboutPageClient() {
       >
         <div className="container grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-3xl md:text-4xl font-headline font-bold text-primary mb-4">Naša Filozofia</h2>
-            <div className="space-y-4 text-muted-foreground leading-relaxed">
-              <p>Sme silná partia v oblasti "moving & logistic" služieb. Jadrom našej identity je viac než <strong className="text-foreground">7 rokov skúseností</strong>, počas ktorých sme sa vyprofilovali na expertov v profesionálnom sťahovaní, ekologickej likvidácii odpadu a nadštandardných upratovacích prácach. Či už potrebujete presťahovať malý byt, rozsiahle kancelárie alebo celú firmu, náš prístup zostáva rovnaký – precízny, zodpovedný a s citom pre detail.</p>
-              <p>Zakladáme si na tom, že pracujeme <strong className="text-foreground">rýchlo, efektívne a s ľudským prístupom</strong>. Pre nás to nie sú len prázdne slová. Znamená to, že rešpektujeme váš čas, majetok a individuálne potreby. Naše slovo platí a ku každej zákazke pristupujeme s maximálnou vážnosťou. Naším pôsobiskom je najmä Bratislava a okolie, kde sme si vybudovali meno založené na <strong className="text-foreground">férovom prístupe, transparentných cenách a poctivej práci</strong>, na ktorú sa môžete stopercentne spoľahnúť.</p>
+            <h2 className="text-3xl md:text-4xl font-headline font-bold text-background mb-4">Naša Filozofia</h2>
+            <div className="space-y-4 text-primary-foreground/90 leading-relaxed">
+              <p>Sme silná partia v oblasti "moving & logistic" služieb. Jadrom našej identity je viac než <strong className="text-background font-semibold">7 rokov skúseností</strong>, počas ktorých sme sa vyprofilovali na expertov v profesionálnom sťahovaní, ekologickej likvidácii odpadu a nadštandardných upratovacích prácach. Či už potrebujete presťahovať malý byt, rozsiahle kancelárie alebo celú firmu, náš prístup zostáva rovnaký – precízny, zodpovedný a s citom pre detail.</p>
+              <p>Zakladáme si na tom, že pracujeme <strong className="text-background font-semibold">rýchlo, efektívne a s ľudským prístupom</strong>. Pre nás to nie sú len prázdne slová. Znamená to, že rešpektujeme váš čas, majetok a individuálne potreby. Naše slovo platí a ku každej zákazke pristupujeme s maximálnou vážnosťou. Naším pôsobiskom je najmä Bratislava a okolie, kde sme si vybudovali meno založené na <strong className="text-background font-semibold">férovom prístupe, transparentných cenách a poctivej práci</strong>, na ktorú sa môžete stopercentne spoľahnúť.</p>
             </div>
           </div>
           <div className="relative h-80 w-full rounded-lg overflow-hidden shadow-xl">
@@ -111,7 +111,7 @@ export default function AboutPageClient() {
       {/* Services Section */}
       <motion.section 
         id="sluzby" 
-        className="py-16 md:py-24 bg-background text-foreground"
+        className="py-16 md:py-24 bg-primary text-primary-foreground"
         variants={shouldReduceMotion ? undefined : sectionVariants}
         initial="hidden"
         whileInView="visible"
@@ -119,8 +119,8 @@ export default function AboutPageClient() {
       >
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-headline font-bold text-primary mb-2">Naše Služby</h2>
-             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Ponúkame komplexné riešenia pre vaše sťahovanie, vypratávanie a čistotu.</p>
+            <h2 className="text-3xl md:text-4xl font-headline font-bold text-background mb-2">Naše Služby</h2>
+             <p className="text-primary-foreground/80 text-lg max-w-2xl mx-auto">Ponúkame komplexné riešenia pre vaše sťahovanie, vypratávanie a čistotu.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {services.map((service, index) => (
@@ -129,12 +129,12 @@ export default function AboutPageClient() {
                 whileHover={shouldReduceMotion ? {} : { y: -5, scale: 1.02 }}
                 transition={{ duration: 0.3 }}
               >
-                  <Card className={`text-left p-6 flex flex-col items-start shadow-lg rounded-xl transition-all duration-300 h-full bg-card`}>
-                     <div className={`p-3 rounded-full mb-4 bg-primary/10`}>
+                  <Card className={`text-left p-6 flex flex-col items-start shadow-lg rounded-xl transition-all duration-300 h-full bg-background/10`}>
+                     <div className={`p-3 rounded-full mb-4 bg-primary-foreground/10`}>
                         {service.icon}
                     </div>
-                    <h3 className={`text-xl font-headline font-semibold mb-2 text-foreground`}>{service.title}</h3>
-                    <p className={`flex-grow text-muted-foreground`}>{service.description}</p>
+                    <h3 className={`text-xl font-headline font-semibold mb-2 text-primary-foreground`}>{service.title}</h3>
+                    <p className={`flex-grow text-primary-foreground/80`}>{service.description}</p>
                   </Card>
                </motion.div>
             ))}
@@ -145,7 +145,7 @@ export default function AboutPageClient() {
 
        {/* Team Section */}
       <motion.section 
-        className="py-16 md:py-24 bg-muted/30"
+        className="py-16 md:py-24 bg-primary text-primary-foreground"
         variants={shouldReduceMotion ? undefined : sectionVariants}
         initial="hidden"
         whileInView="visible"
@@ -153,8 +153,8 @@ export default function AboutPageClient() {
       >
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-headline font-bold text-primary">Zoznámte sa s naším tímom</h2>
-            <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-headline font-bold text-background">Zoznámte sa s naším tímom</h2>
+            <p className="text-primary-foreground/80 mt-2 max-w-2xl mx-auto">
               Sme tu pre vás, pripravení zodpovedať vaše otázky a pomôcť vám s vašimi požiadavkami.
             </p>
           </div>
@@ -162,11 +162,11 @@ export default function AboutPageClient() {
             {team.map((member) => (
                 <motion.div 
                     key={member.name}
-                    className="text-center p-6 border rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 bg-card"
+                    className="text-center p-6 border border-white/10 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 bg-card/80"
                     whileHover={shouldReduceMotion ? {} : { y: -5, scale: 1.03 }}
                     transition={{ duration: 0.3 }}
                 >
-                    <div className="relative w-40 h-40 mx-auto mb-4 rounded-full overflow-hidden border-4 border-primary/50 shadow-lg">
+                    <div className="relative w-40 h-40 mx-auto mb-4 rounded-full overflow-hidden border-4 border-secondary shadow-lg">
                         <Image
                           src={member.img}
                           alt={`Portrét člena tímu VI&MO - ${member.name}, sťahovanie Bratislava`}
@@ -177,8 +177,8 @@ export default function AboutPageClient() {
                         />
                     </div>
                     <h3 className="text-2xl font-semibold font-headline">{member.name}</h3>
-                    <p className="text-primary text-lg">{member.role}</p>
-                     <a href={`tel:${member.phone}`} className="flex items-center justify-center gap-2 mt-2 text-muted-foreground hover:text-primary transition-colors">
+                    <p className="text-background/80 text-lg">{member.role}</p>
+                     <a href={`tel:${member.phone}`} className="flex items-center justify-center gap-2 mt-2 text-primary-foreground/80 hover:text-background transition-colors">
                         <Phone className="w-4 h-4"/>
                         {member.phone}
                     </a>
@@ -189,16 +189,16 @@ export default function AboutPageClient() {
       </motion.section>
 
       {/* CTA Section */}
-      <section className="bg-primary text-primary-foreground">
+      <section className="bg-secondary text-secondary-foreground">
         <div className="container py-16 md:py-20 text-center">
           <h2 className="text-3xl md:text-4xl font-headline font-bold mb-4">
             Máte otázky alebo si želáte ponuku?
           </h2>
-          <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto text-primary-foreground/80">
+          <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto text-secondary-foreground/80">
             Neváhajte nás kontaktovať. Radi vám poradíme a pripravíme nezáväznú cenovú ponuku na sťahovanie v Bratislave.
           </p>
           <Link href="/contact" passHref>
-            <Button size="lg" variant="secondary" className="px-8 py-6 text-lg transition-transform duration-300 hover:scale-105 rounded-full shadow-lg">
+            <Button size="lg" variant="default" className="px-8 py-6 text-lg transition-transform duration-300 hover:scale-105 rounded-full shadow-lg bg-primary text-primary-foreground hover:bg-primary/90">
               Kontaktujte nás
             </Button>
           </Link>
