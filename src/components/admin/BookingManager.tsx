@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { type Booking } from "@/lib/data";
+import type { Booking } from "@/lib/data";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Pencil, PlusCircle, Trash2 } from "lucide-react";
@@ -30,12 +30,12 @@ function DeleteButton({ bookingId }: { bookingId: number }) {
     );
 }
 
-function BookingDialog({ children, booking, onOpenChange, open }: { children: React.ReactNode, booking?: Booking, open: boolean, onOpenChange: (open: boolean) => void }) {
+function BookingDialog({ children, booking, onFormSubmit }: { children: React.ReactNode, booking?: Booking, onFormSubmit: () => void }) {
   const title = booking ? "Upraviť zákazku" : "Pridať novú zákazku";
   const description = booking ? "Upravte údaje o existujúcej zákazke." : "Vyplňte formulár pre vytvorenie novej zákazky.";
   
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog onOpenChange={(isOpen) => !isOpen && onFormSubmit()}>
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
@@ -44,7 +44,7 @@ function BookingDialog({ children, booking, onOpenChange, open }: { children: Re
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
-        <BookingForm booking={booking} onFormSubmit={() => onOpenChange(false)} />
+        <BookingForm booking={booking} onFormSubmit={onFormSubmit} />
       </DialogContent>
     </Dialog>
   );
@@ -53,39 +53,23 @@ function BookingDialog({ children, booking, onOpenChange, open }: { children: Re
 
 export function BookingManager({ initialBookings }: { initialBookings: Booking[] }) {
     const [dialogOpen, setDialogOpen] = useState(false);
-    const [selectedBooking, setSelectedBooking] = useState<Booking | undefined>(undefined);
     
     // The initialBookings prop will only be used for the initial render.
     // Revalidating the path on the server action will cause the parent server component to refetch and pass new props.
     const sortedBookings = [...initialBookings].sort((a, b) => new Date(b.start).getTime() - new Date(a.start).getTime());
 
-    const handleAddClick = () => {
-      setSelectedBooking(undefined);
-      setDialogOpen(true);
-    };
-
-    const handleEditClick = (booking: Booking) => {
-      setSelectedBooking(booking);
-      setDialogOpen(true);
-    }
+    const closeDialog = () => setDialogOpen(false);
     
     return (
         <>
             <div className="flex justify-end mb-4">
-                 <Button onClick={handleAddClick}>
-                    <PlusCircle className="mr-2 h-4 w-4" />
-                    Pridať zákazku
-                </Button>
+                 <BookingDialog onFormSubmit={closeDialog}>
+                    <Button>
+                        <PlusCircle className="mr-2 h-4 w-4" />
+                        Pridať zákazku
+                    </Button>
+                </BookingDialog>
             </div>
-            
-            <BookingDialog
-              booking={selectedBooking}
-              open={dialogOpen}
-              onOpenChange={setDialogOpen}
-            >
-               {/* This is a dummy trigger, the dialog is controlled by state */}
-               <button className="hidden" />
-            </BookingDialog>
             
             <Table>
                 <TableHeader>
@@ -112,10 +96,12 @@ export function BookingManager({ initialBookings }: { initialBookings: Booking[]
                                 </TableCell>
                                 <TableCell>{job.price.toLocaleString('sk-SK')} €</TableCell>
                                 <TableCell className="text-right">
-                                    <Button variant="ghost" size="icon" onClick={() => handleEditClick(job)}>
-                                        <Pencil className="h-4 w-4" />
-                                        <span className="sr-only">Upraviť</span>
-                                    </Button>
+                                    <BookingDialog booking={job} onFormSubmit={closeDialog}>
+                                        <Button variant="ghost" size="icon">
+                                            <Pencil className="h-4 w-4" />
+                                            <span className="sr-only">Upraviť</span>
+                                        </Button>
+                                    </BookingDialog>
                                     <DeleteButton bookingId={job.id} />
                                 </TableCell>
                             </TableRow>
