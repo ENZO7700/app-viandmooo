@@ -9,46 +9,46 @@ import { ContactForm } from '@/components/contact/ContactForm';
 
 export default function ContactPageClient() {
   return (
-    <>
-      <section className="w-full flex items-center justify-center text-center py-16 md:py-24 bg-primary text-primary-foreground">
+    <div className='bg-background text-foreground'>
+      <section className="w-full flex items-center justify-center text-center py-16 md:py-24 bg-background text-foreground">
         <div className="relative z-10 p-4">
-          <h1 className="text-5xl md:text-7xl font-headline leading-tight drop-shadow-lg">
+          <h1 className="text-5xl md:text-7xl font-headline leading-tight text-primary drop-shadow-lg">
             Kontaktujte Nás
           </h1>
-          <p className="mt-4 text-lg md:text-2xl max-w-3xl mx-auto text-primary-foreground/80 drop-shadow-md">
+          <p className="mt-4 text-lg md:text-2xl max-w-3xl mx-auto text-muted-foreground drop-shadow-md">
             Sme tu pre vás. Napíšte nám a získajte nezáväznú cenovú ponuku na sťahovanie v Bratislave.
           </p>
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-primary text-primary-foreground">
+      <section className="py-16 md:py-24 bg-background text-foreground">
         <div className="container grid md:grid-cols-2 gap-16 items-start">
           
           {/* Contact Info */}
           <div className="space-y-8">
-             <Card className="shadow-lg rounded-xl bg-background/10 border-white/10">
-                <CardHeader><h2 className="text-2xl font-headline text-background">Kontaktné údaje</h2></CardHeader>
-                <CardContent className="space-y-4 text-lg text-primary-foreground">
+             <Card className="shadow-lg rounded-xl bg-card border">
+                <CardHeader><h2 className="text-2xl font-headline text-primary">Kontaktné údaje</h2></CardHeader>
+                <CardContent className="space-y-4 text-lg text-foreground">
                     <div className="flex items-center gap-4">
-                        <Phone className="w-6 h-6 text-background flex-shrink-0" />
+                        <Phone className="w-6 h-6 text-primary flex-shrink-0" />
                         <div>
-                            <a href="tel:+421911275755" className="hover:text-background transition-colors">+421 911 275 755</a>
-                            <span className="text-sm text-primary-foreground/80 block">Sťahovanie</span>
+                            <a href="tel:+421911275755" className="hover:text-primary transition-colors">+421 911 275 755</a>
+                            <span className="text-sm text-muted-foreground block">Sťahovanie</span>
                         </div>
                     </div>
                      <div className="flex items-center gap-4">
-                        <Phone className="w-6 h-6 text-background flex-shrink-0" />
+                        <Phone className="w-6 h-6 text-primary flex-shrink-0" />
                          <div>
-                            <a href="tel:+421918895730" className="hover:text-background transition-colors">+421 918 895 730</a>
-                             <span className="text-sm text-primary-foreground/80 block">Upratovanie</span>
+                            <a href="tel:+421918895730" className="hover:text-primary transition-colors">+421 918 895 730</a>
+                             <span className="text-sm text-muted-foreground block">Upratovanie</span>
                         </div>
                     </div>
                     <div className="flex items-center gap-4">
-                        <Mail className="w-6 h-6 text-background flex-shrink-0" />
-                        <a href="mailto:info@viandmo.com" className="hover:text-background transition-colors">info@viandmo.com</a>
+                        <Mail className="w-6 h-6 text-primary flex-shrink-0" />
+                        <a href="mailto:info@viandmo.com" className="hover:text-primary transition-colors">info@viandmo.com</a>
                     </div>
                      <div className="flex items-center gap-4">
-                        <MapPin className="w-6 h-6 text-background flex-shrink-0" />
+                        <MapPin className="w-6 h-6 text-primary flex-shrink-0" />
                         <span>Karpatské námestie 7770/10A<br/>831 06 Bratislava - Rača</span>
                     </div>
                 </CardContent>
@@ -73,6 +73,6 @@ export default function ContactPageClient() {
 
         </div>
       </section>
-    </>
+    </div>
   );
 }
