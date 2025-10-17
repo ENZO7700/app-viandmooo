@@ -12,28 +12,29 @@ import { useReducedMotion } from '@/hooks/use-reduced-motion';
 import imageData from '@/lib/placeholder-images.json';
 import { InteractiveCalculator } from '@/components/pricing/InteractiveCalculator';
 import { useRef } from 'react';
+import { Separator } from '@/components/ui/separator';
 
 
 // Services Section Component
 const services = [
   {
-    icon: <Truck className="w-10 h-10 text-primary-foreground" />,
+    icon: <Truck className="w-10 h-10 text-primary" />,
     title: "Sťahovanie bytov a rodinných domov",
     description: "Presťahujeme vás bez stresu a zbytočných starostí.",
     featured: true,
   },
   {
-    icon: <Box className="w-10 h-10 text-primary-foreground" />,
+    icon: <Box className="w-10 h-10 text-primary" />,
     title: "Sťahovanie firiem, skladov a prevádzok",
     description: "Efektívne plánovanie a spoľahlivá logistika pre minimálny výpadok prevádzky.",
   },
   {
-    icon: <Trash2 className="w-10 h-10 text-primary-foreground" />,
+    icon: <Trash2 className="w-10 h-10 text-primary" />,
     title: "Vypratávanie, likvidácia a odvoz odpadu",
     description: "Kompletné vypratávacie služby vrátane ekologickej likvidácie.",
   },
   {
-    icon: <Sparkles className="w-10 h-10 text-primary-foreground" />,
+    icon: <Sparkles className="w-10 h-10 text-primary" />,
     title: "Profesionálne upratovacie práce",
     description: "Jednorazové aj pravidelné upratovanie pre čistotu, na ktorú sa môžete spoľahnúť.",
   }
@@ -73,9 +74,20 @@ const HeroSection = () => {
   return (
     <section 
       ref={targetRef}
-      className="relative h-[calc(100vh-5rem)] w-full flex items-center justify-center text-center text-primary-foreground bg-[#00202e]"
+      className="relative h-[calc(100vh-5rem)] w-full flex items-center justify-center text-center text-primary-foreground"
     >
-      <motion.div {...motionProps} className="relative z-10 p-4 flex flex-col items-center">
+      <motion.div {...motionProps} className="absolute inset-0">
+        <Image
+          src={imageData.blogListHero.src}
+          alt="Sťahovacia dodávka v Bratislave pri západe slnka"
+          fill
+          priority
+          className="object-cover brightness-50"
+          data-ai-hint="moving truck sunset"
+        />
+        <div className="absolute inset-0 bg-black/30" />
+      </motion.div>
+      <motion.div className="relative z-10 p-4 flex flex-col items-center">
          <motion.div
             variants={shouldReduceMotion ? undefined : textVariants}
             initial="hidden"
@@ -99,7 +111,7 @@ const ServicesSection = () => {
     return (
       <motion.section 
         id="sluzby" 
-        className="py-16 md:py-24 bg-primary text-primary-foreground"
+        className="py-16 md:py-24 bg-background text-foreground"
         variants={shouldReduceMotion ? undefined : sectionVariants}
         initial="hidden"
         whileInView="visible"
@@ -107,8 +119,8 @@ const ServicesSection = () => {
       >
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-headline font-bold text-background mb-2">Naše Služby</h2>
-             <p className="text-primary-foreground/80 text-lg max-w-2xl mx-auto">Komplexné riešenia pre vaše sťahovanie a čistotu. Spoľahnite sa na pevné ruky a poctivý prístup.</p>
+            <h2 className="text-3xl md:text-4xl font-headline font-bold text-primary mb-2">Naše Služby</h2>
+             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Komplexné riešenia pre vaše sťahovanie a čistotu. Spoľahnite sa na pevné ruky a poctivý prístup.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {services.map((service, index) => (
@@ -117,13 +129,13 @@ const ServicesSection = () => {
                 whileHover={shouldReduceMotion ? {} : { y: -5, scale: 1.02 }}
                 transition={{ duration: 0.3 }}
               >
-                  <Card className={`text-left p-6 flex flex-col items-start shadow-lg rounded-xl transition-all duration-300 h-full bg-background/10`}>
-                     <div className={`p-3 rounded-full mb-4 bg-primary-foreground/10`}>
+                  <Card className={`text-left p-6 flex flex-col items-start shadow-lg rounded-xl transition-all duration-300 h-full bg-card border`}>
+                     <div className={`p-3 rounded-full mb-4 bg-primary/10`}>
                         {service.icon}
                     </div>
-                    <h3 className={`text-xl font-headline font-semibold mb-2 text-primary-foreground`}>{service.title}</h3>
-                    <p className={`flex-grow text-primary-foreground/80`}>{service.description}</p>
-                     <Button asChild variant={service.featured ? 'secondary' : 'default'} className="mt-6 w-full rounded-full shadow-lg transition-transform duration-300 hover:scale-105">
+                    <h3 className={`text-xl font-headline font-semibold mb-2 text-foreground`}>{service.title}</h3>
+                    <p className={`flex-grow text-muted-foreground`}>{service.description}</p>
+                     <Button asChild variant={service.featured ? 'default' : 'outline'} className="mt-6 w-full rounded-full shadow-lg transition-transform duration-300 hover:scale-105">
                         <Link href="/contact">{service.featured ? 'Cenová ponuka' : 'Viac o službách'}</Link>
                     </Button>
                   </Card>
@@ -233,28 +245,30 @@ const GuaranteesSection = () => {
 const CtaSection = () => {
     const shouldReduceMotion = useReducedMotion();
     return (
-      <section className="bg-primary text-primary-foreground">
-        <motion.div 
-            className="container py-16 md:py-20 text-center"
-            variants={shouldReduceMotion ? undefined : sectionVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-        >
-          <h2 className="text-3xl md:text-4xl font-headline font-bold mb-4 text-background">
-            Pripravení na zmenu?
-          </h2>
-          <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto text-primary-foreground/80">
-            Nechajte starosti so sťahovaním na nás. Vyplňte krátky formulár a my vám obratom pripravíme cenovú ponuku šitú na mieru. Rýchlo, férovo a bez záväzkov.
-          </p>
-          <motion.div whileHover={shouldReduceMotion ? {} : { scale: 1.05 }} transition={{ duration: 0.3 }}>
-              <Link href="/contact" passHref>
-                <Button size="lg" variant="secondary" className="px-8 py-6 text-lg rounded-full shadow-lg">
-                  Chcem nezáväznú ponuku
-                </Button>
-              </Link>
-          </motion.div>
-        </motion.div>
+      <section className="py-16 md:py-24 bg-background">
+        <div className="container">
+             <motion.div 
+                className="rounded-2xl bg-card border shadow-xl p-12 text-center"
+                variants={shouldReduceMotion ? undefined : sectionVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+            >
+              <h2 className="text-3xl md:text-4xl font-headline font-bold mb-4 text-primary">
+                Pripravení na zmenu?
+              </h2>
+              <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto text-muted-foreground">
+                Nechajte starosti so sťahovaním na nás. Vyplňte krátky formulár a my vám obratom pripravíme cenovú ponuku šitú na mieru. Rýchlo, férovo a bez záväzkov.
+              </p>
+              <motion.div whileHover={shouldReduceMotion ? {} : { scale: 1.05 }} transition={{ duration: 0.3 }}>
+                  <Link href="/contact" passHref>
+                    <Button size="lg" variant="default" className="px-8 py-6 text-lg rounded-full shadow-lg">
+                      Chcem nezáväznú ponuku
+                    </Button>
+                  </Link>
+              </motion.div>
+            </motion.div>
+        </div>
       </section>
     );
 }
@@ -288,13 +302,14 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <>
+      <div className='bg-background text-foreground'>
         <ServicesSection />
+        <Separator className="my-0" />
         <WhyUsSection />
         <GuaranteesSection />
         <PricingSection />
         <CtaSection />
-      </>
+      </div>
     </>
   );
 }
