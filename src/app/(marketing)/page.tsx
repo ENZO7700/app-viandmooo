@@ -58,19 +58,8 @@ const HeroSection = () => {
 
   return (
     <section 
-      className="relative h-[calc(100vh-5rem)] w-full flex items-center justify-center text-center text-primary-foreground"
+      className="relative h-screen w-full flex items-center justify-center text-center text-primary-foreground bg-[#00202e]"
     >
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} className="absolute inset-0">
-        <Image
-          src={imageData.aboutHero.src}
-          alt="Sťahovacia dodávka v Bratislave pri západe slnka"
-          fill
-          priority
-          className="object-cover brightness-50"
-          data-ai-hint={imageData.aboutHero.hint}
-        />
-        <div className="absolute inset-0 bg-black/30" />
-      </motion.div>
       <motion.div className="relative z-10 p-4 flex flex-col items-center">
          <motion.div
             variants={shouldReduceMotion ? undefined : textVariants}
