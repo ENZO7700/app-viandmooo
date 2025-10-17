@@ -27,7 +27,9 @@ export const metadata: Metadata = {
 export default function MarketingLayout({ children }: MarketingLayoutProps) {
   return (
     <div className="flex min-h-screen flex-col">
-      <Header />
+      <div className="bg-[#00202e]">
+        <Header />
+      </div>
       <main className="flex-1">{children}</main>
       <div className="bg-[#00202e]">
         <Footer />
