@@ -1,5 +1,5 @@
 
-import { BarChart, Calendar, Mail, Settings, TruckIcon } from "lucide-react";
+import { BarChart, Calendar, Mail, Settings, TruckIcon, ShieldCheck } from "lucide-react";
 import type { Event } from 'react-big-calendar';
 import fs from 'fs';
 import path from 'path';
@@ -10,6 +10,7 @@ export const adminNavItems = [
   { href: "/admin/contact", label: "Kalendár", icon: Calendar },
   { href: "/admin/messages", label: "Správy", icon: Mail },
   { href: "/admin/settings", label: "Nastavenia", icon: Settings },
+  { href: "/admin/system-check", label: "Kontrola Systému", icon: ShieldCheck },
 ]
 
 // --- DATA PERSISTENCE ---
@@ -23,7 +24,7 @@ const submissionsFilePath = path.join(dataDir, 'submissions.json');
 function readData<T>(filePath: string): T[] {
     try {
         if (!fs.existsSync(dataDir)) {
-            fs.mkdirSync(dataDir);
+            fs.mkdirSync(dataDir, { recursive: true });
         }
         if (!fs.existsSync(filePath)) {
             fs.writeFileSync(filePath, '[]', 'utf8');
