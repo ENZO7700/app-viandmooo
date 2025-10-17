@@ -10,20 +10,12 @@ import { ContactForm } from '@/components/contact/ContactForm';
 export default function ContactPageClient() {
   return (
     <>
-      <section className="relative h-96 w-full flex items-center justify-center text-center text-white">
-        <Image
-          src={imageData.contactHero.src}
-          alt="Kontaktujte VI&MO pre sťahovanie v Bratislave"
-          fill
-          priority
-          className="object-cover object-center brightness-50"
-          data-ai-hint="contact call center"
-        />
+      <section className="w-full flex items-center justify-center text-center py-16 md:py-24 bg-transparent">
         <div className="relative z-10 p-4">
-          <h1 className="text-5xl md:text-7xl font-headline leading-tight text-primary-foreground drop-shadow-lg">
+          <h1 className="text-5xl md:text-7xl font-headline leading-tight text-primary drop-shadow-lg">
             Kontaktujte Nás
           </h1>
-          <p className="mt-4 text-lg md:text-2xl max-w-3xl mx-auto drop-shadow-md">
+          <p className="mt-4 text-lg md:text-2xl max-w-3xl mx-auto text-muted-foreground drop-shadow-md">
             Sme tu pre vás. Napíšte nám a získajte nezáväznú cenovú ponuku na sťahovanie v Bratislave.
           </p>
         </div>
