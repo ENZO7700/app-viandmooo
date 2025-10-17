@@ -92,6 +92,7 @@ const HeroSection = () => {
              width={240} 
              height={63} 
              priority 
+             className="h-auto"
              data-ai-hint="logo"
            />
          </motion.div>
