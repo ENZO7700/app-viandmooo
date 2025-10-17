@@ -78,7 +78,7 @@ const HeroSection = () => {
   return (
     <section 
       ref={targetRef}
-      className="relative h-screen w-full flex items-center justify-center text-center text-primary-foreground bg-[#00202e]"
+      className="relative h-[calc(100vh-5rem)] mt-[-5rem] w-full flex items-center justify-center text-center text-primary-foreground bg-[#00202e]"
     >
       <motion.div {...motionProps} className="relative z-10 p-4 flex flex-col items-center">
          <motion.div 
@@ -94,6 +94,7 @@ const HeroSection = () => {
              height={63} 
              priority 
              className="h-auto"
+             style={{ width: 'auto', height: 'auto' }}
              data-ai-hint="logo"
            />
          </motion.div>
@@ -158,10 +159,10 @@ const ServicesSection = () => {
 
 // Why Us Section Component
 const whyUsPoints = [
-    { icon: <Award className="w-6 h-6 text-primary-foreground" />, text: "Viac ako 7 rokov preverených skúseností" },
-    { icon: <UserCheck className="w-6 h-6 text-primary-foreground" />, text: "Silný a zodpovedný tím profesionálov" },
-    { icon: <Wallet className="w-6 h-6 text-primary-foreground" />, text: "Férové ceny bez skrytých poplatkov" },
-    { icon: <ShieldCheck className="w-6 h-6 text-primary-foreground" />, text: "Plné poistenie zodpovednosti za škodu" },
+    { icon: <Award className="w-6 h-6 text-primary" />, text: "Viac ako 7 rokov preverených skúseností" },
+    { icon: <UserCheck className="w-6 h-6 text-primary" />, text: "Silný a zodpovedný tím profesionálov" },
+    { icon: <Wallet className="w-6 h-6 text-primary" />, text: "Férové ceny bez skrytých poplatkov" },
+    { icon: <ShieldCheck className="w-6 h-6 text-primary" />, text: "Plné poistenie zodpovednosti za škodu" },
 ];
 
 const WhyUsSection = () => {
@@ -169,7 +170,7 @@ const WhyUsSection = () => {
     return (
       <motion.section 
         id="preco-my" 
-        className="py-16 md:py-24 bg-primary text-primary-foreground"
+        className="py-16 md:py-24 bg-background text-foreground"
         variants={shouldReduceMotion ? undefined : sectionVariants}
         initial="hidden"
         whileInView="visible"
@@ -177,21 +178,21 @@ const WhyUsSection = () => {
       >
         <div className="container grid md:grid-cols-2 gap-12 items-center">
             <div>
-                <h2 className="text-3xl md:text-4xl font-headline font-bold text-background mb-4">Prečo si vybrať VI&MO na sťahovanie v Bratislave?</h2>
-                <div className="space-y-4 text-primary-foreground/90 leading-relaxed">
-                  <p>Hľadáte spoľahlivú firmu na sťahovanie v Bratislave, na ktorú sa môžete na 100% spoľahnúť? Sme tu pre vás už <strong className="text-background font-semibold">viac ako 7 rokov</strong>. Počas tejto doby sme úspešne zrealizovali stovky sťahovaní – od malých bytov až po rozsiahle firemné priestory. Naše meno je synonymom pre <strong className="text-background font-semibold">kvalitu, rýchlosť a ľudský prístup</strong>.</p>
+                <h2 className="text-3xl md:text-4xl font-headline font-bold text-primary mb-4">Prečo si vybrať VI&MO na sťahovanie v Bratislave?</h2>
+                <div className="space-y-4 text-muted-foreground leading-relaxed">
+                  <p>Hľadáte spoľahlivú firmu na sťahovanie v Bratislave, na ktorú sa môžete na 100% spoľahnúť? Sme tu pre vás už <strong className="text-foreground font-semibold">viac ako 7 rokov</strong>. Počas tejto doby sme úspešne zrealizovali stovky sťahovaní – od malých bytov až po rozsiahle firemné priestory. Naše meno je synonymom pre <strong className="text-foreground font-semibold">kvalitu, rýchlosť a ľudský prístup</strong>.</p>
                   <p>Vieme, že sťahovanie je viac než len prenos vecí. Je to začiatok novej etapy. Preto ku každej zákazke pristupujeme s maximálnou zodpovednosťou, aby bol váš prechod do nového čo najpríjemnejší. Postaráme sa o všetko – demontáž nábytku, precízne zabalenie, bezpečnú prepravu, a dokonca aj o finálne upratovanie.</p>
                 </div>
             </div>
             <div className="space-y-6">
                 {whyUsPoints.map((point, index) => (
                     <div key={index} className="flex items-start gap-4">
-                        <div className="flex-shrink-0 mt-1 bg-background/20 p-3 rounded-full">
+                        <div className="flex-shrink-0 mt-1 bg-primary/10 p-3 rounded-full">
                            {point.icon}
                         </div>
                         <div>
-                            <h3 className="text-lg font-semibold text-background">{point.text}</h3>
-                            <p className="text-primary-foreground/80">Naša prax a zohratý tím sú zárukou, že vaše veci sú v najlepších rukách. Procesy máme vyladené do detailov.</p>
+                            <h3 className="text-lg font-semibold text-foreground">{point.text}</h3>
+                            <p className="text-muted-foreground">Naša prax a zohratý tím sú zárukou, že vaše veci sú v najlepších rukách. Procesy máme vyladené do detailov.</p>
                         </div>
                     </div>
                 ))}
@@ -203,12 +204,12 @@ const WhyUsSection = () => {
 
 // Guarantees Section
 const guarantees = [
-    { icon: <Handshake className="w-8 h-8"/>, title: "Férové Ceny", description: "Naša cenová politika je transparentná. Získate detailnú ponuku bez nečakaných poplatkov. To, na čom sa dohodneme, platí." },
-    { icon: <Clock className="w-8 h-8"/>, title: "Rýchla Komunikácia", description: "Váš čas je pre nás dôležitý. Na dopyty reagujeme obratom a sme vám k dispozícii počas celého procesu." },
-    { icon: <CalendarCheck className="w-8 h-8"/>, title: "Expresný Termín", description: "Potrebujete sa presťahovať urgentne? Po dohode vieme zabezpečiť aj expresné termíny, aby sme vyhoveli vašim potrebám." },
-    { icon: <ShieldCheck className="w-8 h-8"/>, title: "Poistenie Zodpovednosti", description: "Váš majetok je u nás v bezpečí. Disponujeme plným poistením zodpovednosti za škodu pre váš úplný pokoj." },
-    { icon: <UserCheck className="w-8 h-8"/>, title: "Lokálny Tím", description: "Sme tím z Bratislavy, ktorý dokonale pozná mesto. Vyhneme sa dopravným nástrahám a ušetríme váš čas." },
-    { icon: <Award className="w-8 h-8"/>, title: "Servis na Kľúč", description: "Od balenia a demontáže až po finálne upratanie. Ponúkame kompletný servis, aby ste sa nemuseli o nič starať." },
+    { icon: <Handshake className="w-8 h-8 text-primary"/>, title: "Férové Ceny", description: "Naša cenová politika je transparentná. Získate detailnú ponuku bez nečakaných poplatkov. To, na čom sa dohodneme, platí." },
+    { icon: <Clock className="w-8 h-8 text-primary"/>, title: "Rýchla Komunikácia", description: "Váš čas je pre nás dôležitý. Na dopyty reagujeme obratom a sme vám k dispozícii počas celého procesu." },
+    { icon: <CalendarCheck className="w-8 h-8 text-primary"/>, title: "Expresný Termín", description: "Potrebujete sa presťahovať urgentne? Po dohode vieme zabezpečiť aj expresné termíny, aby sme vyhoveli vašim potrebám." },
+    { icon: <ShieldCheck className="w-8 h-8 text-primary"/>, title: "Poistenie Zodpovednosti", description: "Váš majetok je u nás v bezpečí. Disponujeme plným poistením zodpovednosti za škodu pre váš úplný pokoj." },
+    { icon: <UserCheck className="w-8 h-8 text-primary"/>, title: "Lokálny Tím", description: "Sme tím z Bratislavy, ktorý dokonale pozná mesto. Vyhneme sa dopravným nástrahám a ušetríme váš čas." },
+    { icon: <Award className="w-8 h-8 text-primary"/>, title: "Servis na Kľúč", description: "Od balenia a demontáže až po finálne upratanie. Ponúkame kompletný servis, aby ste sa nemuseli o nič starať." },
 ];
 
 const GuaranteesSection = () => {
@@ -216,7 +217,7 @@ const GuaranteesSection = () => {
     return (
         <motion.section 
             id="garancie"
-            className="py-16 md:py-24 bg-primary text-primary-foreground"
+            className="py-16 md:py-24 bg-background text-foreground"
             variants={shouldReduceMotion ? undefined : sectionVariants}
             initial="hidden"
             whileInView="visible"
@@ -224,8 +225,8 @@ const GuaranteesSection = () => {
         >
             <div className="container">
                 <div className="text-center mb-12">
-                    <h2 className="text-3xl md:text-4xl font-headline font-bold text-background">Naše Garancie a Výhody</h2>
-                    <p className="text-primary-foreground/80 text-lg max-w-2xl mx-auto mt-2">Poskytujeme viac než len sťahovanie. Poskytujeme istotu a spoľahlivosť.</p>
+                    <h2 className="text-3xl md:text-4xl font-headline font-bold text-primary">Naše Garancie a Výhody</h2>
+                    <p className="text-muted-foreground text-lg max-w-2xl mx-auto mt-2">Poskytujeme viac než len sťahovanie. Poskytujeme istotu a spoľahlivosť.</p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {guarantees.map((item, index) => (
@@ -234,12 +235,12 @@ const GuaranteesSection = () => {
                             whileHover={shouldReduceMotion ? {} : { y: -5, scale: 1.02 }}
                             transition={{ duration: 0.3 }}
                           >
-                            <Card className="text-center p-6 flex flex-col items-center shadow-lg rounded-xl h-full bg-background/10 border-white/10">
-                                <div className="p-4 rounded-full mb-4 bg-background/20 text-primary-foreground">
+                            <Card className="text-center p-6 flex flex-col items-center shadow-lg rounded-xl h-full bg-card border">
+                                <div className="p-4 rounded-full mb-4 bg-primary/10">
                                     {item.icon}
                                 </div>
-                                <h3 className="text-xl font-headline font-semibold mb-2 text-primary-foreground">{item.title}</h3>
-                                <p className="flex-grow text-primary-foreground/80 text-sm">{item.description}</p>
+                                <h3 className="text-xl font-headline font-semibold mb-2 text-foreground">{item.title}</h3>
+                                <p className="flex-grow text-muted-foreground text-sm">{item.description}</p>
                             </Card>
                          </motion.div>
                     ))}
@@ -285,7 +286,7 @@ const PricingSection = () => {
     return (
         <motion.section
             id="cennik"
-            className="py-16 md:py-24 bg-primary text-primary-foreground"
+            className="py-16 md:py-24 bg-background text-foreground"
             variants={shouldReduceMotion ? undefined : sectionVariants}
             initial="hidden"
             whileInView="visible"
@@ -293,8 +294,8 @@ const PricingSection = () => {
         >
             <div className="container">
                 <div className="text-center mb-12 max-w-3xl mx-auto">
-                    <h2 className="text-3xl md:text-4xl font-headline font-bold text-background">Interaktívna cenová ponuka</h2>
-                    <p className="text-primary-foreground/80 mt-3 text-lg">
+                    <h2 className="text-3xl md:text-4xl font-headline font-bold text-primary">Interaktívna cenová ponuka</h2>
+                    <p className="text-muted-foreground mt-3 text-lg">
                         Vyskúšajte našu kalkulačku a získajte okamžitý odhad ceny vášho sťahovania. Pre presnú ponuku šitú na mieru nás neváhajte kontaktovať.
                     </p>
                 </div>
