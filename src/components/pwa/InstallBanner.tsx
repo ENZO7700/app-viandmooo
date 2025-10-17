@@ -59,7 +59,7 @@ const InstallBanner = () => {
   }
 
   return (
-    <div className="fixed bottom-4 left-4 z-50 rounded-xl border-t border-white/10 bg-card/60 dark:bg-card/80 p-4 shadow-2xl backdrop-blur-lg animate-in slide-in-from-bottom-5 antialiased">
+    <div className="fixed bottom-4 right-4 z-50 rounded-xl border-t border-white/10 bg-card/60 dark:bg-card/80 p-4 shadow-2xl backdrop-blur-lg animate-in slide-in-from-bottom-5 antialiased">
       <div className="flex items-center gap-4">
         <Logo className="h-10 w-28 flex-shrink-0" />
         <div className="flex flex-col items-start">

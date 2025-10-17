@@ -1,36 +1,19 @@
-
 {
-  "theme_color": "#00202e",
-  "background_color": "#ffffff",
-  "display": "standalone",
-  "scope": "/",
-  "start_url": "/",
-  "name": "VI&MO | S\u0165ahovanie a Upratovanie",
+  "name": "VI&MO Sťahovanie",
   "short_name": "VI&MO",
-  "description": "Spo\u013eahliv\u00e9 s\u0165ahovanie, odvoz odpadu a profesion\u00e1lne upratovacie slu\u017eby v Bratislave a okol\u00ed.",
+  "description": "Profesionálne sťahovanie, vypratávanie a upratovanie v Bratislave a okolí.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#00202e",
+  "theme_color": "#00202e",
   "icons": [
     {
-      "src": "/viandmo_logo_regular_land.svg",
-      "sizes": "any",
-      "type": "image/svg+xml"
-    },
-    {
-      "src": "/icon-192x192.png",
+      "src": "/viandmo_logo.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/icon-256x256.png",
-      "sizes": "256x256",
-      "type": "image/png"
-    },
-    {
-      "src": "/icon-384x384.png",
-      "sizes": "384x384",
-      "type": "image/png"
-    },
-    {
-      "src": "/icon-512x512.png",
+      "src": "/viandmo_logo.png",
       "sizes": "512x512",
       "type": "image/png"
     }
