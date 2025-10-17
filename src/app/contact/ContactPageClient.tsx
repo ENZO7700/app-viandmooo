@@ -29,28 +29,28 @@ export default function ContactPageClient() {
              <Card className="shadow-lg rounded-xl bg-background/10 border-white/10">
                 <CardHeader><h2 className="text-2xl font-headline text-background">Kontaktné údaje</h2></CardHeader>
                 <CardContent className="space-y-4 text-lg text-primary-foreground">
-                    <p className="flex items-center gap-4">
+                    <div className="flex items-center gap-4">
                         <Phone className="w-6 h-6 text-background flex-shrink-0" />
                         <div>
                             <a href="tel:+421911275755" className="hover:text-background transition-colors">+421 911 275 755</a>
                             <span className="text-sm text-primary-foreground/80 block">Sťahovanie</span>
                         </div>
-                    </p>
-                     <p className="flex items-center gap-4">
+                    </div>
+                     <div className="flex items-center gap-4">
                         <Phone className="w-6 h-6 text-background flex-shrink-0" />
                          <div>
                             <a href="tel:+421918895730" className="hover:text-background transition-colors">+421 918 895 730</a>
                              <span className="text-sm text-primary-foreground/80 block">Upratovanie</span>
                         </div>
-                    </p>
-                    <p className="flex items-center gap-4">
+                    </div>
+                    <div className="flex items-center gap-4">
                         <Mail className="w-6 h-6 text-background flex-shrink-0" />
                         <a href="mailto:info@viandmo.com" className="hover:text-background transition-colors">info@viandmo.com</a>
-                    </p>
-                     <p className="flex items-center gap-4">
+                    </div>
+                     <div className="flex items-center gap-4">
                         <MapPin className="w-6 h-6 text-background flex-shrink-0" />
                         <span>Karpatské námestie 7770/10A<br/>831 06 Bratislava - Rača</span>
-                    </p>
+                    </div>
                 </CardContent>
              </Card>
 
