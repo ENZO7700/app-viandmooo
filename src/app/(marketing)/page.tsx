@@ -80,7 +80,7 @@ const HeroSection = () => {
       ref={targetRef}
       className="relative h-screen w-full flex items-center justify-center text-center text-primary-foreground bg-[#00202e]"
     >
-      <motion.div {...motionProps} className="relative z-10 p-4 flex flex-col items-center -translate-y-[35%]">
+      <motion.div {...motionProps} className="relative z-10 p-4 flex flex-col items-center">
          <motion.div 
             className="mb-6"
             variants={shouldReduceMotion ? undefined : logoVariants}
@@ -254,7 +254,7 @@ const GuaranteesSection = () => {
 const CtaSection = () => {
     const shouldReduceMotion = useReducedMotion();
     return (
-      <section className="bg-secondary text-secondary-foreground">
+      <section className="bg-primary text-secondary-foreground">
         <motion.div 
             className="container py-16 md:py-20 text-center"
             variants={shouldReduceMotion ? undefined : sectionVariants}
@@ -262,15 +262,15 @@ const CtaSection = () => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
         >
-          <h2 className="text-3xl md:text-4xl font-headline font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl font-headline font-bold mb-4 text-background">
             Pripravení na zmenu?
           </h2>
-          <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto text-secondary-foreground/80">
+          <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto text-primary-foreground/80">
             Nechajte starosti so sťahovaním na nás. Vyplňte krátky formulár a my vám obratom pripravíme cenovú ponuku šitú na mieru. Rýchlo, férovo a bez záväzkov.
           </p>
           <motion.div whileHover={shouldReduceMotion ? {} : { scale: 1.05 }} transition={{ duration: 0.3 }}>
               <Link href="/contact" passHref>
-                <Button size="lg" variant="default" className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-6 text-lg rounded-full shadow-lg">
+                <Button size="lg" variant="default" className="bg-secondary text-secondary-foreground hover:bg-secondary/90 px-8 py-6 text-lg rounded-full shadow-lg">
                   Chcem nezáväznú ponuku
                 </Button>
               </Link>
