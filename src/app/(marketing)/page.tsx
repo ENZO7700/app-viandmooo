@@ -78,7 +78,7 @@ const HeroSection = () => {
   return (
     <section 
       ref={targetRef}
-      className="relative h-[calc(100vh-5rem)] mt-[-5rem] w-full flex items-center justify-center text-center text-primary-foreground bg-[#00202e]"
+      className="relative h-[calc(100vh)] mt-[-5rem] w-full flex items-center justify-center text-center text-primary-foreground bg-[#00202e]"
     >
       <motion.div {...motionProps} className="relative z-10 p-4 flex flex-col items-center">
          <motion.div 
@@ -121,7 +121,7 @@ const ServicesSection = () => {
     return (
       <motion.section 
         id="sluzby" 
-        className="py-16 md:py-24 bg-background text-foreground"
+        className="py-16 md:py-24 bg-primary text-primary-foreground"
         variants={shouldReduceMotion ? undefined : sectionVariants}
         initial="hidden"
         whileInView="visible"
@@ -129,8 +129,8 @@ const ServicesSection = () => {
       >
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-headline font-bold text-primary mb-2">Naše Služby</h2>
-             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Komplexné riešenia pre vaše sťahovanie a čistotu. Spoľahnite sa na pevné ruky a poctivý prístup.</p>
+            <h2 className="text-3xl md:text-4xl font-headline font-bold text-background mb-2">Naše Služby</h2>
+             <p className="text-primary-foreground/80 text-lg max-w-2xl mx-auto">Komplexné riešenia pre vaše sťahovanie a čistotu. Spoľahnite sa na pevné ruky a poctivý prístup.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {services.map((service, index) => (
@@ -139,12 +139,12 @@ const ServicesSection = () => {
                 whileHover={shouldReduceMotion ? {} : { y: -5, scale: 1.02 }}
                 transition={{ duration: 0.3 }}
               >
-                  <Card className={`text-left p-6 flex flex-col items-start shadow-lg rounded-xl transition-all duration-300 h-full bg-card`}>
-                     <div className={`p-3 rounded-full mb-4 bg-primary/10`}>
-                        {service.icon}
+                  <Card className={`text-left p-6 flex flex-col items-start shadow-lg rounded-xl transition-all duration-300 h-full bg-background/10`}>
+                     <div className={`p-3 rounded-full mb-4 bg-primary-foreground/10`}>
+                        <Truck className="w-10 h-10 text-primary-foreground" />
                     </div>
-                    <h3 className={`text-xl font-headline font-semibold mb-2 text-foreground`}>{service.title}</h3>
-                    <p className={`flex-grow text-muted-foreground`}>{service.description}</p>
+                    <h3 className={`text-xl font-headline font-semibold mb-2 text-primary-foreground`}>{service.title}</h3>
+                    <p className={`flex-grow text-primary-foreground/80`}>{service.description}</p>
                      <Button asChild variant={service.featured ? 'secondary' : 'default'} className="mt-6 w-full rounded-full shadow-lg transition-transform duration-300 hover:scale-105">
                         <Link href="/contact">{service.featured ? 'Cenová ponuka' : 'Viac o službách'}</Link>
                     </Button>
