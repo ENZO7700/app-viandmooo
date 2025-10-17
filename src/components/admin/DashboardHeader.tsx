@@ -1,3 +1,4 @@
+
 'use client';
 import {
     Avatar,
@@ -17,9 +18,9 @@ import { adminNavItems } from "@/lib/data"
 import { Menu, Search } from "lucide-react"
 import Link from "next/link"
 import { Input } from "../ui/input"
-import Logo from "../layout/Logo"
 import { ThemeSwitcher } from "./ThemeSwitcher"
 import { logout } from "./actions";
+import Image from "next/image"
 
 export function DashboardHeader() {
     return (
@@ -29,7 +30,15 @@ export function DashboardHeader() {
                     href="/"
                     className="flex items-center gap-2 text-lg font-semibold md:text-base"
                 >
-                    <Logo />
+                    <Image 
+                        src="https://viandmo.com/wp-content/uploads/viandmo_logo_regular_white.svg" 
+                        alt="VI&MO Logo" 
+                        width={96}
+                        height={25}
+                        priority
+                        className="h-auto"
+                        data-ai-hint="logo"
+                    />
                     <span className="sr-only">VI&MO</span>
                 </Link>
                 {adminNavItems.map(item => (
@@ -59,7 +68,15 @@ export function DashboardHeader() {
                             href="/"
                             className="flex items-center gap-2 text-lg font-semibold"
                         >
-                            <Logo />
+                            <Image 
+                                src="https://viandmo.com/wp-content/uploads/viandmo_logo_regular_white.svg" 
+                                alt="VI&MO Logo" 
+                                width={96}
+                                height={25}
+                                priority
+                                className="h-auto"
+                                data-ai-hint="logo"
+                            />
                             <span className="sr-only">VI&MO</span>
                         </Link>
                         {adminNavItems.map(item => (
@@ -99,7 +116,9 @@ export function DashboardHeader() {
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Môj účet</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>Nastavenia</DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                            <Link href="/admin/settings">Nastavenia</Link>
+                        </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <form action={logout}>
                             <button type="submit" className="w-full text-left">

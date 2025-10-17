@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { CheckCircle, XCircle } from "lucide-react";
@@ -43,8 +42,6 @@ async function performChecks(): Promise<CheckResult[]> {
             ? { name: `Premenná prostredia: ${name}`, status: 'OK', details: "Nájdená." }
             : { name: `Premenná prostredia: ${name}`, status: 'Error', details: "Chýba! Doplňte ju do .env súboru." };
     };
-    checks.push(checkEnvVar('ADMIN_USERNAME'));
-    checks.push(checkEnvVar('ADMIN_PASSWORD'));
     checks.push(checkEnvVar('SESSION_SECRET'));
     
     // 3. Core Logic Files Check

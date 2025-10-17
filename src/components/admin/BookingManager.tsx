@@ -31,11 +31,17 @@ function DeleteButton({ bookingId }: { bookingId: number }) {
 }
 
 function BookingDialog({ children, booking, onFormSubmit }: { children: React.ReactNode, booking?: Booking, onFormSubmit: () => void }) {
+  const [isOpen, setIsOpen] = useState(false);
   const title = booking ? "Upraviť zákazku" : "Pridať novú zákazku";
   const description = booking ? "Upravte údaje o existujúcej zákazke." : "Vyplňte formulár pre vytvorenie novej zákazky.";
   
+  const handleFormSubmit = () => {
+    setIsOpen(false);
+    onFormSubmit();
+  }
+
   return (
-    <Dialog onOpenChange={(isOpen) => !isOpen && onFormSubmit()}>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
@@ -44,7 +50,7 @@ function BookingDialog({ children, booking, onFormSubmit }: { children: React.Re
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
-        <BookingForm booking={booking} onFormSubmit={onFormSubmit} />
+        <BookingForm booking={booking} onFormSubmit={handleFormSubmit} />
       </DialogContent>
     </Dialog>
   );
@@ -52,18 +58,19 @@ function BookingDialog({ children, booking, onFormSubmit }: { children: React.Re
 
 
 export function BookingManager({ initialBookings }: { initialBookings: Booking[] }) {
-    const [dialogOpen, setDialogOpen] = useState(false);
-    
     // The initialBookings prop will only be used for the initial render.
-    // Revalidating the path on the server action will cause the parent server component to refetch and pass new props.
+    // Revalidating the path on the server action will cause the parent server component to refetch and new props will be passed.
     const sortedBookings = [...initialBookings].sort((a, b) => new Date(b.start).getTime() - new Date(a.start).getTime());
 
-    const closeDialog = () => setDialogOpen(false);
+    const handleDialogClose = () => {
+      // This function can be used for any cleanup if needed when the dialog closes,
+      // but for now, we just need a function to pass down.
+    };
     
     return (
         <>
             <div className="flex justify-end mb-4">
-                 <BookingDialog onFormSubmit={closeDialog}>
+                 <BookingDialog onFormSubmit={handleDialogClose}>
                     <Button>
                         <PlusCircle className="mr-2 h-4 w-4" />
                         Pridať zákazku
@@ -96,7 +103,7 @@ export function BookingManager({ initialBookings }: { initialBookings: Booking[]
                                 </TableCell>
                                 <TableCell>{job.price.toLocaleString('sk-SK')} €</TableCell>
                                 <TableCell className="text-right">
-                                    <BookingDialog booking={job} onFormSubmit={closeDialog}>
+                                    <BookingDialog booking={job} onFormSubmit={handleDialogClose}>
                                         <Button variant="ghost" size="icon">
                                             <Pencil className="h-4 w-4" />
                                             <span className="sr-only">Upraviť</span>

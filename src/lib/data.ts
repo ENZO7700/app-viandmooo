@@ -9,7 +9,7 @@ export const adminNavItems = [
   { href: "/admin/bookings", label: "Zákazky", icon: TruckIcon },
   { href: "/admin/contact", label: "Kalendár", icon: Calendar },
   { href: "/admin/messages", label: "Správy", icon: Mail },
-  { href: "/admin/system-check", label: "Kontrola systému", icon: Settings },
+  { href: "/admin/settings", label: "Nastavenia", icon: Settings },
 ]
 
 // --- DATA PERSISTENCE ---

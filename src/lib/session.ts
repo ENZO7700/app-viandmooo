@@ -1,3 +1,4 @@
+
 import type { SessionOptions } from 'iron-session';
 
 export interface SessionData {

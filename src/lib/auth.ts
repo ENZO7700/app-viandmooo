@@ -1,3 +1,4 @@
+
 'use server';
 
 import { getIronSession, type IronSession } from 'iron-session';
@@ -6,7 +7,7 @@ import { redirect } from 'next/navigation';
 import { sessionOptions, type SessionData } from '@/lib/session';
 
 export interface LoginCredentials {
-    username?: string | null;
+    email?: string | null;
     password?: string | null;
 }
 
@@ -16,13 +17,13 @@ export async function getSession(): Promise<IronSession<SessionData>> {
 }
 
 export async function login(credentials: LoginCredentials) {
-    if (!credentials.username || !credentials.password) {
-        return { success: false, error: 'Meno a heslo sú povinné.' };
+    if (!credentials.email || !credentials.password) {
+        return { success: false, error: 'Email a heslo sú povinné.' };
     }
 
     if (
-        process.env.ADMIN_USERNAME === credentials.username &&
-        process.env.ADMIN_PASSWORD === credentials.password
+        credentials.email === 'admin@admin.com' &&
+        credentials.password === 'admin'
     ) {
         const session = await getSession();
         session.isLoggedIn = true;
@@ -30,7 +31,7 @@ export async function login(credentials: LoginCredentials) {
         return { success: true, error: undefined };
     }
 
-    return { success: false, error: 'Nesprávne meno alebo heslo.' };
+    return { success: false, error: 'Nesprávny email alebo heslo.' };
 }
 
 

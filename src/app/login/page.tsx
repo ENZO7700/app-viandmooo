@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useFormState, useFormStatus } from 'react-dom';
@@ -47,8 +48,8 @@ export default function LoginPage() {
               </Alert>
             )}
             <div className="space-y-2">
-              <Label htmlFor="username">Používateľské meno</Label>
-              <Input id="username" name="username" placeholder="admin" required />
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" name="email" type="email" placeholder="admin@admin.com" required />
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Heslo</Label>

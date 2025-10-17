@@ -1,10 +1,7 @@
-
 {
   "name": "vimo-app",
   "build": {
     "env": {
-      "ADMIN_USERNAME": "@admin_username",
-      "ADMIN_PASSWORD": "@admin_password",
       "SESSION_SECRET": "@session_secret"
     }
   }

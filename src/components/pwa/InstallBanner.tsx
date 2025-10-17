@@ -3,8 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { X } from 'lucide-react';
-import Logo from '../layout/Logo';
+import Image from 'next/image';
 
 interface BeforeInstallPromptEvent extends Event {
   readonly platforms: string[];
@@ -23,8 +22,6 @@ const InstallBanner = () => {
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
       setInstallPrompt(e as BeforeInstallPromptEvent);
-      // Only show banner if not already installed
-      // This is a simple check, more robust checks might be needed
       const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
       if (!isStandalone) {
           setIsVisible(true);
@@ -50,29 +47,30 @@ const InstallBanner = () => {
     }
   };
 
-  const handleCloseClick = () => {
-    setIsVisible(false);
-  };
-
   if (!isVisible) {
     return null;
   }
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 rounded-xl border-t border-white/10 bg-card/60 dark:bg-card/80 p-4 shadow-2xl backdrop-blur-lg animate-in slide-in-from-bottom-5 antialiased">
-      <div className="flex items-center gap-4">
-        <Logo className="h-10 w-28 flex-shrink-0" />
-        <div className="flex flex-col items-start">
-            <p className="font-headline text-base font-semibold text-card-foreground">Nainštalovať aplikáciu?</p>
-            <p className="text-sm text-muted-foreground">Pridajte si nás na plochu pre rýchly prístup.</p>
+    <div 
+        className="fixed bottom-6 right-6 z-50 cursor-pointer group"
+        onClick={handleInstallClick}
+    >
+      <div className="relative flex flex-col items-center">
+        <div className="bg-primary/90 p-4 rounded-full shadow-lg animate-pulse">
+            <Image 
+                src="https://viandmo.com/wp-content/uploads/viandmo_logo_regular_white.svg" 
+                alt="VI&MO Logo" 
+                width={48}
+                height={48}
+                priority
+                className="h-auto w-12"
+                data-ai-hint="logo"
+            />
         </div>
-        <Button onClick={handleInstallClick} size="sm" className="ml-4 flex-shrink-0">
-          Inštalovať
-        </Button>
-        <Button onClick={handleCloseClick} variant="ghost" size="icon" className="h-7 w-7 flex-shrink-0">
-          <X className="h-4 w-4" />
-          <span className="sr-only">Zavrieť</span>
-        </Button>
+        <p className="mt-2 text-xs font-semibold text-foreground bg-background/50 px-2 py-1 rounded-md shadow-md transition-opacity duration-300 opacity-0 group-hover:opacity-100">
+            Inštalovať VI&MO
+        </p>
       </div>
     </div>
   );

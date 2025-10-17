@@ -1,13 +1,12 @@
-
 'use client';
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import Logo from "./Logo";
 import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const navLinks = [
   { href: "/", label: "Úvod" },
@@ -47,7 +46,17 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#00202e]/80 backdrop-blur-md">
       <div className="container flex h-20 items-center">
-        <Logo />
+        <Link href="/" className="relative flex items-center">
+          <Image 
+            src="https://viandmo.com/wp-content/uploads/viandmo_logo_regular_white.svg" 
+            alt="VI&MO Logo" 
+            width={96}
+            height={25}
+            priority
+            className="h-auto"
+            data-ai-hint="logo"
+          />
+        </Link>
         <nav className="hidden md:flex flex-grow justify-end items-center gap-4">
           {navLinks.map(link => <NavLink key={link.href} {...link} />)}
            <div className="flex items-center gap-3 ml-4">
@@ -69,7 +78,17 @@ export default function Header() {
             </SheetTrigger>
             <SheetContent side="left" className="bg-[#00202e] p-6 border-r-0">
                <div className="mb-8">
-                 <Logo />
+                 <Link href="/" className="relative flex items-center">
+                    <Image 
+                        src="https://viandmo.com/wp-content/uploads/viandmo_logo_regular_white.svg" 
+                        alt="VI&MO Logo" 
+                        width={96}
+                        height={25}
+                        priority
+                        className="h-auto"
+                        data-ai-hint="logo"
+                    />
+                </Link>
                </div>
               <nav className="flex flex-col items-start gap-4">
                 {navLinks.map(link => (
