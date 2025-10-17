@@ -100,11 +100,11 @@ const HeroSection = () => {
             initial="hidden"
             animate="visible"
           >
-            <h1 className="text-4xl md:text-6xl font-headline font-extrabold leading-tight text-white text-shadow-lg">
-                Sťahovanie Bytov a Firiem Bratislava
+            <h1 className="text-5xl md:text-7xl font-headline font-extrabold leading-tight text-white text-shadow-lg">
+                Pevné ruky & poctivý prístup
             </h1>
-            <p className="mt-4 text-lg md:text-2xl max-w-3xl mx-auto text-primary-foreground/80 text-shadow">
-              Profesionálne sťahovanie bytov, domov a kancelárií. Rýchlo, spoľahlivo a za férové ceny.
+            <p className="mt-2 text-lg md:text-xl max-w-3xl mx-auto text-white/90 text-shadow">
+              Sťahovanie, odvoz odpadu a upratovanie v Bratislave a okolí
             </p>
          </motion.div>
       </motion.div>
