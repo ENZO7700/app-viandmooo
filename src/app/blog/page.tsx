@@ -7,20 +7,10 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader } from '@/co
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import type { Metadata } from 'next';
 import { ArrowRight, MessagesSquare, Search } from 'lucide-react';
 import imageData from '@/lib/placeholder-images.json';
 import { Input } from '@/components/ui/input';
 
-// export const metadata: Metadata = {
-//   title: 'Blog: Tipy a Rady pre Sťahovanie a Upratovanie | VI&MO',
-//   description: 'Prečítajte si naše tipy, triky a užitočné informácie týkajúce sa sťahovania, vypratávania a upratovacích služieb v Bratislave a okolí.',
-//   openGraph: {
-//       title: 'Blog: Tipy a Rady pre Sťahovanie a Upratovanie | VI&MO',
-//       description: 'Na našom blogu nájdete praktické rady pre sťahovanie v Bratislave, tipy na vypratávanie a ďalšie užitočné informácie.',
-//       url: '/blog',
-//   }
-// };
 
 export default function BlogPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -32,16 +22,16 @@ export default function BlogPage() {
   );
 
   return (
-    <div className="bg-muted/30">
+    <div className="bg-background text-foreground">
       {/* Hero Section */}
       <section className="relative h-96 w-full flex items-center justify-center text-center text-white">
         <Image
-          src={imageData.blogListHero.src}
+          src={imageData.aboutHero.src}
           alt="Písanie na klávesnici notebooku - blog o sťahovaní v Bratislave"
           fill
           priority
           className="object-cover object-center brightness-50"
-          data-ai-hint="writing blog post"
+          data-ai-hint={imageData.aboutHero.hint}
         />
         <div className="relative z-10 p-4">
           <h1 className="text-5xl md:text-7xl font-headline leading-tight text-primary-foreground drop-shadow-lg">
@@ -54,7 +44,7 @@ export default function BlogPage() {
       </section>
 
       {/* Blog Archive Header */}
-      <section className="py-8 sticky top-0 z-40 bg-muted/80 backdrop-blur-md border-b">
+      <section className="py-8 sticky top-20 z-40 bg-background/80 backdrop-blur-md border-b">
           <div className="container flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="relative w-full md:w-auto md:flex-grow max-w-md">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
@@ -81,7 +71,7 @@ export default function BlogPage() {
           {filteredPosts.length > 0 ? (
              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredPosts.map((post) => (
-                  <Card key={post.slug} className="flex flex-col overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl">
+                  <Card key={post.slug} className="flex flex-col overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl bg-card border">
                     <Link href={`/blog/${post.slug}`} className="block">
                       <div className="relative h-56 w-full">
                         <Image

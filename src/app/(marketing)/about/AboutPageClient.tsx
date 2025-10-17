@@ -102,7 +102,7 @@ export default function AboutPageClient() {
                 alt="Pracovník baliaci krehké predmety do krabice pri sťahovaní v Bratislave"
                 fill
                 className="object-cover"
-                data-ai-hint="packing fragile items"
+                data-ai-hint={imageData.aboutPacking.hint}
              />
           </div>
         </div>

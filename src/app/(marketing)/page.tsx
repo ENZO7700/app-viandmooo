@@ -3,19 +3,15 @@
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Truck, Box, Trash2, Sparkles, Phone, Star, Quote, Award, Clock, ShieldCheck, Handshake, CalendarCheck, Wallet, UserCheck, Check } from 'lucide-react';
+import { Truck, Box, Trash2, Sparkles, Award, Clock, ShieldCheck, Handshake, CalendarCheck, Wallet, UserCheck } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useReducedMotion } from '@/hooks/use-reduced-motion';
 import imageData from '@/lib/placeholder-images.json';
 import { InteractiveCalculator } from '@/components/pricing/InteractiveCalculator';
-import { useRef } from 'react';
 import { Separator } from '@/components/ui/separator';
 
-
-// Services Section Component
 const services = [
   {
     icon: <Truck className="w-10 h-10 text-primary" />,
@@ -53,18 +49,7 @@ const sectionVariants = {
 };
 
 const HeroSection = () => {
-  const targetRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-    offset: ['start start', 'end start'],
-  });
-  
   const shouldReduceMotion = useReducedMotion();
-
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
-  
-  const motionProps = shouldReduceMotion ? {} : { style: { y, opacity } };
   
   const textVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -73,17 +58,16 @@ const HeroSection = () => {
 
   return (
     <section 
-      ref={targetRef}
       className="relative h-[calc(100vh-5rem)] w-full flex items-center justify-center text-center text-primary-foreground"
     >
-      <motion.div {...motionProps} className="absolute inset-0">
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} className="absolute inset-0">
         <Image
-          src={imageData.blogListHero.src}
+          src={imageData.aboutHero.src}
           alt="Sťahovacia dodávka v Bratislave pri západe slnka"
           fill
           priority
           className="object-cover brightness-50"
-          data-ai-hint="moving truck sunset"
+          data-ai-hint={imageData.aboutHero.hint}
         />
         <div className="absolute inset-0 bg-black/30" />
       </motion.div>
@@ -147,12 +131,11 @@ const ServicesSection = () => {
     );
 }
 
-// Why Us Section Component
 const whyUsPoints = [
-    { icon: <Award className="w-6 h-6 text-primary" />, text: "Viac ako 7 rokov preverených skúseností" },
-    { icon: <UserCheck className="w-6 h-6 text-primary" />, text: "Silný a zodpovedný tím profesionálov" },
-    { icon: <Wallet className="w-6 h-6 text-primary" />, text: "Férové ceny bez skrytých poplatkov" },
-    { icon: <ShieldCheck className="w-6 h-6 text-primary" />, text: "Plné poistenie zodpovednosti za škodu" },
+    { icon: <Award className="w-6 h-6 text-primary" />, title: "Viac ako 7 rokov preverených skúseností", description: "Naša prax a zohratý tím sú zárukou, že vaše veci sú v najlepších rukách. Procesy máme vyladené do detailov." },
+    { icon: <UserCheck className="w-6 h-6 text-primary" />, title: "Silný a zodpovedný tím profesionálov", description: "Naša prax a zohratý tím sú zárukou, že vaše veci sú v najlepších rukách. Procesy máme vyladené do detailov." },
+    { icon: <Wallet className="w-6 h-6 text-primary" />, title: "Férové ceny bez skrytých poplatkov", description: "Naša prax a zohratý tím sú zárukou, že vaše veci sú v najlepších rukách. Procesy máme vyladené do detailov." },
+    { icon: <ShieldCheck className="w-6 h-6 text-primary" />, title: "Plné poistenie zodpovednosti za škodu", description: "Naša prax a zohratý tím sú zárukou, že vaše veci sú v najlepších rukách. Procesy máme vyladené do detailov." },
 ];
 
 const WhyUsSection = () => {
@@ -181,8 +164,8 @@ const WhyUsSection = () => {
                            {point.icon}
                         </div>
                         <div>
-                            <h3 className="text-lg font-semibold text-foreground">{point.text}</h3>
-                            <p className="text-muted-foreground">Naša prax a zohratý tím sú zárukou, že vaše veci sú v najlepších rukách. Procesy máme vyladené do detailov.</p>
+                            <h3 className="text-lg font-semibold text-foreground">{point.title}</h3>
+                            <p className="text-muted-foreground">{point.description}</p>
                         </div>
                     </div>
                 ))}
@@ -192,7 +175,6 @@ const WhyUsSection = () => {
     );
 }
 
-// Guarantees Section
 const guarantees = [
     { icon: <Handshake className="w-8 h-8 text-primary"/>, title: "Férové Ceny", description: "Naša cenová politika je transparentná. Získate detailnú ponuku bez nečakaných poplatkov. To, na čom sa dohodneme, platí." },
     { icon: <Clock className="w-8 h-8 text-primary"/>, title: "Rýchla Komunikácia", description: "Váš čas je pre nás dôležitý. Na dopyty reagujeme obratom a sme vám k dispozícii počas celého procesu." },
@@ -241,7 +223,6 @@ const GuaranteesSection = () => {
 };
 
 
-// CTA Section Component
 const CtaSection = () => {
     const shouldReduceMotion = useReducedMotion();
     return (
