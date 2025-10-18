@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useMemo } from "react";
@@ -33,7 +34,7 @@ function DeleteButton({ bookingId }: { bookingId: string }) {
                 title: 'Úspech!',
                 description: result.message,
             });
-            // Router refresh is handled by useCollection hook automatically
+            // Real-time listener from useCollection will handle the UI update.
         } else {
             toast({
                 title: 'Chyba',
