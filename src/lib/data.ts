@@ -1,4 +1,4 @@
-import { BarChart, Calendar, Mail, Settings, TruckIcon, ShieldCheck } from "lucide-react";
+import { BarChart, Calendar, Mail, Settings, TruckIcon, ShieldCheck, Rocket } from "lucide-react";
 import type { Event } from 'react-big-calendar';
 
 export const adminNavItems = [
@@ -6,6 +6,7 @@ export const adminNavItems = [
   { href: "/admin/bookings", label: "Zákazky", icon: TruckIcon },
   { href: "/admin/contact", label: "Kalendár", icon: Calendar },
   { href: "/admin/messages", label: "Správy", icon: Mail },
+  { href: "/admin/mission", label: "Misia", icon: Rocket },
   { href: "/admin/settings", label: "Nastavenia", icon: Settings },
   { href: "/admin/system-check", label: "Kontrola Systému", icon: ShieldCheck },
 ];
