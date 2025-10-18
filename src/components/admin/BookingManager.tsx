@@ -1,158 +1,156 @@
 
 'use client';
 
-import { useState, useMemo } from "react";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import type { Booking } from "@/lib/data";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Pencil, PlusCircle, Trash2 } from "lucide-react";
-import { deleteBookingAction } from "@/app/admin/bookings/actions";
-import { BookingForm } from "@/components/admin/BookingForm";
+import { useState, useMemo } from 'react';
+import { useFirestore } from '@/firebase';
+import { useCollection } from '@/firebase/firestore/use-collection';
+import type { Booking } from '@/lib/data';
+import { Button } from '@/components/ui/button';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { BookingForm } from '@/components/admin/BookingForm';
+import { PlusCircle, ArrowUpDown } from 'lucide-react';
+import { format, parseISO } from 'date-fns';
+import { sk } from 'date-fns/locale';
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useToast } from "@/hooks/use-toast";
-import { useCollection, useFirebase } from "@/firebase";
-import 'firebase/compat/firestore';
-import { Skeleton } from "../ui/skeleton";
 
-
-function DeleteButton({ bookingId }: { bookingId: string }) {
-    const { toast } = useToast();
-
-    const handleDelete = async () => {
-        if (!confirm('Naozaj si želáte zmazať túto zákazku?')) return;
-        const result = await deleteBookingAction(bookingId);
-        if (result.success) {
-            toast({
-                title: 'Úspech!',
-                description: result.message,
-            });
-        } else {
-            toast({
-                title: 'Chyba',
-                description: result.message,
-                variant: 'destructive',
-            });
-        }
-    }
-    return (
-        <Button variant="ghost" size="icon" onClick={handleDelete}>
-            <Trash2 className="h-4 w-4 text-destructive" />
-            <span className="sr-only">Zmazať</span>
-        </Button>
-    );
-}
-
-function BookingDialog({ children, booking }: { children: React.ReactNode, booking?: Booking }) {
-  const [isOpen, setIsOpen] = useState(false);
-  
-  const title = booking ? "Upraviť zákazku" : "Pridať novú zákazku";
-  const description = booking ? "Upravte údaje o existujúcej zákazke." : "Vyplňte formulár pre vytvorenie novej zákazky.";
-  
-  const handleFormSubmitSuccess = () => {
-    setIsOpen(false);
-  }
-
-  return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        {children}
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>{description}</DialogDescription>
-        </DialogHeader>
-        <BookingForm booking={booking} onFormSubmitSuccess={handleFormSubmitSuccess} />
-      </DialogContent>
-    </Dialog>
-  );
-}
+type SortKey = 'start' | 'price' | 'clientName';
+type SortDirection = 'asc' | 'desc';
 
 
 export function BookingManager() {
-    const { firestore } = useFirebase();
-    const bookingsQuery = firestore ? firestore.collection('bookings') : null;
-    const { data: bookings, loading } = useCollection<Booking>(bookingsQuery);
+  const firestore = useFirestore();
+  const query = useMemo(() => firestore.collection('bookings'), [firestore]);
+  const { data: bookings, loading, error } = useCollection<Booking>(query);
 
-    const sortedBookings = useMemo(() => {
-        if (!bookings) return [];
-        return [...bookings].sort((a, b) => new Date(b.start).getTime() - new Date(a.start).getTime());
-    }, [bookings]);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [editingBooking, setEditingBooking] = useState<Booking | undefined>(undefined);
+  
+  const [sortKey, setSortKey] = useState<SortKey>('start');
+  const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
 
-    return (
-        <>
-            <div className="flex justify-end mb-4">
-                 <BookingDialog>
-                    <Button>
-                        <PlusCircle className="mr-2 h-4 w-4" />
-                        Pridať zákazku
-                    </Button>
-                </BookingDialog>
-            </div>
-            
-             {loading && (
-                <div className="space-y-2">
-                    <Skeleton className="h-12 w-full" />
-                    <Skeleton className="h-12 w-full" />
-                    <Skeleton className="h-12 w-full" />
-                    <Skeleton className="h-12 w-full" />
-                </div>
-             )}
+  const handleEdit = (booking: Booking) => {
+    setEditingBooking(booking);
+    setDialogOpen(true);
+  };
+  
+  const handleAddNew = () => {
+    setEditingBooking(undefined);
+    setDialogOpen(true);
+  };
+  
+  const handleSort = (key: SortKey) => {
+    if (sortKey === key) {
+        setSortDirection(prev => prev === 'asc' ? 'desc' : 'asc');
+    } else {
+        setSortKey(key);
+        setSortDirection('asc');
+    }
+  }
 
-            {!loading && (
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead>Klient</TableHead>
-                            <TableHead>Služba</TableHead>
-                            <TableHead>Dátum</TableHead>
-                            <TableHead>Stav</TableHead>
-                            <TableHead>Cena</TableHead>
-                            <TableHead className="text-right">Akcie</TableHead>
+  const sortedBookings = useMemo(() => {
+    if (!bookings) return [];
+    return [...bookings].sort((a, b) => {
+        const aValue = a[sortKey];
+        const bValue = b[sortKey];
+
+        let comparison = 0;
+        if (aValue > bValue) {
+            comparison = 1;
+        } else if (aValue < bValue) {
+            comparison = -1;
+        }
+        
+        return sortDirection === 'asc' ? comparison : -comparison;
+    });
+  }, [bookings, sortKey, sortDirection]);
+  
+
+  if (loading) return <div>Načítavam zákazky...</div>;
+  if (error) return <div>Chyba: {error.message}</div>;
+
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('sk-SK', { style: 'currency', currency: 'EUR' }).format(price);
+  };
+
+  const formatDate = (dateString: string) => {
+    if (!dateString) return 'N/A';
+    try {
+        const date = parseISO(dateString);
+        return format(date, 'd. MMMM yyyy', { locale: sk });
+    } catch {
+        return 'Neplatný dátum';
+    }
+  };
+
+
+  return (
+    <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <div className="flex justify-end mb-4">
+             <Button onClick={handleAddNew} className="flex items-center gap-2">
+                <PlusCircle size={20} />
+                Pridať novú zákazku
+            </Button>
+        </div>
+        <div className="rounded-md border">
+            <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableHead>Názov</TableHead>
+                    <TableHead>Klient</TableHead>
+                    <TableHead>
+                        <Button variant="ghost" onClick={() => handleSort('start')}>
+                            Dátum
+                            <ArrowUpDown className="ml-2 h-4 w-4" />
+                        </Button>
+                    </TableHead>
+                    <TableHead className="text-right">
+                        <Button variant="ghost" onClick={() => handleSort('price')}>
+                            Cena
+                            <ArrowUpDown className="ml-2 h-4 w-4" />
+                        </Button>
+                    </TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead className="text-right">Akcie</TableHead>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                {sortedBookings && sortedBookings.length > 0 ? (
+                    sortedBookings.map((booking) => (
+                        <TableRow key={booking.id}>
+                        <TableCell className="font-medium">{booking.title}</TableCell>
+                        <TableCell>{booking.clientName}</TableCell>
+                        <TableCell>{formatDate(booking.start)}</TableCell>
+                        <TableCell className="text-right">{formatPrice(booking.price)}</TableCell>
+                        <TableCell>{booking.status}</TableCell>
+                        <TableCell className="text-right">
+                            <Button variant="outline" size="sm" onClick={() => handleEdit(booking)}>
+                                Upraviť
+                            </Button>
+                        </TableCell>
                         </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {sortedBookings.length > 0 ? (
-                            sortedBookings.map((job) => (
-                                <TableRow key={job.id}>
-                                    <TableCell>
-                                        <div className="font-medium">{job.clientName}</div>
-                                    </TableCell>
-                                    <TableCell>{job.title}</TableCell>
-                                    <TableCell>{new Date(job.start).toLocaleDateString('sk-SK')}</TableCell>
-                                    <TableCell>
-                                        <Badge variant={job.status === 'Completed' ? 'default' : job.status === 'Cancelled' ? 'destructive' : 'secondary'}>{job.status}</Badge>
-                                    </TableCell>
-                                    <TableCell>{job.price.toLocaleString('sk-SK')} €</TableCell>
-                                    <TableCell className="text-right">
-                                        <BookingDialog booking={job}>
-                                            <Button variant="ghost" size="icon">
-                                                <Pencil className="h-4 w-4" />
-                                                <span className="sr-only">Upraviť</span>
-                                            </Button>
-                                        </BookingDialog>
-                                        <DeleteButton bookingId={job.id} />
-                                    </TableCell>
-                                </TableRow>
-                            ))
-                        ) : (
-                            <TableRow>
-                                <TableCell colSpan={6} className="text-center py-10">
-                                    Zatiaľ neevidujete žiadne zákazky.
-                                </TableCell>
-                            </TableRow>
-                        )}
-                    </TableBody>
-                </Table>
-            )}
-        </>
-    )
+                    ))
+                ) : (
+                    <TableRow>
+                        <TableCell colSpan={6} className="text-center">
+                            Nenašli sa žiadne zákazky.
+                        </TableCell>
+                    </TableRow>
+                )}
+            </TableBody>
+            </Table>
+        </div>
+        <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+                <DialogTitle>{editingBooking ? 'Upraviť zákazku' : 'Vytvoriť novú zákazku'}</DialogTitle>
+            </DialogHeader>
+            <BookingForm booking={editingBooking} onFormSubmit={() => setDialogOpen(false)} />
+      </DialogContent>
+    </Dialog>
+  );
 }
