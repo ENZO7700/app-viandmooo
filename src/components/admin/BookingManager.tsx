@@ -149,7 +149,7 @@ export function BookingManager() {
             <DialogHeader>
                 <DialogTitle>{editingBooking ? 'Upraviť zákazku' : 'Vytvoriť novú zákazku'}</DialogTitle>
             </DialogHeader>
-            <BookingForm booking={editingBooking} onFormSubmit={() => setDialogOpen(false)} />
+            <BookingForm booking={editingBooking} onFormSubmitSuccess={() => setDialogOpen(false)} />
       </DialogContent>
     </Dialog>
   );

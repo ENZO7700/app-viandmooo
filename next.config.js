@@ -4,6 +4,9 @@ require('dotenv').config();
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  env: {
+    NEXT_PUBLIC_SITE_URL: 'https://app.viandmo.com',
+  },
   async headers() {
     return [
       {
