@@ -6,7 +6,8 @@ const withPWA = require('next-pwa')({
   skipWaiting: true,
   fallbacks: { document: '/offline.html' }
 });
+
 module.exports = withPWA({
-  reactStrictMode: true,
+  reactStrictMode: false,
   images: { unoptimized: true }
 });
