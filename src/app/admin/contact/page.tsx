@@ -5,7 +5,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import { CalendarClient } from './CalendarClient';
 import { useCollection, useFirebase } from '@/firebase';
 import { mapBookingsToCalendarEvents, type Booking } from '@/lib/data';
-import { collection } from 'firebase/firestore';
+import { collection } from 'firebase/firestore/lite';
 
 export default function AdminContactPage() {
     const { firestore } = useFirebase();

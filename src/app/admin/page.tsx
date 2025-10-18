@@ -5,7 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { DollarSign, Truck, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useCollection, useFirebase } from "@/firebase";
-import { collection } from "firebase/firestore";
+import { collection } from "firebase/firestore/lite";
 import type { Booking } from "@/lib/data";
 import { useMemo } from "react";
 import { Skeleton } from "@/components/ui/skeleton";

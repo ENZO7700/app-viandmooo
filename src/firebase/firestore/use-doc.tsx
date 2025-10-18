@@ -7,7 +7,7 @@ import {
   type DocumentReference,
   type DocumentData,
   type FirestoreError,
-} from 'firebase/firestore';
+} from 'firebase/firestore/lite';
 
 export function useDoc<T extends DocumentData>(ref: DocumentReference<T> | null) {
   const [data, setData] = useState<T | undefined>(undefined);

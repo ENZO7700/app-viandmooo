@@ -7,7 +7,7 @@ import {
   type Query,
   type DocumentData,
   type FirestoreError,
-} from 'firebase/firestore';
+} from 'firebase/firestore/lite';
 
 export interface UseCollectionOptions {
   key?: string;

@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { useCollection, useFirebase } from "@/firebase";
-import { collection } from "firebase/firestore";
+import { collection } from "firebase/firestore/lite";
 import { Skeleton } from "../ui/skeleton";
 
 
