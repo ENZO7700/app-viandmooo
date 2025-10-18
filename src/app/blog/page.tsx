@@ -30,6 +30,7 @@ export default function BlogPage() {
           alt="Písanie na klávesnici notebooku - blog o sťahovaní v Bratislave"
           fill
           priority
+          fetchpriority="high"
           className="object-cover object-center brightness-50"
           data-ai-hint={imageData.aboutHero.hint}
         />
@@ -78,6 +79,8 @@ export default function BlogPage() {
                           src={post.image}
                           alt={post.image_alt}
                           fill
+                          loading="lazy"
+                          decoding="async"
                           className="object-cover"
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                           data-ai-hint={post.image_alt}

@@ -61,6 +61,7 @@ export default function AboutPageClient() {
           alt="Tím VI&MO v akcii pri sťahovaní v Bratislave"
           fill
           priority
+          fetchpriority="high"
           className="object-cover object-center"
           data-ai-hint="moving team action"
         />
@@ -101,6 +102,8 @@ export default function AboutPageClient() {
                 src={imageData.aboutPacking.src}
                 alt="Pracovník baliaci krehké predmety do krabice pri sťahovaní v Bratislave"
                 fill
+                loading="lazy"
+                decoding="async"
                 className="object-cover"
                 data-ai-hint={imageData.aboutPacking.hint}
              />
@@ -172,6 +175,8 @@ export default function AboutPageClient() {
                           alt={`Portrét člena tímu VI&MO - ${member.name}, sťahovanie Bratislava`}
                           width={member.width}
                           height={member.height}
+                          loading="lazy"
+                          decoding="async"
                           className="object-cover"
                           data-ai-hint={member.hint}
                         />

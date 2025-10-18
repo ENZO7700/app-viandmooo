@@ -13,8 +13,7 @@ type CheckResult = {
 async function performChecks(): Promise<CheckResult[]> {
     const checks: CheckResult[] = [];
     const publicPath = path.join(process.cwd(), 'public');
-    const srcLibPath = path.join(process.cwd(), 'src', 'lib');
-    const srcAppAdminPath = path.join(process.cwd(), 'src', 'app', 'admin');
+    const srcFirebasePath = path.join(process.cwd(), 'src', 'firebase');
 
     // 1. PWA Files Check
     try {
@@ -43,19 +42,20 @@ async function performChecks(): Promise<CheckResult[]> {
             : { name: `Premenná prostredia: ${name}`, status: 'Error', details: "Chýba! Doplňte ju do .env súboru." };
     };
     checks.push(checkEnvVar('SESSION_SECRET'));
-    
+    checks.push(checkEnvVar('NEXT_PUBLIC_FIREBASE_PROJECT_ID'));
+
     // 3. Core Logic Files Check
     try {
-        await fs.access(path.join(srcLibPath, 'auth.ts'));
-        checks.push({ name: "Autentifikačná logika (auth.ts)", status: 'OK', details: "Súbor existuje." });
+        await fs.access(path.join(srcFirebasePath, 'client-provider.tsx'));
+        checks.push({ name: "Firebase Klient Provider", status: 'OK', details: "Súbor existuje." });
     } catch (error) {
-        checks.push({ name: "Autentifikačná logika (auth.ts)", status: 'Error', details: "Kľúčový súbor chýba." });
+        checks.push({ name: "Firebase Klient Provider", status: 'Error', details: "Kľúčový súbor chýba." });
     }
-    try {
-        await fs.access(path.join(srcAppAdminPath, 'bookings', 'actions.ts'));
-        checks.push({ name: "Akcie pre zákazky (bookings/actions.ts)", status: 'OK', details: "Súbor existuje." });
+     try {
+        await fs.access(path.join(srcFirebasePath, 'config.ts'));
+        checks.push({ name: "Firebase Konfigurácia", status: 'OK', details: "Súbor existuje." });
     } catch (error) {
-        checks.push({ name: "Akcie pre zákazky (bookings/actions.ts)", status: 'Error', details: "Kľúčový súbor chýba." });
+        checks.push({ name: "Firebase Konfigurácia", status: 'Error', details: "Kľúčový súbor chýba." });
     }
      try {
         await fs.access(path.join(process.cwd(), 'src', 'middleware.ts'));

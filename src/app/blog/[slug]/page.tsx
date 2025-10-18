@@ -79,6 +79,8 @@ const OtherPosts = ({ currentSlug }: { currentSlug: string }) => {
                        src={post.image}
                        alt={post.image_alt}
                        fill
+                       loading="lazy"
+                       decoding="async"
                        className="object-cover"
                        data-ai-hint={post.image_alt}
                      />
@@ -134,6 +136,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
             alt={post.image_alt}
             fill
             priority
+            fetchpriority="high"
             className="object-cover"
             data-ai-hint={post.image_alt}
           />
