@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { Plus_Jakarta_Sans } from 'next/font/google';
+import Script from 'next/script';
 
 const APP_NAME = "VI&MO";
 const APP_DEFAULT_TITLE = "Sťahovanie Bytov a Firiem Bratislava | VI&MO";
@@ -82,10 +83,56 @@ export default function RootLayout({
   return (
     <html lang="sk" className={cn(mainFont.variable)} suppressHydrationWarning>
       <head>
-         <script
+        <Script
+          id="viandmo-schema"
           type="application/ld+json"
-          src="/viandmo-schema.json"
-        ></script>
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "MovingCompany",
+              "name": "VI and MO s. r. o.",
+              "description": "Profesionálne sťahovanie bytov, domov a firiem v Bratislave a okolí. Rýchlo, férovo a bez starostí. Ponúkame aj vypratávanie a upratovacie služby.",
+              "telephone": "+421911275755",
+              "email": "info@viandmo.com",
+              "url": "https://app.viandmo.com",
+              "logo": "https://viandmo.com/wp-content/uploads/viandmo_logo_regular_white.svg",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Karpatské námestie 7770/10A",
+                "addressLocality": "Bratislava",
+                "addressRegion": "Bratislavský kraj",
+                "postalCode": "831 06",
+                "addressCountry": "SK"
+              },
+              "areaServed": {
+                "@type": "GeoCircle",
+                "geoMidpoint": {
+                  "@type": "GeoCoordinates",
+                  "latitude": "48.148598",
+                  "longitude": "17.107748"
+                },
+                "geoRadius": "50000"
+              },
+              "openingHours": "Mo-Su 08:00-20:00",
+              "priceRange": "€€",
+              "founder": {
+                "@type": "Person",
+                "name": "Miroslav Danihel"
+              },
+              "hasOfferCatalog": {
+                "@type": "OfferCatalog",
+                "name": "Služby",
+                "itemListElement": [
+                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Sťahovanie bytov a domov" } },
+                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Sťahovanie firiem a kancelárií" } },
+                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Vypratávanie a likvidácia odpadu" } },
+                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Profesionálne upratovacie práce" } }
+                ]
+              }
+            })
+          }}
+        />
       </head>
       <body className={cn('font-body antialiased')}>
         {children}

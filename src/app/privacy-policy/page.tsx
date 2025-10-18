@@ -19,7 +19,7 @@ export default function PrivacyPolicyPage() {
                 </CardHeader>
                 <CardContent className="prose prose-lg max-w-none text-foreground/90 prose-p:leading-relaxed prose-h2:font-headline prose-h2:text-primary">
                     <p>
-                        Tieto zásady ochrany osobných údajov popisujú, ako spoločnosť VI and MO s. r. o., IČO: 56 811 322, so sídlom Karpatské námestie 7770/10A, 831 06 Bratislava - Rača (ďalej len "my", "nás" alebo "naša spoločnosť") zhromažďuje, používa a chráni vaše osobné údaje v súlade s Nariadením Európskeho parlamentu a Rady (EÚ) 2016/679 o ochrane fyzických osôb pri spracúvaní osobných údajov a o voľnom pohybe takýchto údajov (ďalej len "GDPR").
+                        Tieto zásady ochrany osobných údajov popisujú, ako spoločnosť VI and MO s. r. o., IČO: 56 811 322, so sídlom Karpatské námestie 7770/10A, 831 06 Bratislava - Rača (ďalej len &quot;my&quot;, &quot;nás&quot; alebo &quot;naša spoločnosť&quot;) zhromažďuje, používa a chráni vaše osobné údaje v súlade s Nariadením Európskeho parlamentu a Rady (EÚ) 2016/679 o ochrane fyzických osôb pri spracúvaní osobných údajov a o voľnom pohybe takýchto údajov (ďalej len &quot;GDPR&quot;).
                     </p>
 
                     <h2>Aké údaje zhromažďujeme?</h2>
@@ -56,7 +56,7 @@ export default function PrivacyPolicyPage() {
                     <ul>
                         <li>Na prístup k svojim osobným údajom.</li>
                         <li>Na opravu nesprávnych alebo neúplných údajov.</li>
-                        <li>Na vymazanie údajov (právo "byť zabudnutý").</li>
+                        <li>Na vymazanie údajov (právo &quot;byť zabudnutý&quot;).</li>
                         <li>Na obmedzenie spracúvania.</li>
                         <li>Namietať proti spracúvaniu.</li>
                         <li>Na prenosnosť údajov.</li>
