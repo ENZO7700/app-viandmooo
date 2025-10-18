@@ -30,7 +30,6 @@ export default function BlogPage() {
           alt="Písanie na klávesnici notebooku - blog o sťahovaní v Bratislave"
           fill
           priority
-          fetchPriority="high"
           className="object-cover object-center brightness-50"
           data-ai-hint={imageData.blogHero.hint}
         />
