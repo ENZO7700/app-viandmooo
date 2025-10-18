@@ -42,8 +42,8 @@ export async function login(credentials: LoginCredentials) {
         
         const session = await getSession(options);
         session.isLoggedIn = true;
-
         await session.save();
+        
         return { success: true, error: undefined };
     }
 
