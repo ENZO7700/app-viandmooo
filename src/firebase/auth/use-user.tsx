@@ -1,6 +1,7 @@
+
 'use client';
 
-import { onAuthStateChanged, type User } from 'firebase/auth/web-extension';
+import { onAuthStateChanged, type User } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../provider';
 

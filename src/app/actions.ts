@@ -1,8 +1,9 @@
+
 'use server';
 
 import { z } from 'zod';
 import type { ContactSubmission } from '@/lib/data';
-import { collection, addDoc } from 'firebase/firestore/lite';
+import { collection, addDoc } from 'firebase/firestore';
 import { initializeFirebase } from '@/firebase';
 
 const contactFormSchema = z.object({

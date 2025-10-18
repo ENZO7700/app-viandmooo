@@ -1,3 +1,4 @@
+
 'use client';
 import {
   createContext,
@@ -6,8 +7,8 @@ import {
 } from 'react';
 
 import type { FirebaseApp } from 'firebase/app';
-import type { Auth } from 'firebase/auth/web-extension';
-import type { Firestore } from 'firebase/firestore/lite';
+import type { Auth } from 'firebase/auth';
+import type { Firestore } from 'firebase/firestore';
 
 export type FirebaseContextValue = {
   firebaseApp: FirebaseApp;

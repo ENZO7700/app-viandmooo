@@ -1,9 +1,10 @@
+
 'use client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useCollection, useFirebase } from "@/firebase";
 import { type ContactSubmission } from "@/lib/data";
-import { collection } from "firebase/firestore/lite";
+import { collection } from "firebase/firestore";
 import { useMemo } from "react";
 
 export default function AdminMessagesPage() {

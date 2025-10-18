@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
@@ -7,7 +8,7 @@ import {
   type Query,
   type DocumentData,
   type FirestoreError,
-} from 'firebase/firestore/lite';
+} from 'firebase/firestore';
 
 export interface UseCollectionOptions {
   key?: string;

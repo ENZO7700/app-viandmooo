@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -5,7 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { DollarSign, Truck, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useCollection, useFirebase } from "@/firebase";
-import { collection } from "firebase/firestore/lite";
+import { collection } from "firebase/firestore";
 import type { Booking } from "@/lib/data";
 import { useMemo } from "react";
 import { Skeleton } from "@/components/ui/skeleton";

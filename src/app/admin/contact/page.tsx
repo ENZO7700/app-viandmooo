@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -5,7 +6,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import { CalendarClient } from './CalendarClient';
 import { useCollection, useFirebase } from '@/firebase';
 import { mapBookingsToCalendarEvents, type Booking } from '@/lib/data';
-import { collection } from 'firebase/firestore/lite';
+import { collection } from 'firebase/firestore';
 
 export default function AdminContactPage() {
     const { firestore } = useFirebase();
