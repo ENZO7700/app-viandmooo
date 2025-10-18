@@ -1,3 +1,5 @@
+
+'use client';
 import { Toaster } from "@/components/ui/toaster";
 import { DashboardHeader } from "@/components/admin/DashboardHeader";
 import { DashboardNav } from "@/components/admin/DashboardNav";
@@ -29,3 +31,4 @@ export default function AdminLayout({
     </FirebaseProvider>
   );
 }
+
