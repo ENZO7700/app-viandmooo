@@ -1,4 +1,3 @@
-
 'use client'
 
 import { Calendar, dateFnsLocalizer, Views, type Event } from 'react-big-calendar';
@@ -8,6 +7,7 @@ import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
 import sk from 'date-fns/locale/sk';
 import { useMemo } from 'react';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const locales = {
   'sk': sk,
@@ -39,11 +39,16 @@ const messages = {
 
 interface CalendarClientProps {
     initialEvents: Event[];
+    isLoading: boolean;
 }
 
-export function CalendarClient({ initialEvents }: CalendarClientProps) {
+export function CalendarClient({ initialEvents, isLoading }: CalendarClientProps) {
     const events = useMemo(() => initialEvents.map(e => ({...e, start: new Date(e.start as Date), end: new Date(e.end as Date)})), [initialEvents]);
     
+    if (isLoading) {
+        return <Skeleton className="h-full w-full" />;
+    }
+
     return (
         <>
             {events.length > 0 ? (

@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useFormState, useFormStatus } from 'react-dom';
@@ -28,6 +27,7 @@ export function BookingForm({ booking, onFormSubmitSuccess }: { booking?: Bookin
   const initialState: BookingFormState = {
     message: '',
     issues: [],
+    success: false,
   };
   
   const [state, formAction] = useFormState(createOrUpdateBooking, initialState);
@@ -40,6 +40,7 @@ export function BookingForm({ booking, onFormSubmitSuccess }: { booking?: Bookin
           description: state.message,
         });
         onFormSubmitSuccess();
+        formRef.current?.reset();
       } else {
         toast({
           title: 'Chyba vo formulári',
@@ -55,7 +56,6 @@ export function BookingForm({ booking, onFormSubmitSuccess }: { booking?: Bookin
   }
 
   const isEditing = !!booking;
-  // Format date to 'yyyy-MM-dd' for the input type="date"
   const defaultDate = booking?.start ? format(new Date(booking.start), 'yyyy-MM-dd') : '';
 
   return (

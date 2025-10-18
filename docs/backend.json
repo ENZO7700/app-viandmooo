@@ -1,0 +1,84 @@
+{
+  "entities": {
+    "Booking": {
+      "title": "Booking",
+      "description": "Represents a single booking/job.",
+      "type": "object",
+      "properties": {
+        "clientName": {
+          "type": "string",
+          "description": "Name of the client."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title or description of the service."
+        },
+        "start": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Start date and time of the booking in ISO 8601 format."
+        },
+        "end": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End date and time of the booking in ISO 8601 format."
+        },
+        "price": {
+          "type": "number",
+          "description": "Price of the service."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["Scheduled", "Completed", "Cancelled"],
+          "description": "The current status of the booking."
+        }
+      },
+      "required": ["clientName", "title", "start", "end", "price", "status"]
+    },
+    "ContactSubmission": {
+      "title": "Contact Submission",
+      "description": "Represents a single contact form submission.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "address": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["name", "phone", "email", "message", "date"]
+    }
+  },
+  "auth": {
+    "providers": ["password"]
+  },
+  "firestore": {
+    "/bookings/{bookingId}": {
+      "schema": {
+        "$ref": "#/entities/Booking"
+      },
+      "description": "Stores individual booking documents."
+    },
+    "/submissions/{submissionId}": {
+      "schema": {
+        "$ref": "#/entities/ContactSubmission"
+      },
+      "description": "Stores contact form submissions."
+    }
+  }
+}

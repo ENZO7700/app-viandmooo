@@ -1,4 +1,3 @@
-
 import { BarChart, Calendar, Mail, Settings, TruckIcon, ShieldCheck } from "lucide-react";
 import type { Event } from 'react-big-calendar';
 
@@ -11,7 +10,6 @@ export const adminNavItems = [
   { href: "/admin/system-check", label: "Kontrola Systému", icon: ShieldCheck },
 ];
 
-// Represents a single contact form submission.
 export interface ContactSubmission {
     id: string;
     name: string;
@@ -22,9 +20,8 @@ export interface ContactSubmission {
     date: string; // ISO 8601 date string
 }
 
-// Represents a single booking/job.
 export interface Booking {
-    id: number;
+    id: string; // Firestore uses string IDs
     clientName: string;
     title: string;
     start: string; // Storing as ISO string
@@ -33,8 +30,8 @@ export interface Booking {
     status: 'Scheduled' | 'Completed' | 'Cancelled';
 }
 
-// This function is now just for mapping, no fs access
 export const mapBookingsToCalendarEvents = (bookings: Booking[]): Event[] => {
+    if (!bookings) return [];
     return bookings.map(b => ({
         title: b.title,
         start: new Date(b.start),

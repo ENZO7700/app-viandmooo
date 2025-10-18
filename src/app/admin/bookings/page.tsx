@@ -1,14 +1,8 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { fetchBookings } from "./actions";
 import { BookingManager } from "@/components/admin/BookingManager";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-
-async function BookingsData() {
-    const bookings = await fetchBookings();
-    return <BookingManager initialBookings={bookings} />;
-}
 
 function BookingsSkeleton() {
     return (
@@ -33,7 +27,7 @@ export default async function AdminBookingsPage() {
                 </CardHeader>
                 <CardContent>
                    <Suspense fallback={<BookingsSkeleton />}>
-                        <BookingsData />
+                        <BookingManager />
                    </Suspense>
                 </CardContent>
             </Card>

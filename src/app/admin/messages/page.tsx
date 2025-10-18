@@ -1,11 +1,20 @@
-
+'use client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { fetchSubmissions } from "@/app/actions";
+import { useCollection, useFirebase } from "@/firebase";
+import { type ContactSubmission } from "@/lib/data";
+import { collection } from "firebase/firestore";
+import { useMemo } from "react";
 
-export default async function AdminMessagesPage() {
-    const submissions = await fetchSubmissions();
-    const sortedSubmissions = [...submissions].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+export default function AdminMessagesPage() {
+    const { firestore } = useFirebase();
+    const submissionsQuery = firestore ? collection(firestore, 'submissions') : null;
+    const { data: submissions, loading } = useCollection<ContactSubmission>(submissionsQuery);
+
+    const sortedSubmissions = useMemo(() => {
+        if (!submissions) return [];
+        return [...submissions].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    }, [submissions]);
 
     return (
         <div className="space-y-6">
@@ -26,7 +35,13 @@ export default async function AdminMessagesPage() {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {sortedSubmissions.length > 0 ? (
+                            {loading ? (
+                                <TableRow>
+                                    <TableCell colSpan={5} className="text-center py-10">
+                                        Načítavam správy...
+                                    </TableCell>
+                                </TableRow>
+                            ) : sortedSubmissions.length > 0 ? (
                                 sortedSubmissions.map((submission) => (
                                     <TableRow key={submission.id}>
                                         <TableCell>{new Date(submission.date).toLocaleString('sk-SK')}</TableCell>

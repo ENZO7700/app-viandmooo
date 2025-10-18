@@ -1,58 +1,10 @@
-
 'use server';
 
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
-import fs from 'fs/promises';
-import path from 'path';
+import { initializeFirebase } from "@/firebase";
+import { collection, doc, addDoc, updateDoc, deleteDoc, getFirestore } from "firebase/firestore";
 import type { Booking } from "@/lib/data";
-
-const dataDir = path.join(process.cwd(), 'data');
-const bookingsFilePath = path.join(dataDir, 'bookings.json');
-
-// Helper function to ensure directory and files exist, then read them
-async function readData<T>(filePath: string): Promise<T[]> {
-    try {
-        await fs.mkdir(dataDir, { recursive: true });
-        await fs.access(filePath);
-    } catch {
-        // If file doesn't exist, create it with an empty array
-        await fs.writeFile(filePath, '[]', 'utf8');
-    }
-
-    try {
-        const fileContent = await fs.readFile(filePath, 'utf8');
-        return JSON.parse(fileContent);
-    } catch (error) {
-        console.error(`Error reading or parsing data from ${filePath}:`, error);
-        // Return an empty array if parsing fails to prevent crashes
-        return [];
-    }
-}
-
-// Helper function to write data
-async function writeData<T>(filePath: string, data: T[]): Promise<void> {
-    try {
-        await fs.mkdir(dataDir, { recursive: true });
-        await fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf8');
-    } catch (error) {
-        console.error(`Error writing data to ${filePath}:`, error);
-        // We re-throw here to let the caller know the write failed.
-        throw new Error(`Could not write data to ${filePath}.`);
-    }
-}
-
-const getBookings = async (): Promise<Booking[]> => await readData<Booking>(bookingsFilePath);
-const saveAllBookings = async (data: Booking[]): Promise<void> => await writeData<Booking>(bookingsFilePath, data);
-
-const getNextBookingId = async (): Promise<number> => {
-    const bookings = await getBookings();
-    if (bookings.length === 0) {
-        return 1;
-    }
-    const maxId = Math.max(...bookings.map(b => b.id));
-    return maxId + 1;
-};
 
 const bookingSchema = z.object({
   clientName: z.string().min(1, "Meno klienta je povinné."),
@@ -72,8 +24,10 @@ export async function createOrUpdateBooking(
   prevState: BookingFormState,
   formData: FormData
 ): Promise<BookingFormState> {
-  const bookings = await getBookings();
-  const bookingId = formData.get('id') ? Number(formData.get('id')) : null;
+  const { firestore } = initializeFirebase();
+  const bookingsCollection = collection(firestore, 'bookings');
+  
+  const bookingId = formData.get('id') ? formData.get('id') as string : null;
   const data = Object.fromEntries(formData);
   const parsed = bookingSchema.safeParse(data);
 
@@ -90,31 +44,15 @@ export async function createOrUpdateBooking(
     const eventData = {
         ...parsed.data,
         start: eventDate.toISOString(),
-        end: eventDate.toISOString(), // Assuming end time is same as start for simplicity
+        end: eventDate.toISOString(),
     }
 
     if (bookingId) {
-      // Update existing booking
-      const index = bookings.findIndex(b => b.id === bookingId);
-      if (index !== -1) {
-        bookings[index] = {
-          ...bookings[index],
-          ...eventData,
-          id: bookingId, // ensure id is not lost
-        };
-      } else {
-         throw new Error(`Booking with ID ${bookingId} not found.`);
-      }
+      const bookingRef = doc(firestore, 'bookings', bookingId);
+      await updateDoc(bookingRef, eventData);
     } else {
-      // Create new booking
-      const newBooking: Booking = {
-        id: await getNextBookingId(),
-        ...eventData,
-      };
-      bookings.push(newBooking);
+      await addDoc(bookingsCollection, eventData);
     }
-    
-    await saveAllBookings(bookings);
     
     revalidatePath('/admin/bookings');
     revalidatePath('/admin');
@@ -134,27 +72,18 @@ export async function createOrUpdateBooking(
   }
 }
 
-export async function deleteBooking(bookingId: number) {
+export async function deleteBookingAction(bookingId: string) {
     try {
-        let bookings = await getBookings();
-        const initialLength = bookings.length;
-        const updatedBookings = bookings.filter(b => b.id !== bookingId);
+        const { firestore } = initializeFirebase();
+        const bookingRef = doc(firestore, 'bookings', bookingId);
+        await deleteDoc(bookingRef);
 
-        if (initialLength !== updatedBookings.length) {
-            await saveAllBookings(updatedBookings);
-            revalidatePath('/admin/bookings');
-            revalidatePath('/admin');
-            revalidatePath('/admin/contact');
-            return { success: true, message: 'Zákazka bola zmazaná.' };
-        } else {
-            return { success: false, message: 'Zákazka nebola nájdená.' };
-        }
+        revalidatePath('/admin/bookings');
+        revalidatePath('/admin');
+        revalidatePath('/admin/contact');
+        return { success: true, message: 'Zákazka bola zmazaná.' };
     } catch (error) {
         const errorMessage = error instanceof Error ? error.message : "Neznáma chyba.";
         return { success: false, message: `Chyba pri mazaní zákazky: ${errorMessage}` };
     }
-}
-
-export async function fetchBookings(): Promise<Booking[]> {
-    return await getBookings();
 }
