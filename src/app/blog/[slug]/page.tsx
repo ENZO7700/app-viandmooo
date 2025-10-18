@@ -1,3 +1,4 @@
+
 // @ts-nocheck
 
 import { blogPosts } from '@/lib/blog-posts.tsx';
@@ -80,8 +81,6 @@ const OtherPosts = ({ currentSlug }: { currentSlug: string }) => {
                        src={post.image}
                        alt={post.image_alt}
                        fill
-                       loading="lazy"
-                       decoding="async"
                        className="object-cover"
                        data-ai-hint={post.image_alt}
                      />

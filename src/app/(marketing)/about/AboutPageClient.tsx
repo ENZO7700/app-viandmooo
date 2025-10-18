@@ -103,8 +103,6 @@ export default function AboutPageClient() {
                 src={imageData.aboutPacking.src}
                 alt="Pracovník baliaci krehké predmety do krabice pri sťahovaní v Bratislave"
                 fill
-                loading="lazy"
-                decoding="async"
                 className="object-cover"
                 data-ai-hint={imageData.aboutPacking.hint}
                 width={imageData.aboutPacking.width}
@@ -178,8 +176,6 @@ export default function AboutPageClient() {
                           alt={`Portrét člena tímu VI&MO - ${member.name}, sťahovanie Bratislava`}
                           width={member.width}
                           height={member.height}
-                          loading="lazy"
-                          decoding="async"
                           className="object-cover"
                           data-ai-hint={member.hint}
                         />

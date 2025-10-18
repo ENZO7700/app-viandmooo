@@ -78,8 +78,6 @@ export default function BlogPage() {
                           src={post.image}
                           alt={post.image_alt}
                           fill
-                          loading="lazy"
-                          decoding="async"
                           className="object-cover"
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                           data-ai-hint={post.image_alt}

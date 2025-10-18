@@ -2,7 +2,7 @@
 require('dotenv').config();
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const baseConfig = {
   reactStrictMode: true,
   async headers() {
     const cspHeader = `
@@ -45,4 +45,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = baseConfig;
