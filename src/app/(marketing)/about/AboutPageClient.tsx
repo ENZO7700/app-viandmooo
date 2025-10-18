@@ -190,7 +190,7 @@ export default function AboutPageClient() {
             ))}
           </div>
         </div>
-      </motion.section>
+      </section>
 
       {/* CTA Section */}
       <section className="bg-background text-foreground">
