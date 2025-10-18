@@ -1,3 +1,4 @@
+npm i -g firebase-tools
 # Firebase Studio
 
 This is a NextJS starter in Firebase Studio.
