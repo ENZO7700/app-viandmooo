@@ -19,6 +19,7 @@
     }
   ],
   "hosting": {
+    "site": "app-viandmo",
     "source": ".",
     "ignore": [
       "firebase.json",
