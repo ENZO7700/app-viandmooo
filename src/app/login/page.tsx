@@ -14,6 +14,7 @@ import { AlertCircle } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -73,9 +74,9 @@ export default function LoginPage() {
             className="mx-auto grid w-[350px] gap-6"
         >
           <div className="grid gap-2 text-center">
-            <div className="flex justify-center mb-4">
+            <Link href="/" className="flex justify-center mb-4">
               <Logo />
-            </div>
+            </Link>
             <h1 className="text-3xl font-bold">Administrácia</h1>
             <p className="text-balance text-muted-foreground">
               Zadajte svoje prihlasovacie údaje
