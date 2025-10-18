@@ -1,13 +1,14 @@
+
 'use client';
 
-import { useFormState, useFormStatus } from 'react-dom';
+import { useActionState, useEffect, useRef } from 'react';
+import { useFormStatus } from 'react-dom';
 import { createOrUpdateBooking, type BookingFormState } from '@/app/admin/bookings/actions';
 import type { Booking } from '@/lib/data';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useEffect, useRef } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { format } from 'date-fns';
 
@@ -30,7 +31,7 @@ export function BookingForm({ booking, onFormSubmitSuccess }: { booking?: Bookin
     success: false,
   };
   
-  const [state, formAction] = useFormState(createOrUpdateBooking, initialState);
+  const [state, formAction] = useActionState(createOrUpdateBooking, initialState);
 
   useEffect(() => {
     if (state.message) {
