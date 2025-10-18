@@ -5,15 +5,14 @@ import {
   useContext,
   type ReactNode,
 } from 'react';
-
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
+import type { FirebaseApp } from 'firebase/app';
+import type { Auth } from 'firebase/auth';
+import type { Firestore } from 'firebase/firestore';
 
 export type FirebaseContextValue = {
-  firebaseApp: firebase.app.App;
-  auth: firebase.auth.Auth;
-  firestore: firebase.firestore.Firestore;
+  firebaseApp: FirebaseApp;
+  auth: Auth;
+  firestore: Firestore;
 };
 
 export const FirebaseContext = createContext<FirebaseContextValue | undefined>(

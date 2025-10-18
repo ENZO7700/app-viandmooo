@@ -17,6 +17,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { collection } from 'firebase/firestore';
 
 type SortKey = 'start' | 'price' | 'clientName';
 type SortDirection = 'asc' | 'desc';
@@ -24,7 +25,7 @@ type SortDirection = 'asc' | 'desc';
 
 export function BookingManager() {
   const firestore = useFirestore();
-  const query = useMemo(() => firestore.collection('bookings'), [firestore]);
+  const query = useMemo(() => firestore ? collection(firestore, 'bookings') : null, [firestore]);
   const { data: bookings, loading, error } = useCollection<Booking>(query);
 
   const [dialogOpen, setDialogOpen] = useState(false);

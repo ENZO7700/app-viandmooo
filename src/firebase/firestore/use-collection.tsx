@@ -1,28 +1,23 @@
 
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/firestore';
+import { useEffect, useState } from 'react';
+import { onSnapshot, type Query, type DocumentData, type FirestoreError, type SnapshotOptions } from 'firebase/firestore';
 
 export interface UseCollectionOptions {
   key?: string;
 }
 
-type Query = firebase.firestore.Query;
-type DocumentData = firebase.firestore.DocumentData;
-type FirestoreError = firebase.firestore.FirestoreError;
-
 export function useCollection<T extends DocumentData>(
   query: Query | null,
-  options?: UseCollectionOptions
+  options?: UseCollectionOptions & SnapshotOptions
 ) {
   const [data, setData] = useState<T[] | undefined>(undefined);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<FirestoreError | undefined>(undefined);
   
   // Create a stable string representation of the query
-  const queryKey = query ? `${query.path}_${JSON.stringify(query.where)}_${JSON.stringify(query.orderBy)}` : null;
+  const queryKey = query ? query.path : null; // Simplified key
 
   useEffect(() => {
     if (!query) {
@@ -34,10 +29,11 @@ export function useCollection<T extends DocumentData>(
     
     setLoading(true);
 
-    const unsubscribe = query.onSnapshot(
+    const unsubscribe = onSnapshot(
+      query,
       (snapshot) => {
         const docs = snapshot.docs.map(
-          (doc) => ({ id: doc.id, ...doc.data() } as T)
+          (doc) => ({ id: doc.id, ...doc.data(options) } as T)
         );
         setData(docs);
         setLoading(false);
@@ -50,7 +46,8 @@ export function useCollection<T extends DocumentData>(
     );
 
     return () => unsubscribe();
-  }, [queryKey]); 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [queryKey, JSON.stringify(options)]); 
 
   return { data, loading, error };
 }

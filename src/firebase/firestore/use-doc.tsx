@@ -1,13 +1,8 @@
 
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/firestore';
-
-type DocumentReference = firebase.firestore.DocumentReference;
-type DocumentData = firebase.firestore.DocumentData;
-type FirestoreError = firebase.firestore.FirestoreError;
+import { useEffect, useState } from 'react';
+import { onSnapshot, type DocumentReference, type DocumentData, type FirestoreError } from 'firebase/firestore';
 
 
 export function useDoc<T extends DocumentData>(ref: DocumentReference | null) {
@@ -26,9 +21,9 @@ export function useDoc<T extends DocumentData>(ref: DocumentReference | null) {
 
     setLoading(true);
 
-    const unsubscribe = ref.onSnapshot(
+    const unsubscribe = onSnapshot(ref,
       (snapshot) => {
-        if (snapshot.exists) {
+        if (snapshot.exists()) {
           setData({ id: snapshot.id, ...snapshot.data() } as T);
         } else {
           setData(undefined);
@@ -43,6 +38,7 @@ export function useDoc<T extends DocumentData>(ref: DocumentReference | null) {
     );
 
     return () => unsubscribe();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refPath]);
 
   return { data, loading, error };

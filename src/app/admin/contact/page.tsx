@@ -4,14 +4,14 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { CalendarClient } from './CalendarClient';
-import { useCollection, useFirebase } from '@/firebase';
+import { useCollection, useFirestore } from '@/firebase';
 import { mapBookingsToCalendarEvents, type Booking } from '@/lib/data';
-import 'firebase/compat/firestore';
 import { useMemo } from 'react';
+import { collection } from 'firebase/firestore';
 
 export default function AdminContactPage() {
-    const { firestore } = useFirebase();
-    const bookingsQuery = useMemo(() => firestore ? firestore.collection('bookings') : null, [firestore]);
+    const firestore = useFirestore();
+    const bookingsQuery = useMemo(() => firestore ? collection(firestore, 'bookings') : null, [firestore]);
     const { data: bookings, loading } = useCollection<Booking>(bookingsQuery);
 
     const events = mapBookingsToCalendarEvents(bookings || []);

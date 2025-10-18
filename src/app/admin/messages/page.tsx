@@ -2,19 +2,21 @@
 'use client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { useCollection, useFirebase } from "@/firebase";
+import { useCollection, useFirestore } from "@/firebase";
 import { type ContactSubmission } from "@/lib/data";
-import 'firebase/compat/firestore';
+import { collection } from "firebase/firestore";
 import { useMemo } from "react";
+import { format } from 'date-fns';
 
 export default function AdminMessagesPage() {
-    const { firestore } = useFirebase();
-    const submissionsQuery = useMemo(() => firestore ? firestore.collection('submissions') : null, [firestore]);
+    const firestore = useFirestore();
+    const submissionsQuery = useMemo(() => firestore ? collection(firestore, 'submissions') : null, [firestore]);
     const { data: submissions, loading } = useCollection<ContactSubmission>(submissionsQuery);
 
     const sortedSubmissions = useMemo(() => {
         if (!submissions) return [];
-        return [...submissions].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        // @ts-ignore
+        return [...submissions].sort((a, b) => b.date?.toDate().getTime() - a.date?.toDate().getTime());
     }, [submissions]);
 
     return (
@@ -45,7 +47,8 @@ export default function AdminMessagesPage() {
                             ) : sortedSubmissions.length > 0 ? (
                                 sortedSubmissions.map((submission) => (
                                     <TableRow key={submission.id}>
-                                        <TableCell>{new Date(submission.date).toLocaleString('sk-SK')}</TableCell>
+                                        {/* @ts-ignore */}
+                                        <TableCell>{submission.date ? format(submission.date.toDate(), 'dd.MM.yyyy HH:mm') : ''}</TableCell>
                                         <TableCell>
                                             <div className="font-medium">{submission.name}</div>
                                         </TableCell>

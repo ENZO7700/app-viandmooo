@@ -10,6 +10,7 @@ import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from 'recha
 import { subDays, startOfMonth, format } from 'date-fns';
 import { sk } from 'date-fns/locale';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { collection, query as firestoreQuery, where } from 'firebase/firestore';
 
 
 type Period = 'month' | '90days' | 'all';
@@ -29,7 +30,7 @@ const StatCard = ({ title, value, description }: { title: string, value: string,
 
 export function Dashboard() {
     const firestore = useFirestore();
-    const query = useMemo(() => firestore.collection('bookings').where('status', '==', 'Completed'), [firestore]);
+    const query = useMemo(() => firestore ? firestoreQuery(collection(firestore, 'bookings'), where('status', '==', 'Completed')) : null, [firestore]);
     const { data: bookings, loading, error } = useCollection<Booking>(query);
     const [period, setPeriod] = useState<Period>('month');
 

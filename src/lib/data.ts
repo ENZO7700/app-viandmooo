@@ -1,5 +1,8 @@
+
 import { BarChart, Calendar, Mail, Settings, TruckIcon, ShieldCheck, Rocket } from "lucide-react";
 import type { Event } from 'react-big-calendar';
+import type { Timestamp } from 'firebase/firestore';
+
 
 export const adminNavItems = [
   { href: "/admin", label: "Dashboard", icon: BarChart },
@@ -18,7 +21,7 @@ export interface ContactSubmission {
     email: string;
     address?: string;
     message: string;
-    date: string; // ISO 8601 date string
+    date: Timestamp; 
 }
 
 export interface Booking {

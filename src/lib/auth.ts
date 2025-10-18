@@ -7,8 +7,8 @@ import { redirect } from 'next/navigation';
 import { sessionOptions, type SessionData } from '@/lib/session';
 
 import { initializeFirebase } from '@/firebase';
-import 'firebase/compat/auth';
-import firebase from 'firebase/compat/app';
+import { GoogleAuthProvider } from 'firebase/auth';
+
 
 export interface LoginCredentials {
     email?: string | null;
@@ -52,7 +52,7 @@ export async function login(credentials: LoginCredentials) {
 export async function loginWithGoogle() {
     try {
         const { auth } = initializeFirebase();
-        const provider = new firebase.auth.GoogleAuthProvider();
+        const provider = new GoogleAuthProvider();
 
         // This part is tricky in Server Actions as it's meant for the client.
         // The typical flow is client-side.
@@ -66,7 +66,7 @@ export async function loginWithGoogle() {
         // to handle the response from Google, call `getRedirectResult`, and then
         // establish the session.
         // For the purpose of this demo, we'll assume a client-side redirect flow would be used.
-        // This function will return a (non-functional) redirect URL to demonstrate the concept.
+        // This function will return an object to signify the intent to redirect.
         
         // This is a placeholder to show the intent. In a real app
         // you would use signInWithRedirect on the client.

@@ -4,8 +4,7 @@
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { initializeFirebase } from "@/firebase";
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/firestore';
+import { collection, doc, addDoc, updateDoc, deleteDoc, serverTimestamp } from 'firebase/firestore';
 
 const bookingSchema = z.object({
   clientName: z.string().min(1, "Meno klienta je povinné."),
@@ -26,7 +25,7 @@ export async function createOrUpdateBooking(
   formData: FormData
 ): Promise<BookingFormState> {
   const { firestore } = initializeFirebase();
-  const bookingsCollection = firestore.collection('bookings');
+  const bookingsCollection = collection(firestore, 'bookings');
   
   const bookingId = formData.get('id') ? formData.get('id') as string : null;
   const data = Object.fromEntries(formData);
@@ -49,10 +48,10 @@ export async function createOrUpdateBooking(
     };
 
     if (bookingId) {
-      const bookingRef = bookingsCollection.doc(bookingId);
-      await bookingRef.update(eventData);
+      const bookingRef = doc(firestore, 'bookings', bookingId);
+      await updateDoc(bookingRef, eventData);
     } else {
-      await bookingsCollection.add(eventData);
+      await addDoc(bookingsCollection, eventData);
     }
     
     revalidatePath('/admin/bookings');
@@ -76,8 +75,8 @@ export async function createOrUpdateBooking(
 export async function deleteBookingAction(bookingId: string) {
     try {
         const { firestore } = initializeFirebase();
-        const bookingRef = firestore.collection('bookings').doc(bookingId);
-        await bookingRef.delete();
+        const bookingRef = doc(firestore, 'bookings', bookingId);
+        await deleteDoc(bookingRef);
 
         revalidatePath('/admin/bookings');
         revalidatePath('/admin');

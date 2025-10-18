@@ -3,9 +3,9 @@
 
 import { z } from 'zod';
 import type { ContactSubmission } from '@/lib/data';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/firestore';
 import { initializeFirebase } from '@/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+
 
 const contactFormSchema = z.object({
     name: z.string().min(1, { message: "Meno je povinné." }),
@@ -44,14 +44,16 @@ export async function submitContactForm(
 
     try {
         const { firestore } = initializeFirebase();
-        const submissionsCollection = firestore.collection('submissions');
+        const submissionsCollection = collection(firestore, 'submissions');
         
-        const newSubmission: Omit<ContactSubmission, 'id'> = {
-            date: new Date().toISOString(),
+        const newSubmission: Omit<ContactSubmission, 'id' | 'date'> = {
             ...parsed.data,
         };
 
-        await submissionsCollection.add(newSubmission);
+        await addDoc(submissionsCollection, {
+            ...newSubmission,
+            date: serverTimestamp(),
+        });
 
         return { message: "Ďakujeme! Vaša správa bola úspešne odoslaná. Ozveme sa vám čo najskôr." };
     } catch (error) {

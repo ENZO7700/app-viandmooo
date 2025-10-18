@@ -1,14 +1,13 @@
 
 'use client';
 
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
+import { type User } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../provider';
 
 export function useUser() {
   const auth = useAuth();
-  const [user, setUser] = useState<firebase.User | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
