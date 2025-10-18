@@ -136,7 +136,6 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
             alt={post.image_alt}
             fill
             priority
-            fetchPriority="high"
             className="object-cover"
             data-ai-hint={post.image_alt}
           />
