@@ -10,21 +10,37 @@
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Karpatské námestie 7770/10A",
-    "addressLocality": "Bratislava",
-    "addressRegion": "BA",
+    "addressLocality": "Bratislava - Rača",
     "postalCode": "831 06",
     "addressCountry": "SK"
   },
-  "areaServed": {
-    "@type": "GeoCircle",
-    "geoMidpoint": {
-      "@type": "GeoCoordinates",
-      "latitude": "48.148598",
-      "longitude": "17.107748"
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Bratislava"
     },
-    "geoRadius": "25000"
-  },
-  "openingHours": "Mo,Tu,We,Th,Fr,Sa,Su 00:00-23:59",
+    {
+      "@type": "AdministrativeArea",
+      "name": "Petržalka"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Ružinov"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Karlova Ves"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Nové Mesto"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Rača"
+    }
+  ],
+  "openingHours": "Mo-Su 00:00-24:00",
   "sameAs": [
     "https://www.facebook.com/p/VI-MO-stahovanie-upratovanie-100063524682338/"
   ],
