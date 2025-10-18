@@ -5,80 +5,48 @@
 
 @layer base {
   :root {
-    --background-dark: 200 100% 9%; /* #00202e */
-    --background-light: 0 0% 100%; /* #FFFFFF */
-    
-    --foreground-dark: 210 40% 98%;
-    --foreground-light: 222 47% 11%;
-
-    --card-dark: 200 100% 11%; /* Slightly lighter than bg */
-    --card-light: 0 0% 100%;
-    
-    --popover-dark: 200 100% 9%;
-    --popover-light: 0 0% 100%;
-
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
     --primary: 143 66% 53%; /* #35D86D */
     --primary-foreground: 222 47% 11%;
- 
     --secondary: 176 100% 27%; /* #008980 */
     --secondary-foreground: 210 40% 98%;
- 
-    --muted-dark: 200 100% 12%;
-    --muted-light: 240 5% 96%;
-    
-    --muted-foreground-dark: 215 28% 75%; /* Brighter for contrast */
-    --muted-foreground-light: 240 4% 46%;
- 
-    --accent-dark: 200 100% 15%;
-    --accent-light: 240 5% 96%;
-
-    --accent-foreground-dark: 210 40% 98%;
-    --accent-foreground-light: 222 47% 11%;
- 
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-
-    --border-dark: 200 100% 15%;
-    --border-light: 240 6% 90%;
-    --input-dark: 200 100% 15%;
-    --input-light: 240 6% 90%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
     --ring: 143 66% 53%;
- 
     --radius: 0.8rem;
   }
 
-  /* Main dark theme for hero/footer */
-  .dark-theme {
+  .dark {
     --background: 200 100% 9%; /* #00202e */
-    --foreground: var(--foreground-dark);
-    --card: var(--card-dark);
-    --card-foreground: var(--foreground-dark);
-    --popover: var(--popover-dark);
-    --popover-foreground: var(--foreground-dark);
-    --muted: var(--muted-dark);
-    --muted-foreground: var(--muted-foreground-dark);
-    --accent: var(--accent-dark);
-    --accent-foreground: var(--accent-foreground-dark);
-    --border: var(--border-dark);
-    --input: var(--input-dark);
-    --primary-foreground: var(--foreground-dark);
-  }
-
-  /* Main light theme for body content */
-  .light-theme {
-    --background: var(--background-light);
-    --foreground: var(--foreground-light);
-    --card: var(--card-light);
-    --card-foreground: var(--foreground-light);
-    --popover: var(--popover-light);
-    --popover-foreground: var(--foreground-light);
-    --muted: var(--muted-light);
-    --muted-foreground: var(--muted-foreground-light);
-    --accent: var(--accent-light);
-    --accent-foreground: var(--accent-foreground-light);
-    --border: var(--border-light);
-    --input: var(--input-light);
+    --foreground: 210 40% 98%;
+    --card: 200 100% 11%;
+    --card-foreground: 210 40% 98%;
+    --popover: 200 100% 9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 143 66% 53%;
     --primary-foreground: 222 47% 11%;
+    --secondary: 176 100% 27%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 200 100% 12%;
+    --muted-foreground: 215 28% 75%;
+    --accent: 200 100% 15%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 200 100% 15%;
+    --input: 200 100% 15%;
+    --ring: 143 66% 53%;
   }
 }
 
@@ -93,11 +61,3 @@
     @apply font-bold;
   }
 }
-
-/* Auto-aspect pre obrázky, keď meníš len jeden rozmer */
-img.auto-aspect { height: auto !important; width: auto !important; }
-img.auto-h     { height: auto !important; }
-img.auto-w     { width:  auto !important; }
-
-/* špeci pre logo */
-img.logo { height: 40px; width: auto; }

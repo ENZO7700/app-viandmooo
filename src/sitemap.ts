@@ -5,7 +5,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = 'https://app.viandmo.com';
 
   const staticRoutes = [
-    "", 
+    "/",
     "/about",
     "/contact",
     "/blog",
@@ -14,7 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${siteUrl}${slug}`,
     lastModified: new Date().toISOString(),
     changeFrequency: 'weekly' as const,
-    priority: slug === '' ? 1.0 : 0.8,
+    priority: slug === '/' ? 1.0 : 0.8,
   }));
 
   const blogRoutes = blogPosts.map((post) => ({
