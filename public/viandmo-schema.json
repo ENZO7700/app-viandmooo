@@ -1,0 +1,44 @@
+{
+  "@context": "https://schema.org",
+  "@type": "MovingCompany",
+  "name": "VI&MO Sťahovanie Bratislava",
+  "url": "https://app.viandmo.com",
+  "logo": "https://app.viandmo.com/assets/logo-viandmo-white.svg",
+  "image": "https://app.viandmo.com/assets/stahovanie-bratislava.webp",
+  "telephone": "+421911275755",
+  "email": "info@viandmo.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Karpatské námestie 7770/10A",
+    "addressLocality": "Bratislava",
+    "postalCode": "831 06",
+    "addressCountry": "SK"
+  },
+  "areaServed": [
+    "Bratislava",
+    "Petržalka",
+    "Ružinov",
+    "Karlova Ves",
+    "Nové Mesto",
+    "Rača"
+  ],
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
+      "opens": "00:00",
+      "closes": "23:59"
+    }
+  ],
+  "sameAs": [
+    "https://www.facebook.com/p/VI-MO-stahovanie-upratovanie-100063524682338/"
+  ]
+}

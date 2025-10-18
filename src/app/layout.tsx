@@ -9,7 +9,7 @@ const APP_DEFAULT_TITLE = "Sťahovanie Bytov a Firiem Bratislava | VI&MO";
 const APP_TITLE_TEMPLATE = "%s | VI&MO";
 const APP_DESCRIPTION = "Profesionálne sťahovanie bytov, domov a firiem v Bratislave a okolí. Ponúkame aj vypratávanie a upratovacie služby. Získajte nezáväznú cenovú ponuku.";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.viandmo.com';
+const siteUrl = 'https://app.viandmo.com';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -73,46 +73,6 @@ const mainFont = Plus_Jakarta_Sans({
   weight: ['400', '600', '700', '800'],
 });
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
-  name: 'VI and MO s. r. o.',
-  image: `${siteUrl}/viandmo_logo.png`,
-  '@id': siteUrl,
-  url: siteUrl,
-  telephone: '+421 911 275 755',
-  priceRange: '€€',
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: 'Karpatské námestie 7770/10A',
-    addressLocality: 'Bratislava',
-    postalCode: '831 06',
-    addressCountry: 'SK',
-  },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: 48.2045899,
-    longitude: 17.1479833,
-  },
-  openingHoursSpecification: {
-    '@type': 'OpeningHoursSpecification',
-    dayOfWeek: [
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday',
-    ],
-    opens: '00:00',
-    closes: '23:59',
-  },
-  sameAs: [
-    'https://www.facebook.com/p/VI-MO-stahovanie-upratovanie-100063524682338/'
-  ],
-};
-
 
 export default function RootLayout({
   children,
@@ -124,7 +84,7 @@ export default function RootLayout({
       <head>
          <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          src="/viandmo-schema.json"
         />
       </head>
       <body className={cn('font-body antialiased')}>
