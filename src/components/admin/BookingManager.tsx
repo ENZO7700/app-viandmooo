@@ -17,7 +17,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
-import { useRouter } from "next/navigation";
 import { useCollection, useFirebase } from "@/firebase";
 import { collection } from "firebase/firestore";
 import { Skeleton } from "../ui/skeleton";
@@ -25,7 +24,6 @@ import { Skeleton } from "../ui/skeleton";
 
 function DeleteButton({ bookingId }: { bookingId: string }) {
     const { toast } = useToast();
-    const router = useRouter();
 
     const handleDelete = async () => {
         if (!confirm('Naozaj si želáte zmazať túto zákazku?')) return;

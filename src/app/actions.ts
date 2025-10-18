@@ -2,7 +2,7 @@
 
 import { z } from 'zod';
 import type { ContactSubmission } from '@/lib/data';
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { initializeFirebase } from '@/firebase';
 
 const contactFormSchema = z.object({

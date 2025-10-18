@@ -3,8 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { initializeFirebase } from "@/firebase";
-import { collection, doc, addDoc, updateDoc, deleteDoc, getFirestore } from "firebase/firestore";
-import type { Booking } from "@/lib/data";
+import { collection, doc, addDoc, updateDoc, deleteDoc } from "firebase/firestore";
 
 const bookingSchema = z.object({
   clientName: z.string().min(1, "Meno klienta je povinné."),
