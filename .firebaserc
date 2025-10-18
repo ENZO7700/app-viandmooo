@@ -3,6 +3,14 @@
     "viandmo": "aetherflow-6gd9p",
     "app-viandmo": "studio-9970817292-3ce01"
   },
-  "targets": {},
+  "targets": {
+    "studio-9970817292-3ce01": {
+      "hosting": {
+        "app-viandmo": [
+          "app-viandmo"
+        ]
+      }
+    }
+  },
   "etags": {}
 }
