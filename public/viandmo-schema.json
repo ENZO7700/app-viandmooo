@@ -21,28 +21,29 @@
       "name": "Bratislava"
     },
     {
-      "@type": "AdministrativeArea",
+      "@type": "City",
       "name": "Petržalka"
     },
     {
-      "@type": "AdministrativeArea",
+      "@type": "City",
       "name": "Ružinov"
     },
     {
-      "@type": "AdministrativeArea",
+      "@type": "City",
       "name": "Karlova Ves"
     },
     {
-      "@type": "AdministrativeArea",
+      "@type": "City",
       "name": "Nové Mesto"
     },
     {
-      "@type": "AdministrativeArea",
+      "@type": "City",
       "name": "Rača"
     }
   ],
   "openingHours": "Mo,Tu,We,Th,Fr,Sa,Su 00:00-23:59",
   "sameAs": [
     "https://www.facebook.com/p/VI-MO-stahovanie-upratovanie-100063524682338/"
-  ]
+  ],
+  "keywords": "sťahovanie Bratislava, lacné sťahovanie Bratislava, sťahovanie bytov Bratislava, sťahovanie kancelárií Bratislava, preprava nábytku Bratislava, vypratávanie bytov Bratislava, odvoz a likvidácia nábytku Bratislava, sťahovanie klavírov Bratislava, lacné sťahovanie v Bratislave cenník, nonstop sťahovanie Bratislava"
 }
