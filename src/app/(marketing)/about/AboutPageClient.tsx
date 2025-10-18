@@ -89,7 +89,7 @@ export default function AboutPageClient() {
         viewport={{ once: true, amount: 0.3 }}
       >
         <div className="container grid md:grid-cols-2 gap-12 items-center">
-          <div>
+          <div className="text-center md:text-left">
             <h2 className="text-3xl md:text-4xl font-headline font-bold text-primary mb-4">Naša Filozofia</h2>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>Sme silná partia v oblasti &quot;moving & logistic&quot; služieb. Jadrom našej identity je viac než <strong className="text-foreground font-semibold">7 rokov skúseností</strong>, počas ktorých sme sa vyprofilovali na expertov v profesionálnom sťahovaní, ekologickej likvidácii odpadu a nadštandardných upratovacích prácach. Či už potrebujete presťahovať malý byt, rozsiahle kancelárie alebo celú firmu, náš prístup zostáva rovnaký – precízny, zodpovedný a s citom pre detail.</p>
@@ -160,7 +160,7 @@ export default function AboutPageClient() {
               Sme tu pre vás, pripravení zodpovedať vaše otázky a pomôcť vám s vašimi požiadavkami.
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {team.map((member) => (
                 <motion.div 
                     key={member.name}
