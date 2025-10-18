@@ -16,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: slug === '' ? 1.0 : 0.8,
   }));
 
+  // Assuming blog posts are still relevant for the sitemap
   const blogRoutes = [
     { slug: 'ako-si-vybrat-stahovaciu-sluzbu-v-bratislave', date: '2024-05-20' },
     { slug: 'najcastejsie-chyby-pri-stahovani-v-bratislave', date: '2024-05-15' },

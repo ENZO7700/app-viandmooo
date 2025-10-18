@@ -15,35 +15,18 @@
     "postalCode": "831 06",
     "addressCountry": "SK"
   },
-  "areaServed": [
-    {
-      "@type": "City",
-      "name": "Bratislava"
+  "areaServed": {
+    "@type": "GeoCircle",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": "48.148598",
+      "longitude": "17.107748"
     },
-    {
-      "@type": "City",
-      "name": "Petržalka"
-    },
-    {
-      "@type": "City",
-      "name": "Ružinov"
-    },
-    {
-      "@type": "City",
-      "name": "Karlova Ves"
-    },
-    {
-      "@type": "City",
-      "name": "Nové Mesto"
-    },
-    {
-      "@type": "City",
-      "name": "Rača"
-    }
-  ],
+    "geoRadius": "25000"
+  },
   "openingHours": "Mo,Tu,We,Th,Fr,Sa,Su 00:00-23:59",
   "sameAs": [
     "https://www.facebook.com/p/VI-MO-stahovanie-upratovanie-100063524682338/"
   ],
-  "keywords": "sťahovanie Bratislava, lacné sťahovanie Bratislava, sťahovanie bytov Bratislava, sťahovanie kancelárií Bratislava, preprava nábytku Bratislava, vypratávanie bytov Bratislava, odvoz a likvidácia nábytku Bratislava, sťahovanie klavírov Bratislava, lacné sťahovanie v Bratislave cenník, nonstop sťahovanie Bratislava"
+  "priceRange": "€€"
 }
