@@ -16,7 +16,6 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 
 type SortKey = 'start' | 'price' | 'clientName';
@@ -71,7 +70,6 @@ export function BookingManager() {
   }, [bookings, sortKey, sortDirection]);
   
 
-  if (loading) return <div>Načítavam zákazky...</div>;
   if (error) return <div>Chyba: {error.message}</div>;
 
   const formatPrice = (price: number) => {
@@ -120,7 +118,13 @@ export function BookingManager() {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {sortedBookings && sortedBookings.length > 0 ? (
+                {loading ? (
+                    <TableRow>
+                        <TableCell colSpan={6} className="text-center py-10">
+                            Načítavam zákazky...
+                        </TableCell>
+                    </TableRow>
+                ) : sortedBookings && sortedBookings.length > 0 ? (
                     sortedBookings.map((booking) => (
                         <TableRow key={booking.id}>
                         <TableCell className="font-medium">{booking.title}</TableCell>

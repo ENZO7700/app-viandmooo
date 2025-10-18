@@ -1,8 +1,7 @@
-import { MetadataRoute } from 'next'
 import { blogPosts } from '@/lib/blog-posts';
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = 'https://app.viandmo.com';
+export default function sitemap() {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://app.viandmo.com';
 
   const staticRoutes = [
     "/",
@@ -13,14 +12,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ].map((slug) => ({
     url: `${siteUrl}${slug}`,
     lastModified: new Date().toISOString(),
-    changeFrequency: 'weekly' as const,
+    changeFrequency: 'weekly',
     priority: slug === '/' ? 1.0 : 0.8,
   }));
 
   const blogRoutes = blogPosts.map((post) => ({
       url: `${siteUrl}/blog/${post.slug}`,
       lastModified: new Date(post.date).toISOString(),
-      changeFrequency: 'monthly' as const,
+      changeFrequency: 'monthly',
       priority: 0.7,
   }));
 

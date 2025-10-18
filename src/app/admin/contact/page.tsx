@@ -7,10 +7,11 @@ import { CalendarClient } from './CalendarClient';
 import { useCollection, useFirebase } from '@/firebase';
 import { mapBookingsToCalendarEvents, type Booking } from '@/lib/data';
 import 'firebase/compat/firestore';
+import { useMemo } from 'react';
 
 export default function AdminContactPage() {
     const { firestore } = useFirebase();
-    const bookingsQuery = firestore ? firestore.collection('bookings') : null;
+    const bookingsQuery = useMemo(() => firestore ? firestore.collection('bookings') : null, [firestore]);
     const { data: bookings, loading } = useCollection<Booking>(bookingsQuery);
 
     const events = mapBookingsToCalendarEvents(bookings || []);

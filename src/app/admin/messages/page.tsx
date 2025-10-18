@@ -9,7 +9,7 @@ import { useMemo } from "react";
 
 export default function AdminMessagesPage() {
     const { firestore } = useFirebase();
-    const submissionsQuery = firestore ? firestore.collection('submissions') : null;
+    const submissionsQuery = useMemo(() => firestore ? firestore.collection('submissions') : null, [firestore]);
     const { data: submissions, loading } = useCollection<ContactSubmission>(submissionsQuery);
 
     const sortedSubmissions = useMemo(() => {

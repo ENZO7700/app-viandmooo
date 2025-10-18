@@ -7,7 +7,7 @@ import { useCollection } from '@/firebase/firestore/use-collection';
 import { type Booking } from '@/lib/data';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from 'recharts';
-import { subDays, startOfMonth, format, isWithinInterval } from 'date-fns';
+import { subDays, startOfMonth, format } from 'date-fns';
 import { sk } from 'date-fns/locale';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -30,7 +30,7 @@ const StatCard = ({ title, value, description }: { title: string, value: string,
 export function Dashboard() {
     const firestore = useFirestore();
     const query = useMemo(() => firestore.collection('bookings').where('status', '==', 'Completed'), [firestore]);
-    const { data: bookings, loading } = useCollection<Booking>(query);
+    const { data: bookings, loading, error } = useCollection<Booking>(query);
     const [period, setPeriod] = useState<Period>('month');
 
     const formatPrice = (price: number) => new Intl.NumberFormat('sk-SK', { style: 'currency', currency: 'EUR' }).format(price);
@@ -75,7 +75,11 @@ export function Dashboard() {
         };
     }, [filteredBookings]);
 
+    if (error) {
+        return <div className="text-destructive">Chyba pri načítavaní dát: {error.message}</div>
+    }
     if (loading) {
+        // This is handled by Suspense in the page, but as a fallback.
         return <div>Načítavanie štatistík...</div>
     }
 

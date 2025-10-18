@@ -37,7 +37,7 @@ function GoogleIcon() {
 function GoogleSignInButton() {
     const { pending } = useFormStatus();
     return (
-        <Button variant="outline" className="w-full" type="submit" disabled={pending}>
+        <Button variant="outline" className="w-full gap-2" type="submit" disabled={pending}>
             <GoogleIcon />
             {pending ? 'Presmerovávam...' : 'Prihlásiť sa cez Google'}
         </Button>
@@ -56,6 +56,7 @@ export default function LoginPage() {
           fill
           priority
           className="object-cover opacity-20"
+          data-ai-hint="moving furniture"
         />
          <div className="absolute inset-0 flex flex-col justify-end p-12 text-white bg-gradient-to-t from-black/60 to-transparent">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}>

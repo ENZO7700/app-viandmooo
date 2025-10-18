@@ -6,10 +6,17 @@ import { Skeleton } from "@/components/ui/skeleton";
 function BookingsSkeleton() {
     return (
         <div className="space-y-4">
-            <div className="flex justify-end">
-                <Skeleton className="h-10 w-[150px]" />
+            <div className="flex justify-end mb-4">
+                <Skeleton className="h-10 w-[210px]" />
             </div>
-            <Skeleton className="h-48 w-full" />
+            <div className="rounded-md border">
+                <Skeleton className="h-12 w-full" />
+                <div className="p-4 space-y-2">
+                    <Skeleton className="h-10 w-full" />
+                    <Skeleton className="h-10 w-full" />
+                    <Skeleton className="h-10 w-full" />
+                </div>
+            </div>
         </div>
     )
 }

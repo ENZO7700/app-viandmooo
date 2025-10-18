@@ -17,8 +17,7 @@ export interface LoginCredentials {
 }
 
 export async function getSession(): Promise<IronSession<SessionData>> {
-  const session = await getIronSession<SessionData>(cookies(), sessionOptions);
-  return session;
+  return getIronSession<SessionData>(cookies(), sessionOptions);
 }
 
 export async function login(credentials: LoginCredentials) {
@@ -34,10 +33,11 @@ export async function login(credentials: LoginCredentials) {
         const session = await getSession();
         session.isLoggedIn = true;
         
-        // Adjust cookie lifetime if "Remember me" is checked
         if (credentials.remember) {
-             // This will extend the cookie's life
-             session.options.cookieOptions.maxAge = 60 * 60 * 24 * 30; // 30 days
+            // Set maxAge only when saving the session
+            sessionOptions.cookieOptions.maxAge = 60 * 60 * 24 * 30; // 30 days
+        } else {
+            sessionOptions.cookieOptions.maxAge = undefined; // Session cookie
         }
         
         await session.save();
