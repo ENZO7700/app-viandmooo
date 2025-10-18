@@ -16,8 +16,8 @@ export interface LoginCredentials {
     remember?: boolean;
 }
 
-export async function getSession(options = sessionOptions): Promise<IronSession<SessionData>> {
-  const session = await getIronSession<SessionData>(cookies(), options);
+export async function getSession(): Promise<IronSession<SessionData>> {
+  const session = await getIronSession<SessionData>(cookies(), sessionOptions);
   return session;
 }
 
@@ -31,17 +31,15 @@ export async function login(credentials: LoginCredentials) {
         credentials.email === 'admin@admin.com' &&
         credentials.password === 'admin'
     ) {
-        const options = { ...sessionOptions };
-
+        const session = await getSession();
+        session.isLoggedIn = true;
+        
         // Adjust cookie lifetime if "Remember me" is checked
         if (credentials.remember) {
-             options.cookieOptions.maxAge = 60 * 60 * 24 * 30; // 30 days
-        } else {
-             options.cookieOptions.maxAge = undefined; // Session cookie
+             // This will extend the cookie's life
+             session.options.cookieOptions.maxAge = 60 * 60 * 24 * 30; // 30 days
         }
         
-        const session = await getSession(options);
-        session.isLoggedIn = true;
         await session.save();
         
         return { success: true, error: undefined };
