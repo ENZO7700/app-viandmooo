@@ -16,9 +16,6 @@ export function useCollection<T extends DocumentData>(
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<FirestoreError | undefined>(undefined);
   
-  // Create a stable string representation of the query
-  const queryKey = query ? query.path : null; // Simplified key
-
   useEffect(() => {
     if (!query) {
       setData(undefined);
@@ -46,8 +43,7 @@ export function useCollection<T extends DocumentData>(
     );
 
     return () => unsubscribe();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [queryKey, JSON.stringify(options)]); 
+  }, [query, options]); 
 
   return { data, loading, error };
 }
