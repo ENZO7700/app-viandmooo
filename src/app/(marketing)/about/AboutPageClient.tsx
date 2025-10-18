@@ -57,7 +57,7 @@ export default function AboutPageClient() {
       {/* Hero Section */}
       <section className="relative h-96 w-full flex items-center justify-center text-center text-white">
         <Image
-          src={imageData.aboutHero.src}
+          src={imageData.blogHero.src}
           alt="Tím VI&MO v akcii pri sťahovaní v Bratislave"
           fill
           priority

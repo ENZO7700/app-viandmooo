@@ -48,9 +48,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#00202e]/80 backdrop-blur-md">
       <div className="container flex h-20 items-center">
-        <Link href="/" className="relative flex items-center">
-          <Logo />
-        </Link>
+        <Logo />
         <nav className="hidden md:flex flex-grow justify-end items-center gap-4">
           {navLinks.map(link => <NavLink key={link.href} {...link} />)}
            <div className="flex items-center gap-3 ml-4">
@@ -73,9 +71,7 @@ export default function Header() {
             <SheetContent side="left" className="bg-[#00202e] p-6 border-r-0">
                <SheetTitle className="sr-only">Hlavné menu</SheetTitle>
                <div className="mb-8">
-                 <Link href="/" className="relative flex items-center">
-                    <Logo />
-                </Link>
+                 <Logo />
                </div>
               <nav className="flex flex-col items-start gap-4">
                 {navLinks.map(link => (
