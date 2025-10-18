@@ -45,7 +45,7 @@ export async function createOrUpdateBooking(
     const eventData = {
         ...parsed.data,
         start: eventDate.toISOString(),
-        end: eventDate.toISOString(), // Ensure end date is also set
+        end: eventDate.toISOString(), 
     };
 
     if (bookingId) {

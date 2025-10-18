@@ -34,7 +34,6 @@ function DeleteButton({ bookingId }: { bookingId: string }) {
                 title: 'Úspech!',
                 description: result.message,
             });
-            // Real-time listener from useCollection will handle the UI update.
         } else {
             toast({
                 title: 'Chyba',

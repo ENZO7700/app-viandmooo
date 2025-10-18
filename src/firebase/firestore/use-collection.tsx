@@ -20,7 +20,9 @@ export function useCollection<T extends DocumentData>(
   const [data, setData] = useState<T[] | undefined>(undefined);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<FirestoreError | undefined>(undefined);
-  const queryRef = useRef<Query | null>(null);
+  
+  // Create a stable string representation of the query
+  const queryKey = query ? `${query.path}_${JSON.stringify(query.where)}_${JSON.stringify(query.orderBy)}` : null;
 
   useEffect(() => {
     if (!query) {
@@ -30,10 +32,6 @@ export function useCollection<T extends DocumentData>(
       return;
     }
     
-    // Using a custom key or just comparing query objects might not be enough with compat library.
-    // A simple way to ensure re-fetch is to rely on a dependency array that changes.
-    // The key in options provides a manual way to trigger this.
-
     setLoading(true);
 
     const unsubscribe = query.onSnapshot(
@@ -52,7 +50,7 @@ export function useCollection<T extends DocumentData>(
     );
 
     return () => unsubscribe();
-  }, [query ? options?.key : null]); // Simplified dependency
+  }, [queryKey]); 
 
   return { data, loading, error };
 }
