@@ -1,8 +1,9 @@
+
 {
   "@context": "https://schema.org",
   "@type": "MovingCompany",
   "name": "VI&MO Sťahovanie Bratislava",
-  "url": "https://app.viandmo.com",
+  "url": "https://app.viandmo.com/",
   "logo": "https://app.viandmo.com/viandmo_logo.png",
   "image": "https://app.viandmo.com/og-image.jpg",
   "telephone": "+421911275755",
@@ -40,9 +41,8 @@
       "name": "Rača"
     }
   ],
-  "openingHours": "Mo-Su 00:00-24:00",
+  "openingHours": "Mo,Tu,We,Th,Fr,Sa,Su 00:00-23:59",
   "sameAs": [
     "https://www.facebook.com/p/VI-MO-stahovanie-upratovanie-100063524682338/"
-  ],
-  "priceRange": "€€"
+  ]
 }
