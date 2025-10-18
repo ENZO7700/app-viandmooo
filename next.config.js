@@ -6,6 +6,7 @@ const withPWA = require('next-pwa')({
   skipWaiting: true,
   fallbacks: { document: '/offline.html' }
 });
+
 module.exports = withPWA({
   reactStrictMode: true,
   async headers() {
@@ -17,5 +18,19 @@ module.exports = withPWA({
         ],
       },
     ];
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'viandmo.com',
+        port: '',
+        pathname: '/wp-content/uploads/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'picsum.photos',
+      },
+    ],
   },
 });
