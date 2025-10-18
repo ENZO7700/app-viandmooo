@@ -15,6 +15,8 @@ import { Checkbox } from '@/components/ui/checkbox';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import imageData from '@/lib/placeholder-images.json';
+
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -52,12 +54,12 @@ export default function LoginPage() {
     <div className="w-full lg:grid lg:min-h-screen lg:grid-cols-2 xl:min-h-screen bg-background">
       <div className="hidden bg-muted lg:block relative">
         <Image
-          src="https://viandmo.com/wp-content/uploads/stahovanie-nabytku-viandmo-scaled.jpg"
+          src={imageData.loginBackground.src}
           alt="Sťahovanie nábytku VI&MO"
           fill
           priority
           className="object-cover opacity-20"
-          data-ai-hint="moving furniture"
+          data-ai-hint={imageData.loginBackground.hint}
         />
          <div className="absolute inset-0 flex flex-col justify-end p-12 text-white bg-gradient-to-t from-black/60 to-transparent">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}>

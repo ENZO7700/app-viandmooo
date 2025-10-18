@@ -57,12 +57,12 @@ export default function AboutPageClient() {
       {/* Hero Section */}
       <section className="relative h-96 w-full flex items-center justify-center text-center text-white">
         <Image
-          src={imageData.blogHero.src}
+          src={imageData.aboutHero.src}
           alt="Tím VI&MO v akcii pri sťahovaní v Bratislave"
           fill
           priority
           className="object-cover object-center"
-          data-ai-hint="moving team action"
+          data-ai-hint={imageData.aboutHero.hint}
         />
         <div className="absolute inset-0 bg-black/60" />
         <motion.div 

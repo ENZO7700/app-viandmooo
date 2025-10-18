@@ -1,4 +1,10 @@
 {
+  "loginBackground": {
+    "src": "https://viandmo.com/wp-content/uploads/stahovanie-nabytku-viandmo-scaled.jpg",
+    "width": 1920,
+    "height": 1280,
+    "hint": "moving furniture"
+  },
   "aboutHero": {
     "src": "https://viandmo.com/wp-content/uploads/viandmo-stahovanie-bratislava-dodavka-tim-scaled.jpg",
     "width": 1920,
@@ -12,7 +18,7 @@
     "hint": "typing laptop keyboard"
   },
   "aboutPacking": {
-    "src": "https://viandmo.com/wp-content/uploads/stahovanie-klavira-piána-bratislava-viandmo.jpg",
+    "src": "https://viandmo.com/wp-content/uploads/stahovanie-klavira-piana-bratislava-viandmo.jpg",
     "width": 800,
     "height": 600,
     "hint": "packing fragile items"
