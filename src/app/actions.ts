@@ -2,7 +2,7 @@
 
 import { z } from 'zod';
 import type { ContactSubmission } from '@/lib/data';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { collection, addDoc } from 'firebase/firestore';
 import { initializeFirebase } from '@/firebase';
 
 const contactFormSchema = z.object({
@@ -59,10 +59,4 @@ export async function submitContactForm(
              fields: parsed.data,
         }
     }
-}
-
-export async function fetchSubmissions(db: any): Promise<ContactSubmission[]> {
-    const submissionsCollection = collection(db, 'submissions');
-    const snapshot = await getDocs(submissionsCollection);
-    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as ContactSubmission));
 }

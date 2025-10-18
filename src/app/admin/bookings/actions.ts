@@ -53,6 +53,7 @@ export async function createOrUpdateBooking(
       await addDoc(bookingsCollection, eventData);
     }
     
+    // Revalidation is less critical with real-time listeners, but good for SSR/ISR fallback
     revalidatePath('/admin/bookings');
     revalidatePath('/admin');
     revalidatePath('/admin/contact');
@@ -77,6 +78,7 @@ export async function deleteBookingAction(bookingId: string) {
         const bookingRef = doc(firestore, 'bookings', bookingId);
         await deleteDoc(bookingRef);
 
+        // Revalidation is less critical with real-time listeners, but good for SSR/ISR fallback
         revalidatePath('/admin/bookings');
         revalidatePath('/admin');
         revalidatePath('/admin/contact');

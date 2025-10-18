@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { BookingManager } from "@/components/admin/BookingManager";
 import { Suspense } from "react";
