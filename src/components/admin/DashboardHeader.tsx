@@ -21,6 +21,7 @@ import { Input } from "../ui/input"
 import { ThemeSwitcher } from "./ThemeSwitcher"
 import { logout } from "./actions";
 import Image from "next/image"
+import Logo from "../layout/Logo";
 
 export function DashboardHeader() {
     return (
@@ -30,15 +31,7 @@ export function DashboardHeader() {
                     href="/"
                     className="flex items-center gap-2 text-lg font-semibold md:text-base"
                 >
-                    <Image 
-                        src="https://viandmo.com/wp-content/uploads/viandmo_logo_regular_white.svg" 
-                        alt="VI&MO Logo" 
-                        width={96}
-                        height={25}
-                        priority
-                        className="h-10 w-auto"
-                        data-ai-hint="logo"
-                    />
+                    <Logo />
                     <span className="sr-only">VI&MO</span>
                 </Link>
                 {adminNavItems.map(item => (
@@ -68,15 +61,7 @@ export function DashboardHeader() {
                             href="/"
                             className="flex items-center gap-2 text-lg font-semibold"
                         >
-                            <Image 
-                                src="https://viandmo.com/wp-content/uploads/viandmo_logo_regular_white.svg" 
-                                alt="VI&MO Logo" 
-                                width={96}
-                                height={25}
-                                priority
-                                className="h-10 w-auto"
-                                data-ai-hint="logo"
-                            />
+                           <Logo />
                             <span className="sr-only">VI&MO</span>
                         </Link>
                         {adminNavItems.map(item => (
@@ -133,5 +118,3 @@ export function DashboardHeader() {
         </header>
     )
 }
-
-    

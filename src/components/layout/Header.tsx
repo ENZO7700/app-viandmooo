@@ -8,6 +8,7 @@ import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/s
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import Logo from "./Logo";
 
 const navLinks = [
   { href: "/", label: "Úvod" },
@@ -48,16 +49,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#00202e]/80 backdrop-blur-md">
       <div className="container flex h-20 items-center">
         <Link href="/" className="relative flex items-center">
-          <Image 
-            src="https://viandmo.com/wp-content/uploads/viandmo_logo_regular_white.svg" 
-            alt="VI&MO Logo" 
-            width={96}
-            height={25}
-            priority
-            fetchPriority="high"
-            className="h-10 w-auto"
-            data-ai-hint="logo"
-          />
+          <Logo />
         </Link>
         <nav className="hidden md:flex flex-grow justify-end items-center gap-4">
           {navLinks.map(link => <NavLink key={link.href} {...link} />)}
@@ -82,15 +74,7 @@ export default function Header() {
                <SheetTitle className="sr-only">Hlavné menu</SheetTitle>
                <div className="mb-8">
                  <Link href="/" className="relative flex items-center">
-                    <Image 
-                        src="https://viandmo.com/wp-content/uploads/viandmo_logo_regular_white.svg" 
-                        alt="VI&MO Logo" 
-                        width={96}
-                        height={25}
-                        priority
-                        className="h-10 w-auto"
-                        data-ai-hint="logo"
-                    />
+                    <Logo />
                 </Link>
                </div>
               <nav className="flex flex-col items-start gap-4">
@@ -110,5 +94,3 @@ export default function Header() {
     </header>
   );
 }
-
-    

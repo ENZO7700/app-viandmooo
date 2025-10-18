@@ -5,6 +5,12 @@
     "height": 1080,
     "hint": "moving team action"
   },
+  "blogHero": {
+    "src": "https://viandmo.com/wp-content/uploads/viandmo-stahovanie-bratislava-dodavka-tim-scaled.jpg",
+    "width": 1920,
+    "height": 1080,
+    "hint": "typing laptop keyboard"
+  },
   "aboutPacking": {
     "src": "https://viandmo.com/wp-content/uploads/stahovanie-klavira-piána-bratislava-viandmo.jpg",
     "width": 800,

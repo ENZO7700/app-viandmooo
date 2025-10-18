@@ -26,13 +26,13 @@ export default function BlogPage() {
       {/* Hero Section */}
       <section className="relative h-96 w-full flex items-center justify-center text-center text-white">
         <Image
-          src={imageData.aboutHero.src}
+          src={imageData.blogHero.src}
           alt="Písanie na klávesnici notebooku - blog o sťahovaní v Bratislave"
           fill
           priority
           fetchPriority="high"
           className="object-cover object-center brightness-50"
-          data-ai-hint={imageData.aboutHero.hint}
+          data-ai-hint={imageData.blogHero.hint}
         />
         <div className="relative z-10 p-4">
           <h1 className="text-5xl md:text-7xl font-headline leading-tight text-primary-foreground drop-shadow-lg">
@@ -123,5 +123,3 @@ export default function BlogPage() {
     </div>
   );
 }
-
-    

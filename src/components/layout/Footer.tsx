@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
 import { Facebook, Instagram, Phone, Mail } from 'lucide-react';
 import Image from 'next/image';
+import Logo from './Logo';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -13,15 +14,7 @@ export default function Footer() {
       <div className="container grid grid-cols-1 gap-8 text-center md:grid-cols-4 md:text-left">
         <div className="flex flex-col items-center md:items-start">
             <Link href="/" className="relative flex items-center">
-                <Image 
-                    src="https://viandmo.com/wp-content/uploads/viandmo_logo_regular_white.svg" 
-                    alt="VI&MO Logo" 
-                    width={96}
-                    height={25}
-                    priority
-                    className="h-10 w-auto"
-                    data-ai-hint="logo"
-                />
+                <Logo />
             </Link>
           <p className="text-sm text-white max-w-xs mt-4">
             Spoľahlivé sťahovanie, vypratávanie a upratovanie v Bratislave a okolí. Rýchlo, efektívne a s ľudským prístupom.
@@ -87,5 +80,3 @@ export default function Footer() {
     </footer>
   );
 }
-
-    
