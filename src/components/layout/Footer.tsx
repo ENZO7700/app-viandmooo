@@ -1,3 +1,4 @@
+
 'use client';
 import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
@@ -18,7 +19,7 @@ export default function Footer() {
                     width={96}
                     height={25}
                     priority
-                    className="h-auto"
+                    className="h-10 w-auto"
                     data-ai-hint="logo"
                 />
             </Link>

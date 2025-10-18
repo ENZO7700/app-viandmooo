@@ -1,0 +1,8 @@
+
+/* Auto-aspect pre obrázky, keď meníš len jeden rozmer */
+img.auto-aspect { height: auto !important; width: auto !important; }
+img.auto-h     { height: auto !important; }
+img.auto-w     { width:  auto !important; }
+
+/* špeci pre logo */
+img.logo { height: 40px; width: auto; }

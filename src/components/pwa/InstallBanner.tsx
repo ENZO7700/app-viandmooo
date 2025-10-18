@@ -64,7 +64,7 @@ const InstallBanner = () => {
                 width={48}
                 height={48}
                 priority
-                className="h-auto w-12"
+                className="h-10 w-auto"
                 data-ai-hint="logo"
             />
         </div>

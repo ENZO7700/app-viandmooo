@@ -55,7 +55,7 @@ export default function Header() {
             height={25}
             priority
             fetchpriority="high"
-            className="h-auto"
+            className="h-10 w-auto"
             data-ai-hint="logo"
           />
         </Link>
@@ -88,7 +88,7 @@ export default function Header() {
                         width={96}
                         height={25}
                         priority
-                        className="h-auto"
+                        className="h-10 w-auto"
                         data-ai-hint="logo"
                     />
                 </Link>
