@@ -1,3 +1,4 @@
+
 {
   "entities": {
     "Booking": {
@@ -65,7 +66,7 @@
     }
   },
   "auth": {
-    "providers": ["password"]
+    "providers": ["password", "google"]
   },
   "firestore": {
     "/bookings/{bookingId}": {
