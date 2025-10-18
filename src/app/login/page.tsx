@@ -57,7 +57,7 @@ export default function LoginPage() {
           src={imageData.loginBackground.src}
           alt="Sťahovanie nábytku VI&MO"
           fill
-          priority
+          fetchPriority="high"
           className="object-cover opacity-20"
           data-ai-hint={imageData.loginBackground.hint}
           width={imageData.loginBackground.width}

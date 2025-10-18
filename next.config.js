@@ -4,31 +4,6 @@ require('dotenv').config();
 /** @type {import('next').NextConfig} */
 const baseConfig = {
   reactStrictMode: true,
-  async headers() {
-    const cspHeader = `
-      default-src 'self';
-      script-src 'self' 'unsafe-eval' 'unsafe-inline';
-      style-src 'self' 'unsafe-inline';
-      img-src 'self' https://viandmo.com https://picsum.photos data:;
-      font-src 'self';
-      object-src 'none';
-      base-uri 'self';
-      form-action 'self';
-      frame-ancestors 'none';
-      frame-src 'self' https://www.google.com;
-      upgrade-insecure-requests;
-    `.replace(/\s{2,}/g, ' ').trim();
-
-    return [
-      {
-        source: "/:path*",
-        headers: [
-          { key: "Permissions-Policy", value: "clipboard-write=(self)" },
-          { key: "Content-Security-Policy", value: cspHeader },
-        ],
-      },
-    ];
-  },
   images: {
     remotePatterns: [
       {
@@ -45,4 +20,14 @@ const baseConfig = {
   },
 };
 
-module.exports = baseConfig;
+let withPWA = (x) => x;
+try {
+  withPWA = require('next-pwa')({
+    dest: 'public',
+    disable: process.env.NODE_ENV === 'development',
+  });
+} catch (e) {
+  console.warn('next-pwa not installed, continuing without PWA');
+}
+
+module.exports = withPWA(baseConfig);
