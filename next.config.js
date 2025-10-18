@@ -9,5 +9,15 @@ const withPWA = require('next-pwa')({
 module.exports = withPWA({
   reactStrictMode: true,
   images: { unoptimized: true },
-  eslint: { ignoreDuringBuilds: true }  // ← linty neblokujú build
+  eslint: { ignoreDuringBuilds: true },  // ← linty neblokujú build
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "Permissions-Policy", value: "clipboard-write=(self)" }
+        ],
+      },
+    ];
+  },
 });
