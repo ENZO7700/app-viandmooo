@@ -2,7 +2,46 @@
 'use server';
 
 import { z } from 'zod';
-import { getSubmissions, saveSubmission as saveToFile, type ContactSubmission } from '@/lib/data';
+import fs from 'fs';
+import path from 'path';
+import type { ContactSubmission } from '@/lib/data';
+
+const dataDir = path.join(process.cwd(), 'data');
+const submissionsFilePath = path.join(dataDir, 'submissions.json');
+
+// Helper function to ensure files exist and read them
+function readData<T>(filePath: string): T[] {
+    try {
+        if (!fs.existsSync(dataDir)) {
+            fs.mkdirSync(dataDir, { recursive: true });
+        }
+        if (!fs.existsSync(filePath)) {
+            fs.writeFileSync(filePath, '[]', 'utf8');
+        }
+        const fileContent = fs.readFileSync(filePath, 'utf8');
+        return JSON.parse(fileContent);
+    } catch (error) {
+        console.error(`Error reading data from ${filePath}:`, error);
+        return [];
+    }
+}
+
+// Helper function to write data
+function writeData<T>(filePath: string, data: T[]): void {
+    try {
+        fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+    } catch (error) {
+        console.error(`Error writing data to ${filePath}:`, error);
+    }
+}
+
+const getSubmissions = (): ContactSubmission[] => readData<ContactSubmission>(submissionsFilePath);
+
+const saveSubmission = (submission: ContactSubmission): void => {
+    const submissions = getSubmissions();
+    submissions.unshift(submission);
+    writeData<ContactSubmission>(submissionsFilePath, submissions);
+};
 
 const contactFormSchema = z.object({
     name: z.string().min(1, { message: "Meno je povinné." }),
@@ -45,7 +84,7 @@ export async function submitContactForm(
             date: new Date().toISOString(),
             ...parsed.data,
         };
-        saveToFile(newSubmission);
+        saveSubmission(newSubmission);
         return { message: "Ďakujeme! Vaša správa bola úspešne odoslaná. Ozveme sa vám čo najskôr." };
     } catch (error) {
         return {

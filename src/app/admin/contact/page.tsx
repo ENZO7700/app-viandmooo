@@ -2,10 +2,12 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { CalendarClient } from './CalendarClient';
-import { getCalendarBookings } from '@/lib/data';
+import { fetchBookings } from '@/app/admin/bookings/actions';
+import { mapBookingsToCalendarEvents } from '@/lib/data';
 
-export default function AdminContactPage() {
-    const events = getCalendarBookings();
+export default async function AdminContactPage() {
+    const bookings = await fetchBookings();
+    const events = mapBookingsToCalendarEvents(bookings);
     
     return (
         <div className="space-y-6">

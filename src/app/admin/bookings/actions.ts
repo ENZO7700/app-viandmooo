@@ -1,9 +1,52 @@
 
 'use server';
 
-import { getBookings, saveBookings as saveAllBookings, getNextBookingId, type Booking } from "@/lib/data";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import fs from 'fs';
+import path from 'path';
+import type { Booking } from "@/lib/data";
+
+const dataDir = path.join(process.cwd(), 'data');
+const bookingsFilePath = path.join(dataDir, 'bookings.json');
+
+// Helper function to ensure files exist and read them
+function readData<T>(filePath: string): T[] {
+    try {
+        if (!fs.existsSync(dataDir)) {
+            fs.mkdirSync(dataDir, { recursive: true });
+        }
+        if (!fs.existsSync(filePath)) {
+            fs.writeFileSync(filePath, '[]', 'utf8');
+        }
+        const fileContent = fs.readFileSync(filePath, 'utf8');
+        return JSON.parse(fileContent);
+    } catch (error) {
+        console.error(`Error reading data from ${filePath}:`, error);
+        return [];
+    }
+}
+
+// Helper function to write data
+function writeData<T>(filePath: string, data: T[]): void {
+    try {
+        fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+    } catch (error) {
+        console.error(`Error writing data to ${filePath}:`, error);
+    }
+}
+
+const getBookings = (): Booking[] => readData<Booking>(bookingsFilePath);
+const saveAllBookings = (data: Booking[]): void => writeData<Booking>(bookingsFilePath, data);
+
+const getNextBookingId = (): number => {
+    const bookings = getBookings();
+    if (bookings.length === 0) {
+        return 1;
+    }
+    const maxId = Math.max(...bookings.map(b => b.id));
+    return maxId + 1;
+};
 
 const bookingSchema = z.object({
   clientName: z.string().min(1, "Meno klienta je povinné."),
