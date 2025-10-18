@@ -2,10 +2,26 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { fetchBookings } from "./actions";
 import { BookingManager } from "@/components/admin/BookingManager";
+import { Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+
+async function BookingsData() {
+    const bookings = await fetchBookings();
+    return <BookingManager initialBookings={bookings} />;
+}
+
+function BookingsSkeleton() {
+    return (
+        <div className="space-y-4">
+            <div className="flex justify-end">
+                <Skeleton className="h-10 w-[150px]" />
+            </div>
+            <Skeleton className="h-48 w-full" />
+        </div>
+    )
+}
 
 export default async function AdminBookingsPage() {
-    const bookings = await fetchBookings();
-    
     return (
         <div className="space-y-6">
             <Card>
@@ -16,7 +32,9 @@ export default async function AdminBookingsPage() {
                     </div>
                 </CardHeader>
                 <CardContent>
-                   <BookingManager initialBookings={bookings} />
+                   <Suspense fallback={<BookingsSkeleton />}>
+                        <BookingsData />
+                   </Suspense>
                 </CardContent>
             </Card>
         </div>

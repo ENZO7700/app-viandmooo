@@ -2,45 +2,51 @@
 'use server';
 
 import { z } from 'zod';
-import fs from 'fs';
+import fs from 'fs/promises';
 import path from 'path';
 import type { ContactSubmission } from '@/lib/data';
 
 const dataDir = path.join(process.cwd(), 'data');
 const submissionsFilePath = path.join(dataDir, 'submissions.json');
 
-// Helper function to ensure files exist and read them
-function readData<T>(filePath: string): T[] {
+// Helper function to ensure directory and files exist, then read them
+async function readData<T>(filePath: string): Promise<T[]> {
     try {
-        if (!fs.existsSync(dataDir)) {
-            fs.mkdirSync(dataDir, { recursive: true });
-        }
-        if (!fs.existsSync(filePath)) {
-            fs.writeFileSync(filePath, '[]', 'utf8');
-        }
-        const fileContent = fs.readFileSync(filePath, 'utf8');
+        await fs.mkdir(dataDir, { recursive: true });
+        await fs.access(filePath);
+    } catch {
+        // If file doesn't exist, create it with an empty array
+        await fs.writeFile(filePath, '[]', 'utf8');
+    }
+
+    try {
+        const fileContent = await fs.readFile(filePath, 'utf8');
         return JSON.parse(fileContent);
     } catch (error) {
-        console.error(`Error reading data from ${filePath}:`, error);
+        console.error(`Error reading or parsing data from ${filePath}:`, error);
+        // Return an empty array if parsing fails to prevent crashes
         return [];
     }
 }
 
 // Helper function to write data
-function writeData<T>(filePath: string, data: T[]): void {
+async function writeData<T>(filePath: string, data: T[]): Promise<void> {
     try {
-        fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+        await fs.mkdir(dataDir, { recursive: true });
+        await fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf8');
     } catch (error) {
         console.error(`Error writing data to ${filePath}:`, error);
+        // We re-throw here to let the caller know the write failed.
+        throw new Error(`Could not write data to ${filePath}.`);
     }
 }
 
-const getSubmissions = (): ContactSubmission[] => readData<ContactSubmission>(submissionsFilePath);
+const getSubmissions = async (): Promise<ContactSubmission[]> => await readData<ContactSubmission>(submissionsFilePath);
 
-const saveSubmission = (submission: ContactSubmission): void => {
-    const submissions = getSubmissions();
+const saveSubmission = async (submission: ContactSubmission): Promise<void> => {
+    const submissions = await getSubmissions();
     submissions.unshift(submission);
-    writeData<ContactSubmission>(submissionsFilePath, submissions);
+    await writeData<ContactSubmission>(submissionsFilePath, submissions);
 };
 
 const contactFormSchema = z.object({
@@ -84,16 +90,17 @@ export async function submitContactForm(
             date: new Date().toISOString(),
             ...parsed.data,
         };
-        saveSubmission(newSubmission);
+        await saveSubmission(newSubmission);
         return { message: "Ďakujeme! Vaša správa bola úspešne odoslaná. Ozveme sa vám čo najskôr." };
     } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : "Neznáma chyba.";
         return {
-             message: "Ľutujeme, pri odosielaní správy nastala chyba. Skúste to prosím neskôr.",
+             message: `Ľutujeme, pri odosielaní správy nastala chyba: ${errorMessage}. Skúste to prosím neskôr.`,
              fields: parsed.data,
         }
     }
 }
 
 export async function fetchSubmissions(): Promise<ContactSubmission[]> {
-    return getSubmissions();
+    return await getSubmissions();
 }
