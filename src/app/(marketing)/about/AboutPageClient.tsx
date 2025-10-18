@@ -61,7 +61,7 @@ export default function AboutPageClient() {
           alt="Tím VI&MO v akcii pri sťahovaní v Bratislave"
           fill
           priority
-          fetchpriority="high"
+          fetchPriority="high"
           className="object-cover object-center"
           data-ai-hint="moving team action"
         />

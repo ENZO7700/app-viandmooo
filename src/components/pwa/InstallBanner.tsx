@@ -21,7 +21,7 @@ const InstallBanner = () => {
   useEffect(() => {
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
-      setInstallPrompt(e as BeforeInstallPromptEvent);
+      setInstallPrompt(e as BeforeInstallGHPromptEvent);
       const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
       if (!isStandalone) {
           setIsVisible(true);
