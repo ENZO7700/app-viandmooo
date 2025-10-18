@@ -87,7 +87,7 @@ export function Dashboard() {
     return (
         <div className="space-y-6">
             <Tabs value={period} onValueChange={(value) => setPeriod(value as Period)}>
-                <TabsList>
+                <TabsList className="grid w-full grid-cols-3">
                     <TabsTrigger value="month">Tento mesiac</TabsTrigger>
                     <TabsTrigger value="90days">Posledných 90 dní</TabsTrigger>
                     <TabsTrigger value="all">Celá história</TabsTrigger>

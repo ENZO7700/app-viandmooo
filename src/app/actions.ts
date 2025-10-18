@@ -57,9 +57,10 @@ export async function submitContactForm(
 
         return { message: "Ďakujeme! Vaša správa bola úspešne odoslaná. Ozveme sa vám čo najskôr." };
     } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : "Neznáma chyba.";
+        console.error("Error submitting contact form:", error);
+        const errorMessage = "Ľutujeme, pri odosielaní správy nastala neočakávaná chyba. Skúste to prosím neskôr, alebo nás kontaktujte telefonicky.";
         return {
-             message: `Ľutujeme, pri odosielaní správy nastala chyba: ${errorMessage}. Skúste to prosím neskôr.`,
+             message: errorMessage,
              fields: parsed.data,
         }
     }

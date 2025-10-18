@@ -41,7 +41,9 @@ export function BookingForm({ booking, onFormSubmitSuccess }: { booking?: Bookin
           description: state.message,
         });
         onFormSubmitSuccess();
-        formRef.current?.reset();
+        if (!booking) { // Reset form only on creation
+          formRef.current?.reset();
+        }
       } else {
         toast({
           title: 'Chyba vo formulári',
@@ -50,7 +52,7 @@ export function BookingForm({ booking, onFormSubmitSuccess }: { booking?: Bookin
         });
       }
     }
-  }, [state, toast, onFormSubmitSuccess]);
+  }, [state, toast, onFormSubmitSuccess, booking]);
 
   const getErrorForField = (field: string) => {
     return state.issues?.find(issue => issue.startsWith(field))?.split(' : ')[1];

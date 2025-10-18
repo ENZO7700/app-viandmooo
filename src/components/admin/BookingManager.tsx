@@ -96,7 +96,7 @@ export function BookingManager() {
                 Pridať novú zákazku
             </Button>
         </div>
-        <div className="rounded-md border">
+        <div className="rounded-md border overflow-x-auto">
             <Table>
             <TableHeader>
                 <TableRow>
@@ -128,11 +128,11 @@ export function BookingManager() {
                 ) : sortedBookings && sortedBookings.length > 0 ? (
                     sortedBookings.map((booking) => (
                         <TableRow key={booking.id}>
-                        <TableCell className="font-medium">{booking.title}</TableCell>
-                        <TableCell>{booking.clientName}</TableCell>
-                        <TableCell>{formatDate(booking.start)}</TableCell>
-                        <TableCell className="text-right">{formatPrice(booking.price)}</TableCell>
-                        <TableCell>{booking.status}</TableCell>
+                        <TableCell className="font-medium whitespace-nowrap">{booking.title}</TableCell>
+                        <TableCell className="whitespace-nowrap">{booking.clientName}</TableCell>
+                        <TableCell className="whitespace-nowrap">{formatDate(booking.start)}</TableCell>
+                        <TableCell className="text-right whitespace-nowrap">{formatPrice(booking.price)}</TableCell>
+                        <TableCell className="whitespace-nowrap">{booking.status}</TableCell>
                         <TableCell className="text-right">
                             <Button variant="outline" size="sm" onClick={() => handleEdit(booking)}>
                                 Upraviť
