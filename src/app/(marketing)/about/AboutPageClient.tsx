@@ -63,6 +63,8 @@ export default function AboutPageClient() {
           priority
           className="object-cover object-center"
           data-ai-hint={imageData.aboutHero.hint}
+          width={imageData.aboutHero.width}
+          height={imageData.aboutHero.height}
         />
         <div className="absolute inset-0 bg-black/60" />
         <motion.div 
@@ -105,6 +107,8 @@ export default function AboutPageClient() {
                 decoding="async"
                 className="object-cover"
                 data-ai-hint={imageData.aboutPacking.hint}
+                width={imageData.aboutPacking.width}
+                height={imageData.aboutPacking.height}
              />
           </div>
         </div>

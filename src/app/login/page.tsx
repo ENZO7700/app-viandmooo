@@ -60,6 +60,8 @@ export default function LoginPage() {
           priority
           className="object-cover opacity-20"
           data-ai-hint={imageData.loginBackground.hint}
+          width={imageData.loginBackground.width}
+          height={imageData.loginBackground.height}
         />
          <div className="absolute inset-0 flex flex-col justify-end p-12 text-white bg-gradient-to-t from-black/60 to-transparent">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}>
