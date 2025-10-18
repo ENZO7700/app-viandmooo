@@ -2,16 +2,18 @@ import { Toaster } from "@/components/ui/toaster";
 import { DashboardHeader } from "@/components/admin/DashboardHeader";
 import { DashboardNav } from "@/components/admin/DashboardNav";
 import { AdminProviders } from "@/components/admin/AdminProviders";
-import FirebaseClientProvider from "@/firebase/client-provider";
+import { FirebaseProvider } from "@/firebase/provider";
+import { initializeFirebase } from "@/firebase";
 
 export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { firebaseApp, firestore, auth } = initializeFirebase();
 
   return (
-    <FirebaseClientProvider>
+    <FirebaseProvider firebaseApp={firebaseApp} auth={auth} firestore={firestore}>
       <AdminProviders>
         <div className="flex min-h-screen w-full flex-col bg-background text-foreground">
           <DashboardHeader />
@@ -24,6 +26,6 @@ export default function AdminLayout({
           <Toaster />
         </div>
       </AdminProviders>
-    </FirebaseClientProvider>
+    </FirebaseProvider>
   );
 }
