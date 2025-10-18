@@ -6,14 +6,14 @@ import {
   type ReactNode,
 } from 'react';
 
-import type { FirebaseApp } from 'firebase/app';
-import type { Auth } from 'firebase/auth';
-import type { Firestore } from 'firebase/firestore';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
 export type FirebaseContextValue = {
-  firebaseApp: FirebaseApp;
-  auth: Auth;
-  firestore: Firestore;
+  firebaseApp: firebase.app.App;
+  auth: firebase.auth.Auth;
+  firestore: firebase.firestore.Firestore;
 };
 
 export const FirebaseContext = createContext<FirebaseContextValue | undefined>(

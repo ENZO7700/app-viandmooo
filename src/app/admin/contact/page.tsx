@@ -6,11 +6,11 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import { CalendarClient } from './CalendarClient';
 import { useCollection, useFirebase } from '@/firebase';
 import { mapBookingsToCalendarEvents, type Booking } from '@/lib/data';
-import { collection } from 'firebase/firestore';
+import 'firebase/compat/firestore';
 
 export default function AdminContactPage() {
     const { firestore } = useFirebase();
-    const bookingsQuery = firestore ? collection(firestore, 'bookings') : null;
+    const bookingsQuery = firestore ? firestore.collection('bookings') : null;
     const { data: bookings, loading } = useCollection<Booking>(bookingsQuery);
 
     const events = mapBookingsToCalendarEvents(bookings || []);

@@ -1,7 +1,7 @@
 
-import { initializeApp, getApps, type FirebaseApp } from 'firebase/app';
-import { getAuth, type Auth } from 'firebase/auth';
-import { getFirestore, type Firestore } from 'firebase/firestore';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 import { firebaseConfig } from './config';
 
 import { useCollection } from './firestore/use-collection';
@@ -10,15 +10,19 @@ import { useUser } from './auth/use-user';
 import { FirebaseProvider, useFirebase, useFirebaseApp, useFirestore, useAuth } from './provider';
 import FirebaseClientProvider from './client-provider';
 
-let firebaseApp: FirebaseApp;
-let auth: Auth;
-let firestore: Firestore;
+let firebaseApp: firebase.app.App;
+let auth: firebase.auth.Auth;
+let firestore: firebase.firestore.Firestore;
 
 function initializeFirebase() {
-  if (getApps().length === 0) {
-    firebaseApp = initializeApp(firebaseConfig);
-    auth = getAuth(firebaseApp);
-    firestore = getFirestore(firebaseApp);
+  if (!firebase.apps.length) {
+    firebaseApp = firebase.initializeApp(firebaseConfig);
+    auth = firebase.auth();
+    firestore = firebase.firestore();
+  } else {
+    firebaseApp = firebase.app();
+    auth = firebase.auth();
+    firestore = firebase.firestore();
   }
   return { firebaseApp, firestore, auth };
 }

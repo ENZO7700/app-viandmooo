@@ -3,7 +3,8 @@
 
 import { z } from 'zod';
 import type { ContactSubmission } from '@/lib/data';
-import { collection, addDoc } from 'firebase/firestore';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
 import { initializeFirebase } from '@/firebase';
 
 const contactFormSchema = z.object({
@@ -43,14 +44,14 @@ export async function submitContactForm(
 
     try {
         const { firestore } = initializeFirebase();
-        const submissionsCollection = collection(firestore, 'submissions');
+        const submissionsCollection = firestore.collection('submissions');
         
         const newSubmission: Omit<ContactSubmission, 'id'> = {
             date: new Date().toISOString(),
             ...parsed.data,
         };
 
-        await addDoc(submissionsCollection, newSubmission);
+        await submissionsCollection.add(newSubmission);
 
         return { message: "Ďakujeme! Vaša správa bola úspešne odoslaná. Ozveme sa vám čo najskôr." };
     } catch (error) {

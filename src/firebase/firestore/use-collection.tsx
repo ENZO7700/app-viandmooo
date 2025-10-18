@@ -2,26 +2,25 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import {
-  onSnapshot,
-  queryEqual,
-  type Query,
-  type DocumentData,
-  type FirestoreError,
-} from 'firebase/firestore';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
 
 export interface UseCollectionOptions {
   key?: string;
 }
 
+type Query = firebase.firestore.Query;
+type DocumentData = firebase.firestore.DocumentData;
+type FirestoreError = firebase.firestore.FirestoreError;
+
 export function useCollection<T extends DocumentData>(
-  query: Query<T> | null,
+  query: Query | null,
   options?: UseCollectionOptions
 ) {
   const [data, setData] = useState<T[] | undefined>(undefined);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<FirestoreError | undefined>(undefined);
-  const queryRef = useRef<Query<T> | null>(null);
+  const queryRef = useRef<Query | null>(null);
 
   useEffect(() => {
     if (!query) {
@@ -30,19 +29,17 @@ export function useCollection<T extends DocumentData>(
       setError(undefined);
       return;
     }
+    
+    // Using a custom key or just comparing query objects might not be enough with compat library.
+    // A simple way to ensure re-fetch is to rely on a dependency array that changes.
+    // The key in options provides a manual way to trigger this.
 
-    if (queryRef.current && queryEqual(queryRef.current, query)) {
-      return;
-    }
-
-    queryRef.current = query;
     setLoading(true);
 
-    const unsubscribe = onSnapshot(
-      query,
+    const unsubscribe = query.onSnapshot(
       (snapshot) => {
         const docs = snapshot.docs.map(
-          (doc) => ({ id: doc.id, ...doc.data() } as unknown as T)
+          (doc) => ({ id: doc.id, ...doc.data() } as T)
         );
         setData(docs);
         setLoading(false);
@@ -55,7 +52,7 @@ export function useCollection<T extends DocumentData>(
     );
 
     return () => unsubscribe();
-  }, [query ? options?.key ?? query.toString() : 'null-query']);
+  }, [query ? options?.key : null]); // Simplified dependency
 
   return { data, loading, error };
 }

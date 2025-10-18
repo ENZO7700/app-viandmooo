@@ -2,19 +2,19 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import {
-  onSnapshot,
-  docEqual,
-  type DocumentReference,
-  type DocumentData,
-  type FirestoreError,
-} from 'firebase/firestore';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
 
-export function useDoc<T extends DocumentData>(ref: DocumentReference<T> | null) {
+type DocumentReference = firebase.firestore.DocumentReference;
+type DocumentData = firebase.firestore.DocumentData;
+type FirestoreError = firebase.firestore.FirestoreError;
+
+
+export function useDoc<T extends DocumentData>(ref: DocumentReference | null) {
   const [data, setData] = useState<T | undefined>(undefined);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<FirestoreError | undefined>(undefined);
-  const refRef = useRef<DocumentReference<T> | null>(null);
+  const refPath = ref ? ref.path : null;
 
   useEffect(() => {
     if (!ref) {
@@ -24,18 +24,12 @@ export function useDoc<T extends DocumentData>(ref: DocumentReference<T> | null)
       return;
     }
 
-    if (refRef.current && docEqual(refRef.current, ref)) {
-      return;
-    }
-
-    refRef.current = ref;
     setLoading(true);
 
-    const unsubscribe = onSnapshot(
-      ref,
+    const unsubscribe = ref.onSnapshot(
       (snapshot) => {
-        if (snapshot.exists()) {
-          setData({ id: snapshot.id, ...snapshot.data() } as unknown as T);
+        if (snapshot.exists) {
+          setData({ id: snapshot.id, ...snapshot.data() } as T);
         } else {
           setData(undefined);
         }
@@ -49,7 +43,7 @@ export function useDoc<T extends DocumentData>(ref: DocumentReference<T> | null)
     );
 
     return () => unsubscribe();
-  }, [ref ? ref.path : 'null-ref']);
+  }, [refPath]);
 
   return { data, loading, error };
 }

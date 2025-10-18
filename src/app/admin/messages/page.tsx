@@ -4,12 +4,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useCollection, useFirebase } from "@/firebase";
 import { type ContactSubmission } from "@/lib/data";
-import { collection } from "firebase/firestore";
+import 'firebase/compat/firestore';
 import { useMemo } from "react";
 
 export default function AdminMessagesPage() {
     const { firestore } = useFirebase();
-    const submissionsQuery = firestore ? collection(firestore, 'submissions') : null;
+    const submissionsQuery = firestore ? firestore.collection('submissions') : null;
     const { data: submissions, loading } = useCollection<ContactSubmission>(submissionsQuery);
 
     const sortedSubmissions = useMemo(() => {

@@ -6,10 +6,10 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { DollarSign, Truck, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useCollection, useFirebase } from "@/firebase";
-import { collection } from "firebase/firestore";
 import type { Booking } from "@/lib/data";
 import { useMemo } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import 'firebase/compat/firestore';
 
 function StatsSkeleton() {
     return (
@@ -57,7 +57,7 @@ function RecentJobsSkeleton() {
 
 export default function AdminDashboardPage() {
     const { firestore } = useFirebase();
-    const bookingsQuery = firestore ? collection(firestore, 'bookings') : null;
+    const bookingsQuery = firestore ? firestore.collection('bookings') : null;
     const { data: bookings, loading } = useCollection<Booking>(bookingsQuery);
 
     const { monthlyRevenue, monthlyBookingsCount, newClientsThisMonth, recentJobs } = useMemo(() => {

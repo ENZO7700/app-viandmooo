@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { useCollection, useFirebase } from "@/firebase";
-import { collection } from "firebase/firestore";
+import 'firebase/compat/firestore';
 import { Skeleton } from "../ui/skeleton";
 
 
@@ -80,7 +80,7 @@ function BookingDialog({ children, booking }: { children: React.ReactNode, booki
 
 export function BookingManager() {
     const { firestore } = useFirebase();
-    const bookingsQuery = firestore ? collection(firestore, 'bookings') : null;
+    const bookingsQuery = firestore ? firestore.collection('bookings') : null;
     const { data: bookings, loading } = useCollection<Booking>(bookingsQuery);
 
     const sortedBookings = useMemo(() => {
