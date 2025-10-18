@@ -8,7 +8,7 @@ import { Phone, Mail, Truck, Box, Trash2, Sparkles } from 'lucide-react';
 import imageData from '@/lib/placeholder-images.json';
 import { motion } from 'framer-motion';
 import { useReducedMotion } from '@/hooks/use-reduced-motion';
-import { Card, CardTitle } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 20 },

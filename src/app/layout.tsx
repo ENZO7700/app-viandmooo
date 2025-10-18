@@ -85,7 +85,7 @@ export default function RootLayout({
          <script
           type="application/ld+json"
           src="/viandmo-schema.json"
-        />
+        ></script>
       </head>
       <body className={cn('font-body antialiased')}>
         {children}
@@ -93,3 +93,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+    
