@@ -11,10 +11,10 @@ export const adminNavItems = [
   { href: "/admin/messages", label: "Správy", icon: Mail },
   { href: "/admin/settings", label: "Nastavenia", icon: Settings },
   { href: "/admin/system-check", label: "Kontrola Systému", icon: ShieldCheck },
-]
+];
 
-// --- DATA PERSISTENCE ---
-// Data is stored in JSON files in the /data directory.
+// --- DATA PERSISTENCE (SERVER-SIDE ONLY) ---
+// This code runs only on the server.
 
 const dataDir = path.join(process.cwd(), 'data');
 const bookingsFilePath = path.join(dataDir, 'bookings.json');
@@ -74,7 +74,12 @@ export const saveBookings = (data: Booking[]): void => writeData<Booking>(bookin
 
 // --- Submissions ---
 export const getSubmissions = (): ContactSubmission[] => readData<ContactSubmission>(submissionsFilePath);
-export const saveSubmissions = (data: ContactSubmission[]): void => writeData<ContactSubmission>(submissionsFilePath, data);
+export const saveSubmission = (submission: ContactSubmission): void => {
+    const submissions = getSubmissions();
+    // Add to the beginning of the array to show newest first
+    submissions.unshift(submission);
+    writeData<ContactSubmission>(submissionsFilePath, submissions);
+};
 
 
 // --- Derived Data & Helpers ---

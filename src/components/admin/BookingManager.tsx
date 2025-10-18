@@ -17,27 +17,48 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
+
 
 function DeleteButton({ bookingId }: { bookingId: number }) {
-    const deleteBookingWithId = deleteBooking.bind(null, bookingId);
+    const { toast } = useToast();
+    const router = useRouter();
+
+    const handleDelete = async () => {
+        const result = await deleteBooking(bookingId);
+        if (result.success) {
+            toast({
+                title: 'Úspech!',
+                description: result.message,
+            });
+            router.refresh();
+        } else {
+            toast({
+                title: 'Chyba',
+                description: result.message,
+                variant: 'destructive',
+            });
+        }
+    }
     return (
-        <form action={deleteBookingWithId} className="inline-flex">
-            <Button variant="ghost" size="icon" type="submit">
-                <Trash2 className="h-4 w-4 text-destructive" />
-                <span className="sr-only">Zmazať</span>
-            </Button>
-        </form>
+        <Button variant="ghost" size="icon" onClick={handleDelete}>
+            <Trash2 className="h-4 w-4 text-destructive" />
+            <span className="sr-only">Zmazať</span>
+        </Button>
     );
 }
 
-function BookingDialog({ children, booking, onFormSubmit }: { children: React.ReactNode, booking?: Booking, onFormSubmit: () => void }) {
+function BookingDialog({ children, booking }: { children: React.ReactNode, booking?: Booking }) {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+
   const title = booking ? "Upraviť zákazku" : "Pridať novú zákazku";
   const description = booking ? "Upravte údaje o existujúcej zákazke." : "Vyplňte formulár pre vytvorenie novej zákazky.";
   
-  const handleFormSubmit = () => {
+  const handleFormSubmitSuccess = () => {
     setIsOpen(false);
-    onFormSubmit();
+    router.refresh();
   }
 
   return (
@@ -50,7 +71,7 @@ function BookingDialog({ children, booking, onFormSubmit }: { children: React.Re
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
-        <BookingForm booking={booking} onFormSubmit={handleFormSubmit} />
+        <BookingForm booking={booking} onFormSubmitSuccess={handleFormSubmitSuccess} />
       </DialogContent>
     </Dialog>
   );
@@ -58,19 +79,12 @@ function BookingDialog({ children, booking, onFormSubmit }: { children: React.Re
 
 
 export function BookingManager({ initialBookings }: { initialBookings: Booking[] }) {
-    // The initialBookings prop will only be used for the initial render.
-    // Revalidating the path on the server action will cause the parent server component to refetch and new props will be passed.
     const sortedBookings = [...initialBookings].sort((a, b) => new Date(b.start).getTime() - new Date(a.start).getTime());
 
-    const handleDialogClose = () => {
-      // This function can be used for any cleanup if needed when the dialog closes,
-      // but for now, we just need a function to pass down.
-    };
-    
     return (
         <>
             <div className="flex justify-end mb-4">
-                 <BookingDialog onFormSubmit={handleDialogClose}>
+                 <BookingDialog>
                     <Button>
                         <PlusCircle className="mr-2 h-4 w-4" />
                         Pridať zákazku
@@ -103,7 +117,7 @@ export function BookingManager({ initialBookings }: { initialBookings: Booking[]
                                 </TableCell>
                                 <TableCell>{job.price.toLocaleString('sk-SK')} €</TableCell>
                                 <TableCell className="text-right">
-                                    <BookingDialog booking={job} onFormSubmit={handleDialogClose}>
+                                    <BookingDialog booking={job}>
                                         <Button variant="ghost" size="icon">
                                             <Pencil className="h-4 w-4" />
                                             <span className="sr-only">Upraviť</span>

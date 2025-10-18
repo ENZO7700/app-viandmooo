@@ -1,7 +1,7 @@
 
 'use server';
 
-import { getBookings, saveBookings, getNextBookingId } from "@/lib/data";
+import { getBookings, saveBookings as saveAllBookings, getNextBookingId, type Booking } from "@/lib/data";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
@@ -16,6 +16,7 @@ const bookingSchema = z.object({
 export type BookingFormState = {
   message: string;
   issues?: string[];
+  success?: boolean;
 }
 
 export async function createOrUpdateBooking(
@@ -29,6 +30,7 @@ export async function createOrUpdateBooking(
 
   if (!parsed.success) {
     return {
+      success: false,
       message: "Formulár obsahuje chyby.",
       issues: parsed.error.issues.map((issue) => `${issue.path.join('.')} : ${issue.message}`),
     };
@@ -49,46 +51,55 @@ export async function createOrUpdateBooking(
         bookings[index] = {
           ...bookings[index],
           ...eventData,
+          id: bookingId, // ensure id is not lost
         };
       } else {
          throw new Error(`Booking with ID ${bookingId} not found.`);
       }
     } else {
       // Create new booking
-      const newBooking = {
+      const newBooking: Booking = {
         id: getNextBookingId(),
         ...eventData,
       };
       bookings.push(newBooking);
     }
     
-    saveBookings(bookings);
+    saveAllBookings(bookings);
     
     revalidatePath('/admin/bookings');
     revalidatePath('/admin');
     revalidatePath('/admin/contact');
 
-    return { message: `Zákazka bola úspešne ${bookingId ? 'upravená' : 'vytvorená'}.` };
+    return { 
+        success: true,
+        message: `Zákazka bola úspešne ${bookingId ? 'upravená' : 'vytvorená'}.` 
+    };
     
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : "Neznáma chyba.";
     return {
+      success: false,
       message: `Ľutujeme, nastala chyba: ${errorMessage}`,
     };
   }
 }
 
 export async function deleteBooking(bookingId: number) {
-    const bookings = getBookings();
-    const index = bookings.findIndex(b => b.id === bookingId);
+    let bookings = getBookings();
+    const updatedBookings = bookings.filter(b => b.id !== bookingId);
 
-    if (index !== -1) {
-        bookings.splice(index, 1);
-        saveBookings(bookings);
+    if (bookings.length !== updatedBookings.length) {
+        saveAllBookings(updatedBookings);
         revalidatePath('/admin/bookings');
         revalidatePath('/admin');
         revalidatePath('/admin/contact');
+        return { success: true, message: 'Zákazka bola zmazaná.' };
     } else {
-        console.error(`Booking with ID ${bookingId} not found.`);
+        return { success: false, message: 'Zákazka nebola nájdená.' };
     }
+}
+
+export async function fetchBookings(): Promise<Booking[]> {
+    return getBookings();
 }

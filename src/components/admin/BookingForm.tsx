@@ -21,7 +21,7 @@ function SubmitButton({ isEditing }: { isEditing: boolean }) {
   );
 }
 
-export function BookingForm({ booking, onFormSubmit }: { booking?: Booking, onFormSubmit: () => void }) {
+export function BookingForm({ booking, onFormSubmitSuccess }: { booking?: Booking, onFormSubmitSuccess: () => void }) {
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
   
@@ -34,21 +34,21 @@ export function BookingForm({ booking, onFormSubmit }: { booking?: Booking, onFo
 
   useEffect(() => {
     if (state.message) {
-      if (state.issues && state.issues.length > 0) {
+      if (state.success) {
+        toast({
+          title: 'Úspech!',
+          description: state.message,
+        });
+        onFormSubmitSuccess();
+      } else {
         toast({
           title: 'Chyba vo formulári',
           description: state.message,
           variant: 'destructive',
         });
-      } else {
-        toast({
-          title: 'Úspech!',
-          description: state.message,
-        });
-        onFormSubmit(); // Close dialog on success
       }
     }
-  }, [state, toast, onFormSubmit]);
+  }, [state, toast, onFormSubmitSuccess]);
 
   const getErrorForField = (field: string) => {
     return state.issues?.find(issue => issue.startsWith(field))?.split(' : ')[1];

@@ -2,7 +2,7 @@
 'use server';
 
 import { z } from 'zod';
-import { getSubmissions, saveSubmissions, type ContactSubmission } from '@/lib/data';
+import { getSubmissions, saveSubmission as saveToFile, type ContactSubmission } from '@/lib/data';
 
 const contactFormSchema = z.object({
     name: z.string().min(1, { message: "Meno je povinné." }),
@@ -17,19 +17,6 @@ export type ContactFormState = {
   fields?: Record<string, string>;
   issues?: string[];
 }
-
-function saveSubmission(data: z.infer<typeof contactFormSchema>) {
-    const submissions = getSubmissions();
-    const newSubmission: ContactSubmission = {
-        id: new Date().getTime().toString(),
-        date: new Date().toISOString(),
-        ...data,
-    };
-    // Add to the beginning of the array to show newest first
-    submissions.unshift(newSubmission);
-    saveSubmissions(submissions);
-}
-
 
 export async function submitContactForm(
   prevState: ContactFormState,
@@ -53,7 +40,12 @@ export async function submitContactForm(
     }
 
     try {
-        saveSubmission(parsed.data);
+        const newSubmission: ContactSubmission = {
+            id: new Date().getTime().toString(),
+            date: new Date().toISOString(),
+            ...parsed.data,
+        };
+        saveToFile(newSubmission);
         return { message: "Ďakujeme! Vaša správa bola úspešne odoslaná. Ozveme sa vám čo najskôr." };
     } catch (error) {
         return {
@@ -61,4 +53,8 @@ export async function submitContactForm(
              fields: parsed.data,
         }
     }
+}
+
+export async function fetchSubmissions(): Promise<ContactSubmission[]> {
+    return getSubmissions();
 }

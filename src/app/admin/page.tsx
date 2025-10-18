@@ -3,10 +3,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { DollarSign, Truck, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { getBookings } from "@/lib/data";
+import { fetchBookings } from "./bookings/actions";
 
-export default function AdminDashboardPage() {
-    const bookings = getBookings();
+export default async function AdminDashboardPage() {
+    const bookings = await fetchBookings();
     
     // --- Dynamic Stats Calculation ---
     const currentMonth = new Date().getMonth();

@@ -1,11 +1,10 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { getBookings } from "@/lib/data";
-import { PlusCircle } from "lucide-react";
+import { fetchBookings } from "./actions";
 import { BookingManager } from "@/components/admin/BookingManager";
 
-export default function AdminBookingsPage() {
-    const bookings = getBookings();
+export default async function AdminBookingsPage() {
+    const bookings = await fetchBookings();
     
     return (
         <div className="space-y-6">
@@ -15,7 +14,6 @@ export default function AdminBookingsPage() {
                         <CardTitle>Správa zákazok</CardTitle>
                         <CardDescription>Zoznam všetkých prijatých a naplánovaných zákazok.</CardDescription>
                     </div>
-                     {/* The "Add" button is now part of the client component */}
                 </CardHeader>
                 <CardContent>
                    <BookingManager initialBookings={bookings} />

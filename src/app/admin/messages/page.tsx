@@ -1,10 +1,10 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { getSubmissions } from "@/lib/data";
+import { fetchSubmissions } from "@/app/actions";
 
-export default function AdminMessagesPage() {
-    const submissions = getSubmissions();
+export default async function AdminMessagesPage() {
+    const submissions = await fetchSubmissions();
     const sortedSubmissions = [...submissions].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
     return (
