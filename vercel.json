@@ -1,8 +1,0 @@
-{
-  "name": "vimo-app",
-  "build": {
-    "env": {
-      "SESSION_SECRET": "@session_secret"
-    }
-  }
-}
