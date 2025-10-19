@@ -56,19 +56,24 @@ Po tomto kroku budú vaše súbory na GitHube.
 2.  **Importujte projekt:**
     *   Na vašom Vercel dashboarde kliknite na "Add New... -> Project".
     *   Vyberte GitHub repozitár, do ktorého ste práve nahrali kód.
-    *   Vercel automaticky rozpozná, že ide o Next.js projekt.
+    *   Vercel automaticky rozpozná, že ide o Next.js projekt a predvyplní všetky nastavenia. **Nemeňte ich.**
 
-3.  **Nastavte environmentálne premenné:**
-    *   Pred kliknutím na "Deploy" rozbaľte sekciu "Environment Variables".
-    *   Pridajte nasledujúce premenné s hodnotami zo súboru `.env`:
-        *   `SESSION_SECRET`
-        *   `NEXT_PUBLIC_FIREBASE_API_KEY`
-        *   `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`
-        *   `NEXT_PUBLIC_FIREBASE_PROJECT_ID`
-        *   `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET`
-        *   `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID`
-        *   `NEXT_PUBLIC_FIREBASE_APP_ID`
-        *   `NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID`
+3.  **Nastavte environmentálne premenné (KĽÚČOVÝ KROK):**
+    *   Pred kliknutím na "Deploy" rozbaľte sekciu **Environment Variables**.
+    *   Budete pridávať premenné jednu po druhej. Skopírujte **Názov (Name)** a **Hodnotu (Value)** z tabuľky nižšie a vložte ich do príslušných polí vo Verceli.
+
+    | Názov (Name)                               | Hodnota (Value)                                     |
+    | ------------------------------------------ | --------------------------------------------------- |
+    | `SESSION_SECRET`                           | `e527d2c3e1e2b0a0a6b4a3a6a9b4a1a6`                    |
+    | `NEXT_PUBLIC_FIREBASE_API_KEY`             | `AIzaSyB8LV8AB2AyvU_LWk7Cy9xHtIt3xDP_WUY`          |
+    | `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`         | `viandmo-whitegreen.firebaseapp.com`                |
+    | `NEXT_PUBLIC_FIREBASE_PROJECT_ID`          | `viandmo-whitegreen`                                |
+    | `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET`      | `viandmo-whitegreen.appspot.com`            |
+    | `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` | `69187711611`                                       |
+    | `NEXT_PUBLIC_FIREBASE_APP_ID`              | `1:69187711611:web:74c80cfc777a90405068de`         |
+    | `NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID`      | (toto pole nechajte prázdne)                        |
+    
+    **Dôležité:** Uistite sa, že vedľa poľa pre hodnotu (Value) **nie je** prepínač nastavený na "Secret". Hodnotu vkladajte priamo ako "Text".
 
 4.  **Kliknite na "Deploy"**:
     *   Vercel sa o všetko postará. Po dokončení vám poskytne URL adresu nasadenej aplikácie.
