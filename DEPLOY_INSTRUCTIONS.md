@@ -4,13 +4,13 @@ Tento súbor obsahuje všetky potrebné kroky a príkazy na úspešné nasadenie
 
 ## Krok 1: Nahratie kódu na GitHub
 
-Predpokladom je, že máte vytvorený prázdny repozitár na GitHube. Jeho URL adresa bude vyzerať takto: `https://github.com/VASE_MENO/NAZOV_REPOZITARA.git`.
+Predpokladom je, že máte vytvorený prázdny repozitár na GitHube. Jeho URL adresa bude vyzerať takto: `https://github.com/youh4ck3dme/viandmocom.git`.
 
 Spustite nasledujúce príkazy vo vašom termináli, v hlavnom priečinku projektu.
 
 1.  **Inicializácia Git-u (ak ste tak ešte neurobili):**
     ```bash
-    git init -b main
+    `git init -b main`
     ```
 
 2.  **Skontrolujte existujúce prepojenia:**
