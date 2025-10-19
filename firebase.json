@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "app-viandmo-97b41",
     "source": ".",
     "ignore": [
       "firebase.json",
