@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { useState, useMemo } from 'react';
@@ -14,6 +15,7 @@ import { sk } from 'date-fns/locale';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -153,6 +155,9 @@ export function BookingManager() {
         <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
                 <DialogTitle>{editingBooking ? 'Upraviť zákazku' : 'Vytvoriť novú zákazku'}</DialogTitle>
+                <DialogDescription>
+                    {editingBooking ? 'Tu môžete upraviť detaily existujúcej zákazky.' : 'Vyplňte formulár pre pridanie novej zákazky do systému.'}
+                </DialogDescription>
             </DialogHeader>
             <BookingForm booking={editingBooking} onFormSubmitSuccess={() => setDialogOpen(false)} />
       </DialogContent>
