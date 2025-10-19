@@ -4,13 +4,13 @@ Tento súbor obsahuje všetky potrebné kroky a príkazy na úspešné nasadenie
 
 ## Krok 1: Nahratie kódu na GitHub
 
-Predpokladom je, že máte vytvorený prázdny repozitár na GitHube. Jeho URL adresa bude vyzerať takto: `https://github.com/youh4ck3dme/viandmocom.git`.
+Predpokladom je, že máte vytvorený prázdny repozitár na GitHube. Jeho URL adresa bude vyzerať takto: `https://github.com/VASE_MENO/NAZOV_REPOZITARA.git`.
 
 Spustite nasledujúce príkazy vo vašom termináli, v hlavnom priečinku projektu.
 
 1.  **Inicializácia Git-u (ak ste tak ešte neurobili):**
     ```bash
-    `git init -b main`
+    git init -b main
     ```
 
 2.  **Skontrolujte existujúce prepojenia:**
@@ -64,7 +64,7 @@ Po tomto kroku budú vaše súbory na GitHube.
 
     | Názov (Name)                               | Hodnota (Value)                                     |
     | ------------------------------------------ | --------------------------------------------------- |
-    | ``SESSION_SECRET``                           | `e527d2c3e1e2b0a0a6b4a3a6a9b4a1a6`                    |
+    | `SESSION_SECRET`                           | `e527d2c3e1e2b0a0a6b4a3a6a9b4a1a6`                    |
     | `NEXT_PUBLIC_FIREBASE_API_KEY`             | `AIzaSyB8LV8AB2AyvU_LWk7Cy9xHtIt3xDP_WUY`          |
     | `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`         | `viandmo-whitegreen.firebaseapp.com`                |
     | `NEXT_PUBLIC_FIREBASE_PROJECT_ID`          | `viandmo-whitegreen`                                |
@@ -73,7 +73,7 @@ Po tomto kroku budú vaše súbory na GitHube.
     | `NEXT_PUBLIC_FIREBASE_APP_ID`              | `1:69187711611:web:74c80cfc777a90405068de`         |
     | `NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID`      | (toto pole nechajte prázdne)                        |
     
-    **Dôležité:** Uistite sa, že vedľa poľa pre hodnotu (Value) **nie je** prepínač nastavený na "Secret". Hodnotu vkladajte priamo ako "Text".
+    **Veľmi dôležité:** Pri vkladaní hodnoty (Value) sa uistite, že typ premennej je nastavený na **"Plaintext"**. Vedľa poľa pre hodnotu je prepínač, ktorý môže byť omylom nastavený na "Secret". Ak je nastavený na "Secret", Vercel bude hľadať kľúč s daným menom, čo spôsobí chybu, ktorú ste videli. Uistite sa, že hodnotu vkladáte priamo ako obyčajný text.
 
 4.  **Kliknite na "Deploy"**:
     *   Vercel sa o všetko postará. Po dokončení vám poskytne URL adresu nasadenej aplikácie.
