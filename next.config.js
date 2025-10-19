@@ -4,6 +4,7 @@ require('dotenv').config();
 /** @type {import('next').NextConfig} */
 const baseConfig = {
   reactStrictMode: true,
+  swcMinify: true,
   images: {
     remotePatterns: [
       {
