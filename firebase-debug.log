@@ -63,3 +63,28 @@ Before we get started, keep in mind:
 [debug] [2025-10-19T12:46:52.978Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/studio-9970817292-3ce01/releases pageSize=10&pageToken=
 [debug] [2025-10-19T12:46:53.186Z] <<< [apiv2][status] GET https://firebaserules.googleapis.com/v1/projects/studio-9970817292-3ce01/releases 200
 [debug] [2025-10-19T12:46:53.186Z] <<< [apiv2][body] GET https://firebaserules.googleapis.com/v1/projects/studio-9970817292-3ce01/releases {}
+[info] 
+[info] Firestore indexes allow you to perform complex queries while
+[info] maintaining performance that scales with the size of the result
+[info] set. You can keep index definitions in your project directory
+[info] and publish them with firebase deploy.
+[info] 
+[debug] [2025-10-19T12:48:04.881Z] Checked if tokens are valid: true, expires at: 1760881350410
+[debug] [2025-10-19T12:48:04.882Z] Checked if tokens are valid: true, expires at: 1760881350410
+[debug] [2025-10-19T12:48:04.887Z] Checked if tokens are valid: true, expires at: 1760881350410
+[debug] [2025-10-19T12:48:04.887Z] Checked if tokens are valid: true, expires at: 1760881350410
+[debug] [2025-10-19T12:48:04.888Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/studio-9970817292-3ce01/databases/(default)/collectionGroups/-/indexes [none]
+[debug] [2025-10-19T12:48:04.899Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/studio-9970817292-3ce01/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* [none]
+[debug] [2025-10-19T12:48:05.008Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/studio-9970817292-3ce01/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* 404
+[debug] [2025-10-19T12:48:05.008Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/studio-9970817292-3ce01/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* {"error":{"code":404,"message":"Project 'studio-9970817292-3ce01' or database '(default)' does not exist.","status":"NOT_FOUND"}}
+[info] ✔  Wrote firestore.rules 
+[info] ✔  Wrote ? What file should be used for Firestore indexes? (firestore.indexes.json) 
+[info] 
+=== Hosting Setup
+[debug] [2025-10-19T12:48:05.021Z] Checked if tokens are valid: true, expires at: 1760881350410
+[debug] [2025-10-19T12:48:05.022Z] Checked if tokens are valid: true, expires at: 1760881350410
+[debug] [2025-10-19T12:48:05.022Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/studio-9970817292-3ce01 [none]
+[debug] [2025-10-19T12:48:05.082Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/studio-9970817292-3ce01/databases/(default)/collectionGroups/-/indexes 404
+[debug] [2025-10-19T12:48:05.084Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/studio-9970817292-3ce01/databases/(default)/collectionGroups/-/indexes {"error":{"code":404,"message":"Project 'studio-9970817292-3ce01' or database '(default)' does not exist.","status":"NOT_FOUND"}}
+[debug] [2025-10-19T12:48:05.301Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/studio-9970817292-3ce01 200
+[debug] [2025-10-19T12:48:05.301Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/studio-9970817292-3ce01 {"projectId":"studio-9970817292-3ce01","projectNumber":"469820488385","displayName":"Firebase app","name":"projects/studio-9970817292-3ce01","resources":{"hostingSite":"studio-9970817292-3ce01"},"state":"ACTIVE","etag":"1_78ed5cfa-971c-491d-b8c1-29a1fa230ac4"}
