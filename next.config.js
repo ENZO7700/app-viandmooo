@@ -1,10 +1,15 @@
 
 require('dotenv').config();
 
+const withPWA = require('@ducanh2912/next-pwa').default({
+  dest: 'public',
+  disable: process.env.NODE_ENV === 'development',
+});
+
+
 /** @type {import('next').NextConfig} */
-const baseConfig = {
+const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
   images: {
     remotePatterns: [
       {
@@ -21,14 +26,4 @@ const baseConfig = {
   },
 };
 
-let withPWA = (x) => x;
-try {
-  withPWA = require('next-pwa')({
-    dest: 'public',
-    disable: process.env.NODE_ENV === 'development',
-  });
-} catch (e) {
-  console.warn('next-pwa not installed, continuing without PWA');
-}
-
-module.exports = withPWA(baseConfig);
+module.exports = withPWA(nextConfig);
