@@ -18,15 +18,12 @@ Spustite nasledujúce príkazy vo vašom termináli, v hlavnom priečinku projek
     ```bash
     git remote -v
     ```
+    *   Ak príkaz vypíše URL adresu, ktorá **nie je správna**, odstráňte ju: `git remote remove origin`
 
 3.  **Nastavenie správneho prepojenia (URL):**
-    *   **Ak príkaz vyššie nič nevypísal**, vytvorte nové prepojenie (nahraďte URL za vašu):
+    *   **Ak príkaz vyššie nič nevypísal alebo ste prepojenie odstránili**, vytvorte nové (nahraďte URL za vašu):
         ```bash
         git remote add origin https://github.com/VASE_MENO/NAZOV_REPOZITARA.git
-        ```
-    *   **Ak príkaz vyššie vypísal starú alebo nesprávnu URL**, zmeňte ju na správnu (nahraďte URL za vašu):
-        ```bash
-        git remote set-url origin https://github.com/VASE_MENO/NAZOV_REPOZITARA.git
         ```
 
 4.  **Pridanie všetkých súborov:**
@@ -36,7 +33,7 @@ Spustite nasledujúce príkazy vo vašom termináli, v hlavnom priečinku projek
 
 5.  **Vytvorenie záznamu o zmenách (commit):**
     ```bash
-    git commit -m "Pripravené na nasadenie"
+    git commit -m "Pripravené na nasadenie na Vercel"
     ```
 
 6.  **Nahratie súborov na GitHub:**
@@ -72,7 +69,7 @@ Po tomto kroku budú vaše súbory na GitHube.
     | `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` | `69187711611`                                       |
     | `NEXT_PUBLIC_FIREBASE_APP_ID`              | `1:69187711611:web:74c80cfc777a90405068de`         |
     | `NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID`      | (toto pole nechajte prázdne)                        |
-    
+
     **Veľmi dôležité:** Pri vkladaní hodnoty (Value) sa uistite, že typ premennej je nastavený na **"Plaintext"**. Vedľa poľa pre hodnotu je prepínač, ktorý môže byť omylom nastavený na "Secret". Ak je nastavený na "Secret", Vercel bude hľadať kľúč s daným menom, čo spôsobí chybu, ktorú ste videli. Uistite sa, že hodnotu vkladáte priamo ako obyčajný text.
 
 4.  **Kliknite na "Deploy"**:

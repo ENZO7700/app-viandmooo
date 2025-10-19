@@ -23,3 +23,5 @@ Toto je Next.js aplikácia vytvorená vo Firebase Studio, pripravená na nasaden
     - Pripojte svoje GitHub/GitLab/Bitbucket úložisko k Vercel účtu.
     - Vercel automaticky rozpozná, že ide o Next.js projekt, a nasadí ho.
     - Nezabudnite v nastaveniach Vercel projektu pridať potrebné environmentálne premenné (napr. `SESSION_SECRET`, `NEXT_PUBLIC_FIREBASE_*`).
+
+5. GITHUB REPO: https://github.com/ENZO7700/app-viandmooo/
