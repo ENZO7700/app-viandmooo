@@ -64,7 +64,7 @@ Po tomto kroku budú vaše súbory na GitHube.
 
     | Názov (Name)                               | Hodnota (Value)                                     |
     | ------------------------------------------ | --------------------------------------------------- |
-    | `SESSION_SECRET`                           | `e527d2c3e1e2b0a0a6b4a3a6a9b4a1a6`                    |
+    | ``SESSION_SECRET``                           | `e527d2c3e1e2b0a0a6b4a3a6a9b4a1a6`                    |
     | `NEXT_PUBLIC_FIREBASE_API_KEY`             | `AIzaSyB8LV8AB2AyvU_LWk7Cy9xHtIt3xDP_WUY`          |
     | `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`         | `viandmo-whitegreen.firebaseapp.com`                |
     | `NEXT_PUBLIC_FIREBASE_PROJECT_ID`          | `viandmo-whitegreen`                                |
