@@ -4,7 +4,7 @@ Tento súbor obsahuje všetky potrebné kroky a príkazy na úspešné nasadenie
 
 ## Krok 1: Nahratie kódu na GitHub
 
-Predpokladom je, že máte vytvorený prázdny repozitár na GitHube. Jeho URL adresa bude vyzerať takto: `https://github.com/VASE_MENO/NAZOV_REPOZITARA.git`.
+Predpokladom je, že máte vytvorený prázdny repozitár na GitHube. Jeho URL adresa musí presne zodpovedať tejto: `https://github.com/ENZO7700/app-viandmooo`.
 
 Spustite nasledujúce príkazy vo vašom termináli, v hlavnom priečinku projektu.
 
@@ -39,7 +39,7 @@ Spustite nasledujúce príkazy vo vašom termináli, v hlavnom priečinku projek
     git push -u origin main
     ```
 
-Po tomto kroku budú vaše súbory na GitHube.
+Po tomto kroku budú vaše súbory na GitHube. Ak sa pri `git push` zobrazí chyba `fatal: repository not found`, skontrolujte, či URL adresa repozitára na GitHube presne sedí a či je repozitár verejný.
 
 ---
 
@@ -50,7 +50,7 @@ Po tomto kroku budú vaše súbory na GitHube.
 
 2.  **Importujte projekt:**
     *   Na vašom Vercel dashboarde kliknite na "Add New... -> Project".
-    *   Vyberte GitHub repozitár, do ktorého ste práve nahrali kód.
+    *   Vyberte GitHub repozitár, do ktorého ste práve nahrali kód (`app-viandmooo`).
     *   Vercel automaticky rozpozná, že ide o Next.js projekt a predvyplní všetky nastavenia. **Nemeňte ich.**
 
 3.  **Nastavte environmentálne premenné (KĽÚČOVÝ KROK):**
