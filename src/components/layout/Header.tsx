@@ -150,19 +150,14 @@ export default function Header() {
                     link.label === 'Služby' ? 
                     <div key={link.href} className="text-lg font-semibold text-white/50 w-full pt-2">Služby</div>
                     :
-                    link.href.startsWith('/stahovanie') ?
-                     <Button asChild variant="link" className={cn("text-lg font-semibold -ml-8", pathname === link.href ? "text-primary" : "text-white hover:text-gray-300")} key={link.href}>
-                        <Link href={link.href}>{link.label}</Link>
-                    </Button>
-                    :
                     <Button asChild variant="link" className={cn("text-lg font-semibold -ml-4", (pathname === link.href || (link.href === '/blog' && pathname.startsWith('/blog'))) ? "text-primary" : "text-white hover:text-gray-300",
                     )} key={link.href}>
                         <Link href={link.href}>{link.label}</Link>
                     </Button>
                 ))}
-                 <div className="pl-4 pt-2 flex flex-col items-start gap-2">
+                 <div className="pl-4 pt-2 flex flex-col items-start gap-1">
                     {services.map(s => (
-                        <Button asChild variant="link" className={cn("text-lg font-semibold -ml-4", pathname === s.href ? "text-primary" : "text-white hover:text-gray-300")} key={s.href}>
+                        <Button asChild variant="link" className={cn("text-base font-medium -ml-4 h-auto py-1", pathname === s.href ? "text-primary" : "text-white/80 hover:text-white")} key={s.href}>
                            <Link href={s.href}>{s.title}</Link>
                         </Button>
                     ))}
@@ -205,4 +200,5 @@ const ListItem = React.forwardRef<
   )
 })
 ListItem.displayName = "ListItem"
+    
     
