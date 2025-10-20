@@ -25,77 +25,48 @@ export async function login(credentials: LoginCredentials) {
         return { success: false, error: 'Email a heslo sú povinné.' };
     }
     
+    // This is a simplified validation for the example.
+    // In a real application, you would use Firebase Admin SDK to verify the user
+    // or handle the session based on a token sent from the client.
+    if (
+        credentials.email !== process.env.ADMIN_EMAIL ||
+        credentials.password !== process.env.ADMIN_PASSWORD
+    ) {
+        return { success: false, error: 'Nesprávny email alebo heslo.' };
+    }
+
     try {
-        const { auth } = initializeFirebase();
-        // This is a server-side operation, but Firebase Auth client SDK is intended for client-side.
-        // For server-side auth in Next.js, you'd typically use the Admin SDK or handle tokens.
-        // However, this action will be called from a client component, so we simulate the client call.
-        // The proper way to do this is with a client-side call that then notifies the server.
-        // Let's assume for this server action, we can call a helper.
-        // This will NOT actually sign the user in on the server, but shows the logic.
-        // The actual sign-in must happen on the client.
-        
-        // This is a placeholder. In a real app, you'd call signInWithEmailAndPassword on the CLIENT
-        // and then post the token to the server to create a session.
-        // For this project, we'll keep the mock logic but acknowledge its limitation.
-        
         const session = await getSession();
-        // A more robust solution would be to verify the user with Firebase Admin SDK
-        // For now, we simulate success if we get here without error.
+        
         session.isLoggedIn = true;
         
         if (credentials.remember) {
-            sessionOptions.cookieOptions.maxAge = 60 * 60 * 24 * 30; // 30 days
+            // The maxAge is set in sessionOptions, but can be overridden here
+            // for "remember me" functionality. Let's make it 30 days.
+            session.cookieOptions.maxAge = 60 * 60 * 24 * 30;
         } else {
-            sessionOptions.cookieOptions.maxAge = undefined; // Session cookie
+            // Session cookie, expires when the browser is closed.
+            session.cookieOptions.maxAge = undefined;
         }
         
         await session.save();
         
-        // This is where we'd get an IdToken and store it in the session
-        // For now, we are just mocking the login
-        if (
-            credentials.email === 'admin@admin.com' &&
-            credentials.password === 'admin'
-        ) {
-            return { success: true, error: undefined };
-        } else {
-            return { success: false, error: 'Nesprávny email alebo heslo.' };
-        }
-
-
-    } catch (error: any) {
-         if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-            return { success: false, error: 'Nesprávny email alebo heslo.' };
-        }
-        return { success: false, error: 'Nastala neočakávaná chyba. Skúste to prosím neskôr.' };
+    } catch (error) {
+         return { success: false, error: 'Nastala neočakávaná chyba pri vytváraní session.' };
     }
+
+    // Redirect to admin dashboard on successful login
+    redirect('/admin');
 }
 
 
 export async function loginWithGoogle() {
-    try {
-        const { auth } = initializeFirebase();
-        const provider = new GoogleAuthProvider();
-        
-        // This function would be called on the client.
-        // In a server action, you can only prepare for the redirect.
-        // The actual redirect logic must be handled on the client-side.
-        // Here we just indicate the intent.
-        
-        // signInWithRedirect(auth, provider); // This would be called on client
-        
-        // For a server action, the best we can do is redirect to a page
-        // that triggers the Google Sign-in on the client.
-        // Or, more simply, this action should just be a client-side function.
-        // Let's adjust the login page to handle this.
-        
-        return { url: `/api/auth/google` }; // Placeholder, this won't work directly
-
-    } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : "Neznáma chyba.";
-        return { url: null, error: errorMessage };
-    }
+    // This server action is a placeholder to demonstrate the flow.
+    // The actual OAuth redirect would be initiated from the client,
+    // which would then call a server endpoint/callback with the token.
+    // For this setup, we'll redirect to a conceptual API route
+    // that would handle the Firebase logic.
+    redirect('/api/auth/google');
 }
 
 
@@ -104,5 +75,3 @@ export async function logout() {
   session.destroy();
   redirect('/login');
 }
-
-    

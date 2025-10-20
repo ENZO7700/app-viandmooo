@@ -38,7 +38,7 @@ export async function submitContactForm(
         return {
             message: "Formulár obsahuje chyby. Skontrolujte zadané údaje.",
             fields,
-            issues: parsed.error.issues.map((issue) => `${issue.path.join('.')} a ${issue.message}`),
+            issues: parsed.error.issues.map((issue) => `${'${issue.path.join(".")}'} a ${'${issue.message}'}`),
         };
     }
 
@@ -57,7 +57,7 @@ export async function submitContactForm(
 
         return { message: "Ďakujeme! Vaša správa bola úspešne odoslaná. Ozveme sa vám čo najskôr." };
     } catch (error) {
-        console.error("Error submitting contact form:", error);
+        
         const errorMessage = "Ľutujeme, pri odosielaní správy nastala neočakávaná chyba. Skúste to prosím neskôr, alebo nás kontaktujte telefonicky.";
         return {
              message: errorMessage,

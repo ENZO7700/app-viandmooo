@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useActionState, useEffect } from 'react';
+import { useActionState, useEffect, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -16,11 +16,8 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import imageData from '@/lib/placeholder-images.json';
-import { useFirebase } from '@/firebase/provider';
-import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
-
+import { useRouter } from 'next/navigation';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -41,58 +38,41 @@ function GoogleIcon() {
 }
 
 
-function GoogleSignInButton({ onClick, disabled }: { onClick: () => void, disabled: boolean }) {
+function GoogleSignInButton() {
+    const { pending } = useFormStatus();
     return (
-        <Button variant="outline" className="w-full gap-2" onClick={onClick} disabled={disabled}>
+        <Button variant="outline" className="w-full gap-2" type="submit" disabled={pending}>
             <GoogleIcon />
-            {disabled ? 'Presmerovávam...' : 'Prihlásiť sa cez Google'}
+            {pending ? 'Presmerovávam...' : 'Prihlásiť sa cez Google'}
         </Button>
     )
 }
 
 export default function LoginPage() {
-  const { auth } = useFirebase();
   const router = useRouter();
   const { toast } = useToast();
   const [state, formAction] = useActionState(login, undefined);
-  const [isGoogleLoading, setIsGoogleLoading] = useActionState(async () => {
-    if (!auth) return;
-    try {
-        const provider = new GoogleAuthProvider();
-        await signInWithPopup(auth, provider);
-        // The onAuthStateChanged listener in FirebaseProvider will handle the redirect
-    } catch (error) {
-        toast({
-            variant: "destructive",
-            title: "Chyba prihlásenia",
-            description: "Nepodarilo sa prihlásiť cez Google.",
-        });
+  const [googleState, googleFormAction] = useActionState(loginWithGoogle, undefined);
+  
+  useEffect(() => {
+    if (state?.error) {
+      toast({
+        variant: "destructive",
+        title: "Chyba prihlásenia",
+        description: state.error,
+      });
     }
-  }, false);
-
+  }, [state, toast]);
 
   useEffect(() => {
-    if (state?.success) {
-      router.push('/admin');
+    if (googleState?.error) {
+      toast({
+        variant: "destructive",
+        title: "Chyba prihlásenia cez Google",
+        description: googleState.error,
+      });
     }
-  }, [state, router]);
-
-  const handleEmailLogin = async (formData: FormData) => {
-      if (!auth) return;
-      const email = formData.get('email') as string;
-      const password = formData.get('password') as string;
-
-      try {
-          await signInWithEmailAndPassword(auth, email, password);
-          router.push('/admin');
-      } catch (error: any) {
-           toast({
-            variant: "destructive",
-            title: "Chyba prihlásenia",
-            description: "Nesprávny email alebo heslo.",
-        });
-      }
-  }
+  }, [googleState, toast]);
 
 
   return (
@@ -102,7 +82,7 @@ export default function LoginPage() {
           src={imageData.loginBackground.src}
           alt="Sťahovanie nábytku VI&MO"
           fill
-          fetchPriority="high"
+          priority
           className="object-cover opacity-20"
           data-ai-hint={imageData.loginBackground.hint}
         />
@@ -135,7 +115,7 @@ export default function LoginPage() {
                 <AlertDescription>{state.error}</AlertDescription>
               </Alert>
             )}
-          <form action={handleEmailLogin} className="grid gap-4">
+          <form action={formAction} className="grid gap-4">
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -144,13 +124,14 @@ export default function LoginPage() {
                 type="email"
                 placeholder="admin@admin.com"
                 required
+                defaultValue="admin@admin.com"
               />
             </div>
             <div className="grid gap-2">
               <div className="flex items-center">
                 <Label htmlFor="password">Heslo</Label>
               </div>
-              <Input id="password" name="password" type="password" defaultValue="admin" required />
+              <Input id="password" name="password" type="password" required defaultValue="admin" />
             </div>
              <div className="flex items-center space-x-2">
               <Checkbox id="remember" name="remember" />
@@ -171,13 +152,11 @@ export default function LoginPage() {
                 <span className="bg-background px-2 text-muted-foreground">Alebo</span>
             </div>
            </div>
-           <form action={setIsGoogleLoading}>
-              <GoogleSignInButton onClick={() => {}} disabled={isGoogleLoading} />
+           <form action={googleFormAction}>
+              <GoogleSignInButton />
            </form>
         </motion.div>
       </div>
     </div>
   );
 }
-
-    
