@@ -103,8 +103,6 @@ export default function AboutPageClient() {
                 fill
                 className="object-cover"
                 data-ai-hint={imageData.aboutPacking.hint}
-                width={imageData.aboutPacking.width}
-                height={imageData.aboutPacking.height}
              />
           </div>
         </div>
@@ -188,7 +186,7 @@ export default function AboutPageClient() {
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* CTA Section */}
       <section className="bg-background text-foreground">
