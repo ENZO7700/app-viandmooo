@@ -58,7 +58,7 @@ const HeroSection = () => {
 
   return (
     <section 
-      className="relative h-screen w-full flex items-center justify-center text-center overflow-hidden bg-background"
+      className="relative h-screen w-full flex items-center justify-center text-center overflow-hidden bg-[#00202e]"
       onMouseMove={(e) => {
         if (!shouldReduceMotion) {
           mouseX.set(e.pageX);
