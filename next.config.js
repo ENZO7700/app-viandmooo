@@ -11,6 +11,7 @@ const withPWA = require('@ducanh2912/next-pwa').default({
 const nextConfig = {
   reactStrictMode: true,
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
@@ -24,7 +25,6 @@ const nextConfig = {
       },
     ],
   },
-  output: 'export',
 };
 
 module.exports = withPWA(nextConfig);
