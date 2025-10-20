@@ -1,4 +1,5 @@
-# VI&MO - Sťahovanie a Upratovanie
+Pevné ruky & poctivý prístup
+Sťahovanie, odvoz odpadu a upratovanie v Bratislave a okolí# VI&MO - Sťahovanie a Upratovanie
 
 Toto je Next.js aplikácia vytvorená vo Firebase Studio, pripravená na nasadenie na platformu Vercel.
 

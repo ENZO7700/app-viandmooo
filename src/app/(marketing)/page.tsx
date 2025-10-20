@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Truck, Box, Trash2, Sparkles, Award, Clock, ShieldCheck, Handshake, CalendarCheck, Wallet, UserCheck } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { useReducedMotion } from '@/hooks/use-reduced-motion';
 import imageData from '@/lib/placeholder-images.json';
 import { InteractiveCalculator } from '@/components/pricing/InteractiveCalculator';
@@ -50,29 +50,61 @@ const sectionVariants = {
 
 const HeroSection = () => {
   const shouldReduceMotion = useReducedMotion();
-  
-  const textVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.2, ease: "easeOut" } },
+  const mouseX = useMotionValue(Infinity);
+
+  const containerStyle = {
+    perspective: '1000px',
+  };
+
+  const textStyle = {
+    transformStyle: 'preserve-3d' as const,
   };
 
   return (
     <section 
-      className="relative h-screen w-full flex items-center justify-center text-center text-primary-foreground"
+      className="relative h-screen w-full flex items-center justify-center text-center overflow-hidden bg-background"
+      onMouseMove={(e) => {
+        if (!shouldReduceMotion) {
+          const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+          const x = e.clientX - left;
+          const y = e.clientY - top;
+          mouseX.set(e.pageX);
+        }
+      }}
+      onMouseLeave={() => !shouldReduceMotion && mouseX.set(Infinity)}
+      style={containerStyle}
     >
-      <motion.div className="relative z-10 p-4 flex flex-col items-center">
-         <motion.div
-            variants={shouldReduceMotion ? undefined : textVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            <h1 className="text-5xl md:text-7xl font-headline font-extrabold leading-tight text-white text-shadow-lg">
-                Pevné ruky & poctivý prístup
-            </h1>
-            <p className="mt-2 text-lg md:text-xl max-w-3xl mx-auto text-white/90 text-shadow">
-              Sťahovanie, odvoz odpadu a upratovanie v Bratislave a okolí
-            </p>
-         </motion.div>
+      <motion.div 
+        className="relative z-10 p-4 flex flex-col items-center"
+        style={textStyle}
+      >
+        <motion.h1 
+          className="relative text-5xl md:text-8xl font-headline font-extrabold leading-tight text-transparent bg-clip-text bg-gradient-to-br from-foreground to-muted-foreground text-shadow-amuled"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          Pevné ruky & poctivý prístup
+           <motion.div
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-mirror-shine"
+            style={{
+               opacity: useTransform(
+                mouseX,
+                [0, typeof window !== 'undefined' ? window.innerWidth / 2 : 300, typeof window !== 'undefined' ? window.innerWidth : 600],
+                [0.2, 1, 0.2]
+              ),
+              backgroundPosition: useTransform(mouseX, (newX) => `${newX}px 0px`),
+            }}
+           />
+        </motion.h1>
+        <motion.p 
+          className="mt-4 text-lg md:text-xl max-w-3xl mx-auto text-muted-foreground/80"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
+          Sťahovanie, odvoz odpadu a upratovanie v Bratislave a okolí
+        </motion.p>
       </motion.div>
     </section>
   );
@@ -138,7 +170,7 @@ const WhyUsSection = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
       >
-        <div className="container grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+        <div className="container grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
             <div>
                 <h2 className="text-3xl md:text-4xl font-headline font-bold text-primary mb-4">Prečo si vybrať VI&MO na sťahovanie v Bratislave?</h2>
                 <div className="space-y-4 text-muted-foreground leading-relaxed">
