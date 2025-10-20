@@ -1,6 +1,7 @@
 
 import { MetadataRoute } from 'next';
 import { blogPosts } from '@/lib/blog-posts';
+import { slugify } from '@/lib/utils';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://app.viandmo.com';
@@ -33,7 +34,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Trasy pre kategórie
   const categoryRoutes = categories.map((category) => ({
-    url: `${siteUrl}/blog/kategoria/${encodeURIComponent(category.toLowerCase())}`,
+    url: `${siteUrl}/blog/kategoria/${slugify(category)}`,
     lastModified: new Date().toISOString(),
     changeFrequency: 'weekly' as const,
     priority: 0.6,
@@ -41,7 +42,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Trasy pre tagy
   const tagRoutes = tags.map((tag) => ({
-    url: `${siteUrl}/blog/tag/${encodeURIComponent(tag.toLowerCase())}`,
+    url: `${siteUrl}/blog/tag/${slugify(tag)}`,
     lastModified: new Date().toISOString(),
     changeFrequency: 'weekly' as const,
     priority: 0.5,
@@ -49,5 +50,3 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [...staticRoutes, ...blogRoutes, ...categoryRoutes, ...tagRoutes];
 }
-
-    

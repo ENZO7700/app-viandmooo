@@ -15,5 +15,3 @@ export function PostList({ posts }: PostListProps) {
     </div>
   );
 }
-
-    

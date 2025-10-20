@@ -17,5 +17,3 @@ export function slugify(text: string) {
     .replace(/[^\w-]+/g, '') // Odstránenie všetkých ne-slovných znakov
     .replace(/--+/g, '-'); // Nahradenie viacnásobných pomlčiek jednou
 }
-
-    
