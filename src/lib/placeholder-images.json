@@ -1,72 +1,72 @@
 {
   "loginBackground": {
-    "src": "https://viandmo.com/wp-content/uploads/stahovanie-nabytku-viandmo-scaled.jpg",
+    "src": "/images/hero-background.jpg",
     "width": 1920,
     "height": 1280,
     "hint": "moving furniture"
   },
   "aboutHero": {
-    "src": "https://viandmo.com/wp-content/uploads/viandmo-stahovanie-bratislava-dodavka-tim-scaled.jpg",
+    "src": "/images/about-hero.jpg",
     "width": 1920,
     "height": 1080,
     "hint": "moving team action"
   },
   "blogHero": {
-    "src": "https://viandmo.com/wp-content/uploads/viandmo-stahovanie-bratislava-dodavka-tim-scaled.jpg",
+    "src": "/images/blog-hero.jpg",
     "width": 1920,
     "height": 1080,
     "hint": "typing laptop keyboard"
   },
   "aboutPacking": {
-    "src": "https://viandmo.com/wp-content/uploads/stahovanie-klavira-piana-bratislava-viandmo.jpg",
+    "src": "/images/about-packing.jpg",
     "width": 800,
     "height": 600,
     "hint": "packing fragile items"
   },
   "teamMember1": {
-    "src": "https://picsum.photos/seed/member1/200/200",
+    "src": "/images/team-member-1.jpg",
     "width": 200,
     "height": 200,
     "hint": "man portrait"
   },
   "teamMember2": {
-    "src": "https://picsum.photos/seed/member2/200/200",
+    "src": "/images/team-member-2.jpg",
     "width": 200,
     "height": 200,
     "hint": "woman portrait"
   },
   "blogPost1": {
-    "src": "https://viandmo.com/wp-content/uploads/stahovanie-nabytku-viandmo-scaled.jpg",
+    "src": "/images/blog-post-1.jpg",
     "width": 1200,
     "height": 630,
     "hint": "moving truck"
   },
   "blogPost2": {
-    "src": "https://viandmo.com/wp-content/uploads/stahovanie-krabic-viandmo-scaled.jpg",
+    "src": "/images/blog-post-2.jpg",
     "width": 1200,
     "height": 630,
     "hint": "moving boxes"
   },
   "blogPost3": {
-    "src": "https://viandmo.com/wp-content/uploads/stahovanie-bytov-viandmo-petrzalka-scaled.jpg",
+    "src": "/images/blog-post-3.jpg",
     "width": 1200,
     "height": 630,
     "hint": "moving city"
   },
   "stahovanieBytovHero": {
-    "src": "https://picsum.photos/seed/stahovanie-bytov/1920/1080",
+    "src": "/images/stahovanie-bytov-hero.jpg",
     "width": 1920,
     "height": 1080,
     "hint": "apartment moving"
   },
   "stahovanieKlavirovHero": {
-    "src": "https://viandmo.com/wp-content/uploads/stahovanie-klavira-piana-bratislava-viandmo.jpg",
+    "src": "/images/stahovanie-klavirov-hero.jpg",
     "width": 1920,
     "height": 1080,
     "hint": "piano move"
   },
   "vypratavanieHero": {
-    "src": "https://picsum.photos/seed/vypratavanie/1920/1080",
+    "src": "/images/vypratavanie-hero.jpg",
     "width": 1920,
     "height": 1080,
     "hint": "waste disposal"

@@ -66,6 +66,14 @@ const HeroSection = () => {
       }}
       onMouseLeave={() => !shouldReduceMotion && mouseX.set(Infinity)}
     >
+        <Image
+          src={imageData.loginBackground.src}
+          alt="Sťahovanie nábytku VI&MO"
+          fill
+          priority
+          className="object-cover opacity-20"
+          data-ai-hint={imageData.loginBackground.hint}
+        />
       <motion.div 
         className="relative z-10 p-4 flex flex-col items-center"
       >
