@@ -4,7 +4,6 @@ import { Toaster } from "@/components/ui/toaster";
 import { DashboardHeader } from "@/components/admin/DashboardHeader";
 import { DashboardNav } from "@/components/admin/DashboardNav";
 import { AdminProviders } from "@/components/admin/AdminProviders";
-import { FirebaseClientProvider } from "@/firebase";
 
 export default function AdminLayout({
   children,
@@ -13,7 +12,6 @@ export default function AdminLayout({
 }) {
 
   return (
-    <FirebaseClientProvider>
       <AdminProviders>
         <div className="flex min-h-screen w-full flex-col bg-background text-foreground">
           <DashboardHeader />
@@ -26,8 +24,5 @@ export default function AdminLayout({
           <Toaster />
         </div>
       </AdminProviders>
-    </FirebaseClientProvider>
   );
 }
-
-    

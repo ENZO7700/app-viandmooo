@@ -1,11 +1,10 @@
 
-const path = require('path');
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
   reactStrictMode: true,
   images: {
-    unoptimized: false,
+    unoptimized: true, // Required for next export
     remotePatterns: [
       {
         protocol: 'https',
@@ -20,7 +19,7 @@ const nextConfig = {
     ],
   },
   webpack: (config) => {
-    config.resolve.alias['@'] = path.resolve(__dirname, 'src');
+    config.resolve.alias['@'] = require('path').resolve(__dirname, 'src');
     return config;
   },
 };

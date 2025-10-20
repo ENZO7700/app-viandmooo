@@ -1,14 +1,11 @@
 
 'use client';
 
-import { useActionState, useEffect, useState } from 'react';
-import { useFormStatus } from 'react-dom';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Logo from '@/components/layout/Logo';
-import { login, loginWithGoogle } from './actions';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AlertCircle } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -18,17 +15,8 @@ import Link from 'next/link';
 import imageData from '@/lib/placeholder-images.json';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
-function SubmitButton() {
-  const { pending } = useFormStatus();
-  return (
-    <Button className="w-full" type="submit" disabled={pending}>
-      {pending ? 'Prihlasujem...' : 'Prihlásiť sa'}
-    </Button>
-  );
-}
-
-// Simple component for Google's icon
 function GoogleIcon() {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
@@ -37,43 +25,42 @@ function GoogleIcon() {
     )
 }
 
-
-function GoogleSignInButton() {
-    const { pending } = useFormStatus();
-    return (
-        <Button variant="outline" className="w-full gap-2" type="submit" disabled={pending}>
-            <GoogleIcon />
-            {pending ? 'Presmerovávam...' : 'Prihlásiť sa cez Google'}
-        </Button>
-    )
-}
-
 export default function LoginPage() {
   const router = useRouter();
   const { toast } = useToast();
-  const [state, formAction] = useActionState(login, undefined);
-  const [googleState, googleFormAction] = useActionState(loginWithGoogle, undefined);
-  
-  useEffect(() => {
-    if (state?.error) {
+  const [email, setEmail] = useState('admin@admin.com');
+  const [password, setPassword] = useState('admin');
+  const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setIsSubmitting(true);
+
+    // This is a mock login for a static site.
+    // In a real scenario, this would involve calling a serverless function
+    // or a dedicated backend service.
+    if (email === 'admin@admin.com' && password === 'admin') {
       toast({
-        variant: "destructive",
-        title: "Chyba prihlásenia",
-        description: state.error,
+        title: 'Prihlásenie úspešné',
+        description: 'Budete presmerovaný do administrácie.',
+      });
+      // In a real static setup, there's no server-side session.
+      // We might store a token in localStorage and redirect.
+      // For this demo, we'll just redirect to a conceptual admin page.
+      router.push('/admin/bookings');
+    } else {
+      const loginError = 'Nesprávny email alebo heslo.';
+      setError(loginError);
+      toast({
+        variant: 'destructive',
+        title: 'Chyba prihlásenia',
+        description: loginError,
       });
     }
-  }, [state, toast]);
-
-  useEffect(() => {
-    if (googleState?.error) {
-      toast({
-        variant: "destructive",
-        title: "Chyba prihlásenia cez Google",
-        description: googleState.error,
-      });
-    }
-  }, [googleState, toast]);
-
+    setIsSubmitting(false);
+  };
 
   return (
     <div className="w-full lg:grid lg:min-h-screen lg:grid-cols-2 xl:min-h-screen bg-background">
@@ -94,7 +81,7 @@ export default function LoginPage() {
         </div>
       </div>
       <div className="flex items-center justify-center py-12">
-        <motion.div 
+        <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
@@ -109,13 +96,13 @@ export default function LoginPage() {
               Zadajte svoje prihlasovacie údaje
             </p>
           </div>
-           {state?.error && (
+           {error && (
               <Alert variant="destructive">
                 <AlertCircle className="h-4 w-4" />
-                <AlertDescription>{state.error}</AlertDescription>
+                <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
-          <form action={formAction} className="grid gap-4">
+          <form onSubmit={handleSubmit} className="grid gap-4">
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -124,14 +111,22 @@ export default function LoginPage() {
                 type="email"
                 placeholder="admin@admin.com"
                 required
-                defaultValue="admin@admin.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="grid gap-2">
               <div className="flex items-center">
                 <Label htmlFor="password">Heslo</Label>
               </div>
-              <Input id="password" name="password" type="password" required defaultValue="admin" />
+              <Input
+                id="password"
+                name="password"
+                type="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
              <div className="flex items-center space-x-2">
               <Checkbox id="remember" name="remember" />
@@ -142,7 +137,9 @@ export default function LoginPage() {
                 Zapamätať si ma
               </label>
             </div>
-            <SubmitButton />
+            <Button className="w-full" type="submit" disabled={isSubmitting}>
+              {isSubmitting ? 'Prihlasujem...' : 'Prihlásiť sa'}
+            </Button>
           </form>
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
@@ -152,9 +149,10 @@ export default function LoginPage() {
                 <span className="bg-background px-2 text-muted-foreground">Alebo</span>
             </div>
            </div>
-           <form action={googleFormAction}>
-              <GoogleSignInButton />
-           </form>
+           <Button variant="outline" className="w-full gap-2" disabled>
+              <GoogleIcon />
+              Prihlásiť sa cez Google
+           </Button>
         </motion.div>
       </div>
     </div>
