@@ -1,0 +1,363 @@
+
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Luxury Glass • SEO Prompt Stack</title>
+  <meta name="description" content="A premium 'liquid glass' notification stack for copying advanced SEO prompts for Gemini." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg-image: url("https://images.unsplash.com/photo-1620121692029-d088224ddc74?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2189&q=80");
+      --glass-bg: rgba(22, 22, 29, 0.45);
+      --glass-brd: rgba(255, 255, 255, 0.1);
+      --glass-hover-bg: rgba(22, 22, 29, 0.6);
+      --text-primary: #f0f0f5;
+      --text-secondary: rgba(235, 235, 245, 0.7);
+      --shadow: rgba(0,0,0,.25);
+      --accent-glow: rgba(110, 160, 255, 0.45);
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box }
+    
+    body{
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      min-height:100vh;
+      background-color: #050508;
+      background-image: var(--bg-image);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-attachment: fixed;
+      position: relative;
+      overflow-x: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    @media (max-width: 768px){ body { background-attachment: scroll; } }
+
+    .bg-orbs{
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0;
+    }
+    .orb{
+      position: absolute; border-radius: 50%;
+      background: rgba(80, 120, 255, 0.1);
+      filter: blur(80px);
+      animation: float 12s ease-in-out infinite;
+    }
+    .orb:nth-child(1){ width: 250px; height: 250px; top: 15%; left: 10%; animation-delay: 0s; }
+    .orb:nth-child(2){ width: 180px; height: 180px; top: 60%; right: 15%; animation-delay: 3s; }
+    .orb:nth-child(3){ width: 120px; height: 120px; top: 75%; left: 55%; animation-delay: 6s; }
+    
+    @keyframes float{
+      0%, 100%{ transform: translateY(0) translateX(0) rotate(0deg); }
+      50%{ transform: translateY(-25px) translateX(15px) rotate(180deg); }
+    }
+    @media (prefers-reduced-motion: reduce){ .orb { animation: none; } }
+
+    .container{ position: relative; z-index: 1; padding: 60px 20px 40px; max-width: 440px; margin: 0 auto; }
+    .header{ text-align: center; margin-bottom: 40px; }
+    .header h1{ font-size: 2.8rem; font-weight: 800; letter-spacing: -1px; text-shadow: 0 4px 30px var(--shadow); }
+    .header p{ color: var(--text-secondary); margin-top: 0.5rem; }
+
+    .notifications-stack{ display: flex; flex-direction: column; gap: 16px; }
+    
+    .notification-card {
+      position: relative;
+      background: var(--glass-bg);
+      backdrop-filter: blur(25px) saturate(150%);
+      -webkit-backdrop-filter: blur(25px) saturate(150%);
+      border: 1px solid var(--glass-brd);
+      border-radius: 24px;
+      padding: 20px;
+      transition: transform 0.4s cubic-bezier(0.1, 0.8, 0.2, 1), background 0.3s ease, box-shadow 0.4s ease;
+      cursor: pointer;
+      overflow: hidden;
+      box-shadow: 0 12px 32px var(--shadow);
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      outline: none;
+      will-change: transform;
+    }
+    .notification-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      background: var(--glass-hover-bg);
+      box-shadow: 0 16px 40px var(--shadow);
+    }
+    .notification-card:focus-visible {
+      box-shadow: 0 0 0 3px var(--accent-glow), 0 12px 32px var(--shadow);
+    }
+
+    .notification-card::before, .notification-card::after {
+      content: "";
+      position: absolute;
+      border-radius: inherit;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    /* Glossy border */
+    .notification-card::before {
+      inset: -1px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.15) 100%);
+    }
+
+    /* Inner light effect */
+    .notification-card::after {
+      inset: 0;
+      background: radial-gradient(circle at var(--x) var(--y), rgba(255,255,255,0.12), transparent 40%);
+      opacity: 0;
+      transition: opacity .4s ease;
+    }
+    .notification-card:hover::after {
+      opacity: 1;
+    }
+    
+    .app-icon {
+      width: 38px; height: 38px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      flex-shrink: 0;
+    }
+    .app-icon svg { width: 20px; height: 20px; }
+
+    .notification-body{ flex: 1; min-width: 0; }
+    .content-header{ display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 8px; }
+    .timestamp{ font-size: 0.8rem; color: var(--text-secondary); font-weight: 500; flex-shrink: 0; }
+
+    .notification-content h3{
+      color: var(--text-primary); font-size: 1.05rem; font-weight: 700; line-height: 1.35;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin: 0;
+    }
+    .notification-content p{
+      color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; margin-top: 4px;
+      display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
+      transition: -webkit-line-clamp .4s ease;
+    }
+    .notification-card.expanded .notification-content p{ -webkit-line-clamp: 30; color: var(--text-primary); }
+
+    .copy-chip {
+      position: absolute; right: 12px; top: 12px;
+      font-size: 0.75rem; padding: 5px 10px; border-radius: 999px;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+      user-select: none; pointer-events: none; opacity: 0;
+      transform: translateY(5px) scale(0.95);
+      transition: all 0.3s ease-out;
+    }
+    .notification-card:hover .copy-chip { opacity: 1; transform: translateY(0) scale(1); }
+
+    .notification-card.copied::before {
+      animation: success-flash 0.8s ease;
+    }
+    @keyframes success-flash {
+      0% { box-shadow: inset 0 0 0 0px rgba(120, 255, 150, 0); }
+      50% { box-shadow: inset 0 0 0 2px rgba(120, 255, 150, 0.4); }
+      100% { box-shadow: inset 0 0 0 0px rgba(120, 255, 150, 0); }
+    }
+
+    .notification-card.new{ animation: glow 2.2s ease-in-out; }
+    @keyframes glow{
+      0%, 100% { box-shadow: 0 12px 32px var(--shadow), 0 0 0 0px var(--accent-glow); }
+      50% { box-shadow: 0 12px 32px var(--shadow), 0 0 12px 4px var(--accent-glow); }
+    }
+    
+    @media (max-width: 768px){
+      .container{ padding: 24px 16px; }
+      .header h1{ font-size: 2.5rem; }
+      .notification-card{ border-radius: 20px; padding: 16px; }
+      .notification-content p{ -webkit-line-clamp: 5; }
+    }
+
+    .toast{
+      position: fixed; left: 50%; bottom: 30px; transform: translateX(-50%) translateY(20px);
+      padding: 12px 18px; border-radius: 999px;
+      background: rgba(25, 25, 30, 0.7); color: #fff; font-size: 0.9rem; font-weight: 500;
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      opacity: 0; pointer-events: none; transition: all .35s cubic-bezier(.2, .8, .2, 1); z-index: 9999;
+    }
+    .toast.show{ opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+
+  <div class="container" role="region" aria-label="SEO prompty – Luxury Glass stack">
+    <div class="header">
+      <h1>Luxury Glass</h1>
+      <p>Pokročilé SEO prompty pre Gemini • Klikni na kartu pre skopírovanie</p>
+    </div>
+
+    <div class="notifications-stack" role="list">
+      
+      <div class="notification-card new" role="button" tabindex="0" aria-label="Kopírovať prompt: Lokálny SERP & content gaps">
+        <div class="app-icon" aria-hidden="true"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></div>
+        <div class="notification-body">
+          <div class="notification-content">
+            <div class="content-header"><h3>Local SERP & Content Gap Scan</h3><span class="timestamp">pripravené</span></div>
+            <p>
+You are an SEO analyst. For keyword "{{primary_keyword}}" in city "{{city}}", audit the top-10 Google SERP. 
+Return JSON array with: rank, url, title, word_count, main_topics[], content_gaps[], intent(info/comm/local), link_profile(DR≈, RD≈), notes.
+Then output a "quick_wins" list (≤5) for "{{domain}}" with fields: task, impact(1-5), effort(1-5), why_it_works.
+            </p>
+          </div>
+        </div>
+        <span class="copy-chip">copy</span>
+      </div>
+
+      <div class="notification-card" role="button" tabindex="0" aria-label="Kopírovať prompt: Rank Math + Schema balík">
+        <div class="app-icon" aria-hidden="true"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></div>
+        <div class="notification-body">
+          <div class="notification-content">
+            <div class="content-header"><h3>Rank Math Setup + Schema Pack</h3><span class="timestamp">pred 15 min</span></div>
+            <p>
+Act as a WordPress SEO engineer. For brand "{{brand}}", domain "{{domain}}", address "{{address}}", phone "{{phone}}":
+1) Generate Rank Math recommended config (as JSON diff or checklist).
+2) Output JSON-LD for Organization + LocalBusiness + Service (sk-SK), including geo, openingHours, sameAs.
+3) Provide robots.txt and sitemap hints; canonical/HTTPS rules (Nginx + Apache variants) with exact snippets.
+4) List 3 safety checks to avoid duplicate meta & schema.
+            </p>
+          </div>
+        </div>
+        <span class="copy-chip">copy</span>
+      </div>
+
+      <div class="notification-card" role="button" tabindex="0" aria-label="Kopírovať prompt: Content brief generátor">
+        <div class="app-icon" aria-hidden="true"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg></div>
+        <div class="notification-body">
+          <div class="notification-content">
+            <div class="content-header"><h3>Long-form Content Brief (sk-SK)</h3><span class="timestamp">pred 1 h</span></div>
+            <p>
+Create an 1 800-word article brief for "{{primary_keyword}}" (locale sk-SK).
+Deliver: 
+• Title options (CTR-focused) • Outline H1-H3 • PAA questions • Entities (EN/SK) • Internal_link_targets (slugs) • External_sources (3-5, trustworthy) • CTA ideas.
+Append: FAQ schema (JSON-LD) + a CSV line: title, meta_title(60), meta_description(155), slug, canonical, h1.
+            </p>
+          </div>
+        </div>
+        <span class="copy-chip">copy</span>
+      </div>
+
+      <div class="notification-card" role="button" tabindex="0" aria-label="Kopírovať prompt: CWV & performance plán">
+        <div class="app-icon" aria-hidden="true"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div>
+        <div class="notification-body">
+          <div class="notification-content">
+            <div class="content-header"><h3>CWV Fix Blueprint (Next.js/React)</h3><span class="timestamp">pred 2 h</span></div>
+            <p>
+Given URL "{{url}}" and stack "{{stack}}", propose code-level fixes to achieve LCP ≤ 1.8s, CLS &lt; 0.1, INP &lt; 200ms.
+Output a table: metric, current(est), target, fixes(code), priority, est_gain.
+Include snippets for: font preloads, next/image sizing, critical CSS, route-level dynamic import, cache headers, and a sample Lighthouse CI YAML.
+            </p>
+          </div>
+        </div>
+        <span class="copy-chip">copy</span>
+      </div>
+
+      <div class="notification-card" role="button" tabindex="0" aria-label="Kopírovať prompt: Google Business Profile balík">
+        <div class="app-icon" aria-hidden="true"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></div>
+        <div class="notification-body">
+          <div class="notification-content">
+            <div class="content-header"><h3>Google Business Profile • Local Pack</h3><span class="timestamp">pred 3 h</span></div>
+            <p>
+Prepare a GBP optimization package for "{{brand}}" (category "{{primary_category}}").
+Return: primary/secondary categories, services list, 5 weekly post drafts (title, copy, CTA, photo_idea), Q&A (10), review reply templates (positive/neutral/negative), UTM scheme for links, and a NAP consistency checklist (site, schema, citations).
+            </p>
+          </div>
+        </div>
+        <span class="copy-chip">copy</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">Skopírované ✓</div>
+
+  <script>
+    // Remove "new" pulse after a moment
+    setTimeout(() => {
+      document.querySelector('.notification-card.new')?.classList.remove('new');
+    }, 2500);
+
+    const toast = document.getElementById('toast');
+    const showToast = (msg = "Skopírované ✓") => {
+      if(!toast) return;
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 1500);
+    };
+
+    const copyText = async (txt) => {
+      if (!navigator.clipboard) {
+        showToast("Clipboard API nie je podporované.");
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(txt);
+        showToast();
+      } catch (err) {
+        showToast("Skopírujte manuálne (zamietnuté)");
+        console.error('Failed to copy: ', err);
+      }
+    };
+
+    document.querySelectorAll('.notification-card').forEach(card => {
+      const copyContent = async () => {
+        const p = card.querySelector('.notification-content p');
+        if (!p) return;
+        await copyText(p.innerText.trim());
+        card.classList.add('copied');
+        setTimeout(() => card.classList.remove('copied'), 900);
+      };
+
+      // 3D tilt effect on hover
+      card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const { width, height } = rect;
+          const rotateX = (y / height - 0.5) * -15; // Max 7.5 deg
+          const rotateY = (x / width - 0.5) * 15;   // Max 7.5 deg
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.04)`;
+          
+          // cursor light effect
+          card.style.setProperty('--x', `${x}px`);
+          card.style.setProperty('--y', `${y}px`);
+      });
+
+      card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+      });
+
+      // Click to copy
+      card.addEventListener('click', copyContent);
+
+      // Keyboard accessibility
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          copyContent();
+        } else if (e.key.toLowerCase() === 'e') {
+          e.preventDefault();
+          card.classList.toggle('expanded');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+
+    
