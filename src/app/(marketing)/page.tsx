@@ -58,7 +58,7 @@ const HeroSection = () => {
 
   return (
     <section 
-      className="relative h-screen w-full flex items-center justify-center text-center text-primary-foreground bg-[#00202e]"
+      className="relative h-screen w-full flex items-center justify-center text-center text-primary-foreground"
     >
       <motion.div className="relative z-10 p-4 flex flex-col items-center">
          <motion.div
