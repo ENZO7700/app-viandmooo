@@ -103,13 +103,11 @@
       z-index: -1;
     }
     
-    /* Glossy border */
     .notification-card::before {
       inset: -1px;
       background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.15) 100%);
     }
 
-    /* Inner light effect */
     .notification-card::after {
       inset: 0;
       background: radial-gradient(circle at var(--x) var(--y), rgba(255,255,255,0.12), transparent 40%);
@@ -128,7 +126,7 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
       flex-shrink: 0;
     }
-    .app-icon svg { width: 20px; height: 20px; }
+    .app-icon svg { width: 20px; height: 20px; stroke: var(--text-primary); }
 
     .notification-body{ flex: 1; min-width: 0; }
     .content-header{ display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 8px; }
@@ -253,8 +251,7 @@ Append: FAQ schema (JSON-LD) + a CSV line: title, meta_title(60), meta_descripti
       </div>
 
       <div class="notification-card" role="button" tabindex="0" aria-label="Kopírovať prompt: CWV & performance plán">
-        <div class="app-icon" aria-hidden="true"><svg fill="none" stroke="currentColor" viewBox="0
- 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div>
+        <div class="app-icon" aria-hidden="true"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div>
         <div class="notification-body">
           <div class="notification-content">
             <div class="content-header"><h3>CWV Fix Blueprint (Next.js/React)</h3><span class="timestamp">pred 2 h</span></div>
@@ -331,11 +328,10 @@ Return: primary/secondary categories, services list, 5 weekly post drafts (title
           const { width, height } = rect;
           const rotateX = (y / height - 0.5) * -15; // Max 7.5 deg
           const rotateY = (x / width - 0.5) * 15;   // Max 7.5 deg
-          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.04)`;
+          card.style.transform = `perspective(1000px) rotateX(${'${rotateX}'}deg) rotateY(${'${rotateY}'}deg) scale(1.04)`;
           
-          // cursor light effect
-          card.style.setProperty('--x', `${x}px`);
-          card.style.setProperty('--y', `${y}px`);
+          card.style.setProperty('--x', `${'${x}'}px`);
+          card.style.setProperty('--y', `${'${y}'}px`);
       });
 
       card.addEventListener('mouseleave', () => {
@@ -359,3 +355,5 @@ Return: primary/secondary categories, services list, 5 weekly post drafts (title
   </script>
 </body>
 </html>
+
+    
