@@ -62,7 +62,7 @@ const HeroSection = () => {
 
   return (
     <section 
-      className="relative h-screen w-full flex items-center justify-center text-center overflow-hidden bg-background"
+      className="relative h-screen w-full flex items-center justify-center text-center overflow-hidden"
       onMouseMove={(e) => {
         if (!shouldReduceMotion) {
           const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
