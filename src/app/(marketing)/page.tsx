@@ -15,24 +15,24 @@ import { Separator } from '@/components/ui/separator';
 const services = [
   {
     icon: <Truck className="w-10 h-10 text-primary" />,
-    title: "Sťahovanie bytov a rodinných domov",
-    description: "Presťahujeme vás bez stresu a zbytočných starostí.",
+    title: "Sťahovanie bytov a domov",
+    description: "Kompletné sťahovanie vašej domácnosti. Od demontáže nábytku až po bezpečnú prepravu a vyloženie. Bez stresu a starostí.",
     featured: true,
   },
   {
     icon: <Box className="w-10 h-10 text-primary" />,
-    title: "Sťahovanie firiem, skladov a prevádzok",
-    description: "Efektívne plánovanie a spoľahlivá logistika pre minimálny výpadok prevádzky.",
+    title: "Sťahovanie firiem a kancelárií",
+    description: "Minimalizujeme dopad na vašu prevádzku. Plánovanie, logistika a realizácia firemného sťahovania na kľúč.",
   },
   {
     icon: <Trash2 className="w-10 h-10 text-primary" />,
-    title: "Vypratávanie, likvidácia a odvoz odpadu",
-    description: "Kompletné vypratávacie služby vrátane ekologickej likvidácie.",
+    title: "Vypratávanie a odvoz odpadu",
+    description: "Vyprázdnime pivnice, byty po rekonštrukcii alebo staré prevádzky. Postaráme sa o ekologickú likvidáciu odpadu.",
   },
   {
     icon: <Sparkles className="w-10 h-10 text-primary" />,
-    title: "Profesionálne upratovacie práce",
-    description: "Jednorazové aj pravidelné upratovanie pre čistotu, na ktorú sa môžete spoľahnúť.",
+    title: "Upratovacie služby",
+    description: "Zabezpečíme profesionálne upratanie po sťahovaní, maľovaní alebo hĺbkové čistenie vašich priestorov.",
   }
 ];
 
