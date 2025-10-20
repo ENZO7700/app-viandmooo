@@ -2,6 +2,14 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { getIronSession } from 'iron-session';
 import { sessionOptions, type SessionData } from '@/lib/session';
+import { getAuth } from 'firebase/auth';
+import { initializeApp, getApps } from 'firebase/app';
+import { firebaseConfig } from './firebase/config';
+
+// Initialize Firebase app if not already done
+if (!getApps().length) {
+  initializeApp(firebaseConfig);
+}
 
 export async function middleware(request: NextRequest) {
   const session = await getIronSession<SessionData>(
@@ -34,3 +42,5 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: ['/admin/:path*', '/login/:path*'],
 };
+
+    

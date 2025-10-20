@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useActionState } from 'react';
+import { useActionState, useEffect } from 'react';
 import { useFormStatus } from 'react-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -16,6 +16,10 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import imageData from '@/lib/placeholder-images.json';
+import { useFirebase } from '@/firebase/provider';
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/hooks/use-toast';
 
 
 function SubmitButton() {
@@ -37,18 +41,59 @@ function GoogleIcon() {
 }
 
 
-function GoogleSignInButton() {
-    const { pending } = useFormStatus();
+function GoogleSignInButton({ onClick, disabled }: { onClick: () => void, disabled: boolean }) {
     return (
-        <Button variant="outline" className="w-full gap-2" type="submit" disabled={pending}>
+        <Button variant="outline" className="w-full gap-2" onClick={onClick} disabled={disabled}>
             <GoogleIcon />
-            {pending ? 'Presmerovávam...' : 'Prihlásiť sa cez Google'}
+            {disabled ? 'Presmerovávam...' : 'Prihlásiť sa cez Google'}
         </Button>
     )
 }
 
 export default function LoginPage() {
+  const { auth } = useFirebase();
+  const router = useRouter();
+  const { toast } = useToast();
   const [state, formAction] = useActionState(login, undefined);
+  const [isGoogleLoading, setIsGoogleLoading] = useActionState(async () => {
+    if (!auth) return;
+    try {
+        const provider = new GoogleAuthProvider();
+        await signInWithPopup(auth, provider);
+        // The onAuthStateChanged listener in FirebaseProvider will handle the redirect
+    } catch (error) {
+        toast({
+            variant: "destructive",
+            title: "Chyba prihlásenia",
+            description: "Nepodarilo sa prihlásiť cez Google.",
+        });
+    }
+  }, false);
+
+
+  useEffect(() => {
+    if (state?.success) {
+      router.push('/admin');
+    }
+  }, [state, router]);
+
+  const handleEmailLogin = async (formData: FormData) => {
+      if (!auth) return;
+      const email = formData.get('email') as string;
+      const password = formData.get('password') as string;
+
+      try {
+          await signInWithEmailAndPassword(auth, email, password);
+          router.push('/admin');
+      } catch (error: any) {
+           toast({
+            variant: "destructive",
+            title: "Chyba prihlásenia",
+            description: "Nesprávny email alebo heslo.",
+        });
+      }
+  }
+
 
   return (
     <div className="w-full lg:grid lg:min-h-screen lg:grid-cols-2 xl:min-h-screen bg-background">
@@ -90,7 +135,7 @@ export default function LoginPage() {
                 <AlertDescription>{state.error}</AlertDescription>
               </Alert>
             )}
-          <form action={formAction} className="grid gap-4">
+          <form action={handleEmailLogin} className="grid gap-4">
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -105,7 +150,7 @@ export default function LoginPage() {
               <div className="flex items-center">
                 <Label htmlFor="password">Heslo</Label>
               </div>
-              <Input id="password" name="password" type="password" required />
+              <Input id="password" name="password" type="password" defaultValue="admin" required />
             </div>
              <div className="flex items-center space-x-2">
               <Checkbox id="remember" name="remember" />
@@ -126,11 +171,13 @@ export default function LoginPage() {
                 <span className="bg-background px-2 text-muted-foreground">Alebo</span>
             </div>
            </div>
-           <form action={loginWithGoogle}>
-              <GoogleSignInButton />
+           <form action={setIsGoogleLoading}>
+              <GoogleSignInButton onClick={() => {}} disabled={isGoogleLoading} />
            </form>
         </motion.div>
       </div>
     </div>
   );
 }
+
+    
