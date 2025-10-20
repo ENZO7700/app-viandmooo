@@ -170,7 +170,7 @@ const WhyUsSection = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
       >
-        <div className="container grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
+        <div className="container grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
             <div>
                 <h2 className="text-3xl md:text-4xl font-headline font-bold text-primary mb-4">Prečo si vybrať VI&MO na sťahovanie v Bratislave?</h2>
                 <div className="space-y-4 text-muted-foreground leading-relaxed">
