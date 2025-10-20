@@ -10,7 +10,7 @@ const APP_DEFAULT_TITLE = "Sťahovanie Bytov a Firiem Bratislava | VI&MO";
 const APP_TITLE_TEMPLATE = "%s | VI&MO";
 const APP_DESCRIPTION = "Profesionálne sťahovanie bytov, domov a firiem v Bratislave a okolí. Ponúkame aj vypratávanie a upratovacie služby. Získajte nezáväznú cenovú ponuku.";
 
-const siteUrl = 'https://app.viandmo.com';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://app.viandmo.com';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -95,7 +95,7 @@ export default function RootLayout({
               "description": "Profesionálne sťahovanie bytov, domov a firiem v Bratislave a okolí. Rýchlo, férovo a bez starostí. Ponúkame aj vypratávanie a upratovacie služby.",
               "telephone": "+421911275755",
               "email": "info@viandmo.com",
-              "url": "https://app.viandmo.com",
+              "url": siteUrl,
               "logo": "https://viandmo.com/wp-content/uploads/viandmo_logo_regular_white.svg",
               "address": {
                 "@type": "PostalAddress",
@@ -140,5 +140,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-    

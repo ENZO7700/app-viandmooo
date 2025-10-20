@@ -59,16 +59,10 @@ Po tomto kroku budú vaše súbory na GitHube. Ak sa pri `git push` zobrazí chy
 
 | Názov (Name) | Hodnota (Value) |
 | :--- | :--- |
-| `SESSION_SECRET` | `e527d2c3e1e2b0a0a6b4a3a6a9b4a1a6` |
-| `NEXT_PUBLIC_FIREBASE_API_KEY` | `AIzaSyB8LV8AB2AyvU_LWk7Cy9xHtIt3xDP_WUY` |
-| `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN` | `viandmo-whitegreen.firebaseapp.com` |
-| `NEXT_PUBLIC_FIREBASE_PROJECT_ID` | `viandmo-whitegreen` |
-| `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` | `viandmo-whitegreen.appspot.com` |
-| `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` | `69187711611` |
-| `NEXT_PUBLIC_FIREBASE_APP_ID` | `1:69187711611:web:74c80cfc777a90405068de` |
-| `NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID` | (toto pole nechajte prázdne) |
+| `NEXT_PUBLIC_SITE_URL` | `https://app.viandmo.com` |
 
-**Veľmi dôležité:** Pri vkladaní hodnoty (Value) sa uistite, že typ premennej je nastavený na **"Plaintext"**. Vedľa poľa pre hodnotu je prepínač, ktorý môže byť omylom nastavený na "Secret". Ak je nastavený na "Secret", Vercel bude hľadať kľúč s daným menom, čo spôsobí chybu, ktorú ste videli. Uistite sa, že hodnotu vkladáte priamo ako obyčajný text.
+
+**Veľmi dôležité:** Pri vkladaní hodnoty (Value) sa uistite, že typ premennej je nastavený na **"Plaintext"**. Vedľa poľa pre hodnotu je prepínač, ktorý môže byť omylom nastavený na "Secret". Ak je nastavený na "Secret", Vercel bude hľadať kľúč s daným menom, čo spôsobí chybu. Uistite sa, že hodnotu vkladáte priamo ako obyčajný text.
 
 4.  **Kliknite na "Deploy"**:
     *   Vercel sa o všetko postará. Po dokončení vám poskytne URL adresu nasadenej aplikácie.
