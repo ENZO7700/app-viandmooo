@@ -52,5 +52,23 @@
     "width": 1200,
     "height": 630,
     "hint": "moving city"
+  },
+  "stahovanieBytovHero": {
+    "src": "https://picsum.photos/seed/stahovanie-bytov/1920/1080",
+    "width": 1920,
+    "height": 1080,
+    "hint": "apartment moving"
+  },
+  "stahovanieKlavirovHero": {
+    "src": "https://viandmo.com/wp-content/uploads/stahovanie-klavira-piana-bratislava-viandmo.jpg",
+    "width": 1920,
+    "height": 1080,
+    "hint": "piano move"
+  },
+  "vypratavanieHero": {
+    "src": "https://picsum.photos/seed/vypratavanie/1920/1080",
+    "width": 1920,
+    "height": 1080,
+    "hint": "waste disposal"
   }
 }

@@ -18,21 +18,25 @@ const services = [
     title: "Sťahovanie bytov a domov",
     description: "Kompletné sťahovanie vašej domácnosti. Od demontáže nábytku až po bezpečnú prepravu a vyloženie. Bez stresu a starostí.",
     featured: true,
+    href: "/stahovanie-bytov-bratislava",
   },
   {
     icon: <Box className="w-10 h-10 text-primary" />,
-    title: "Sťahovanie firiem a kancelárií",
-    description: "Minimalizujeme dopad na vašu prevádzku. Plánovanie, logistika a realizácia firemného sťahovania na kľúč.",
+    title: "Sťahovanie klavírov a bremien",
+    description: "Špecializujeme sa na prepravu ťažkých a krehkých predmetov. Váš klavír, trezor alebo umelecké dielo je u nás v bezpečí.",
+    href: "/stahovanie-klavirov",
   },
   {
     icon: <Trash2 className="w-10 h-10 text-primary" />,
     title: "Vypratávanie a odvoz odpadu",
     description: "Vyprázdnime pivnice, byty po rekonštrukcii alebo staré prevádzky. Postaráme sa o ekologickú likvidáciu odpadu.",
+    href: "/vypratavanie-a-likvidacia",
   },
   {
     icon: <Sparkles className="w-10 h-10 text-primary" />,
     title: "Upratovacie služby",
     description: "Zabezpečíme profesionálne upratanie po sťahovaní, maľovaní alebo hĺbkové čistenie vašich priestorov.",
+    href: "/about#sluzby",
   }
 ];
 
@@ -71,7 +75,7 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          Pevné ruky & poctivý prístup
+          Sťahovanie Bratislava
            <motion.div
             className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-mirror-shine"
             style={{
@@ -80,7 +84,7 @@ const HeroSection = () => {
                 [0, typeof window !== 'undefined' ? window.innerWidth / 2 : 300, typeof window !== 'undefined' ? window.innerWidth : 600],
                 [0.2, 1, 0.2]
               ),
-              backgroundPosition: useTransform(mouseX, (newX) => `${'${newX}'}px 0px`),
+              backgroundPosition: useTransform(mouseX, (newX) => `''${newX}''px 0px`),
             }}
            />
         </motion.h1>
@@ -90,7 +94,7 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          Sťahovanie, odvoz odpadu a upratovanie v Bratislave a okolí
+          Pevné ruky & poctivý prístup. Sťahovanie bytov, firiem a ťažkých bremien v Bratislave a okolí.
         </motion.p>
       </motion.div>
     </section>
@@ -128,7 +132,7 @@ const ServicesSection = () => {
                     <h3 className={`text-xl font-headline font-semibold mb-2 text-foreground`}>{service.title}</h3>
                     <p className={`flex-grow text-muted-foreground`}>{service.description}</p>
                      <Button asChild variant={service.featured ? 'default' : 'outline'} className="mt-6 w-full rounded-full shadow-lg transition-transform duration-300 hover:scale-105">
-                        <Link href="/contact">{service.featured ? 'Cenová ponuka' : 'Viac o službách'}</Link>
+                        <Link href={service.href}>{service.featured ? 'Cenová ponuka' : 'Viac o službe'}</Link>
                     </Button>
                   </Card>
                </motion.div>
