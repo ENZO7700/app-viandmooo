@@ -52,31 +52,18 @@ const HeroSection = () => {
   const shouldReduceMotion = useReducedMotion();
   const mouseX = useMotionValue(Infinity);
 
-  const containerStyle = {
-    perspective: '1000px',
-  };
-
-  const textStyle = {
-    transformStyle: 'preserve-3d' as const,
-  };
-
   return (
     <section 
-      className="relative h-screen w-full flex items-center justify-center text-center overflow-hidden"
+      className="relative h-screen w-full flex items-center justify-center text-center overflow-hidden bg-background"
       onMouseMove={(e) => {
         if (!shouldReduceMotion) {
-          const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
-          const x = e.clientX - left;
-          const y = e.clientY - top;
           mouseX.set(e.pageX);
         }
       }}
       onMouseLeave={() => !shouldReduceMotion && mouseX.set(Infinity)}
-      style={containerStyle}
     >
       <motion.div 
         className="relative z-10 p-4 flex flex-col items-center"
-        style={textStyle}
       >
         <motion.h1 
           className="relative text-5xl md:text-8xl font-headline font-extrabold leading-tight text-transparent bg-clip-text bg-gradient-to-br from-foreground to-muted-foreground text-shadow-amuled"
@@ -170,7 +157,7 @@ const WhyUsSection = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
       >
-        <div className="container grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+        <div className="container grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
             <div>
                 <h2 className="text-3xl md:text-4xl font-headline font-bold text-primary mb-4">Prečo si vybrať VI&MO na sťahovanie v Bratislave?</h2>
                 <div className="space-y-4 text-muted-foreground leading-relaxed">
