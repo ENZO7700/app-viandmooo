@@ -80,7 +80,7 @@ const HeroSection = () => {
                 [0, typeof window !== 'undefined' ? window.innerWidth / 2 : 300, typeof window !== 'undefined' ? window.innerWidth : 600],
                 [0.2, 1, 0.2]
               ),
-              backgroundPosition: useTransform(mouseX, (newX) => `${newX}px 0px`),
+              backgroundPosition: useTransform(mouseX, (newX) => `${'${newX}'}px 0px`),
             }}
            />
         </motion.h1>
