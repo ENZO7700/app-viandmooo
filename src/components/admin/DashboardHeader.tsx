@@ -13,7 +13,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
 import { adminNavItems } from "@/lib/data"
 import { Menu, Search } from "lucide-react"
 import Link from "next/link"
@@ -56,6 +56,7 @@ export function DashboardHeader() {
                     </Button>
                 </SheetTrigger>
                 <SheetContent side="left">
+                    <SheetTitle className="sr-only">Hlavné menu</SheetTitle>
                     <nav className="grid gap-6 text-lg font-medium">
                         <Link
                             href="/"
