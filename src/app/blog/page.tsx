@@ -3,23 +3,46 @@
 
 import { useState } from 'react';
 import { blogPosts } from '@/lib/blog-posts.tsx';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader } from '@/components/ui/card';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, MessagesSquare, Search } from 'lucide-react';
+import { MessagesSquare, Search } from 'lucide-react';
 import imageData from '@/lib/placeholder-images.json';
 import { Input } from '@/components/ui/input';
-
+import { PostList } from '@/components/blog/PostList';
+import { slugify } from '@/lib/utils';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { useRouter } from 'next/navigation';
 
 export default function BlogPage() {
+  const router = useRouter();
   const [searchTerm, setSearchTerm] = useState('');
+  
   const sortedPosts = blogPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   const filteredPosts = sortedPosts.filter(post => 
     post.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-    post.summary.toLowerCase().includes(searchTerm.toLowerCase())
+    post.summary.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    post.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
   );
+
+  const allCategories = [...new Set(blogPosts.map(p => p.category))];
+  const allTags = [...new Set(blogPosts.flatMap(p => p.tags))];
+
+  const handleCategoryChange = (value: string) => {
+    if (value === 'all') {
+      router.push('/blog');
+    } else {
+      router.push(`/blog/kategoria/${slugify(value)}`);
+    }
+  };
+
 
   return (
     <div className="bg-background text-foreground">
@@ -56,12 +79,25 @@ export default function BlogPage() {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
-            <Button asChild>
-              <Link href="/contact">
-                <MessagesSquare className="w-5 h-5 mr-2" />
-                Pridať recenziu
-              </Link>
-            </Button>
+            <div className='flex gap-2 w-full md:w-auto'>
+              <Select onValueChange={handleCategoryChange}>
+                <SelectTrigger className="w-full md:w-[180px]">
+                  <SelectValue placeholder="Všetky kategórie" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Všetky kategórie</SelectItem>
+                  {allCategories.map(cat => (
+                    <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+               <Button asChild>
+                <Link href="/contact">
+                  <MessagesSquare className="w-5 h-5 mr-2" />
+                  Pridať recenziu
+                </Link>
+              </Button>
+            </div>
           </div>
       </section>
 
@@ -69,44 +105,7 @@ export default function BlogPage() {
       <section className="py-16 md:py-24">
         <div className="container">
           {filteredPosts.length > 0 ? (
-             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredPosts.map((post) => (
-                  <Card key={post.slug} className="flex flex-col overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl bg-card border">
-                    <Link href={`/blog/${post.slug}`} className="block">
-                      <div className="relative h-56 w-full">
-                        <Image
-                          src={post.image}
-                          alt={post.image_alt}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          data-ai-hint={post.image_alt}
-                        />
-                      </div>
-                    </Link>
-                    <CardHeader>
-                      <h2 className="text-xl font-headline leading-snug">
-                        <Link href={`/blog/${post.slug}`} className="hover:text-primary transition-colors">
-                          {post.title}
-                        </Link>
-                      </h2>
-                       <p className="text-sm text-muted-foreground pt-2">
-                        Publikované {new Date(post.date).toLocaleDateString('sk-SK')}
-                      </p>
-                    </CardHeader>
-                    <CardContent className="flex-grow">
-                      <CardDescription>{post.summary}</CardDescription>
-                    </CardContent>
-                    <CardFooter>
-                      <Button asChild variant="link" className="p-0 h-auto text-primary">
-                        <Link href={`/blog/${post.slug}`}>
-                          Čítať viac <ArrowRight className="w-4 h-4 ml-2" />
-                        </Link>
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                ))}
-            </div>
+             <PostList posts={filteredPosts} />
           ) : (
              <div className="text-center py-16">
                 <Search className="mx-auto h-12 w-12 text-muted-foreground" />
@@ -120,3 +119,5 @@ export default function BlogPage() {
     </div>
   );
 }
+
+    

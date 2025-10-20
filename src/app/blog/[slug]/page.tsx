@@ -4,10 +4,12 @@
 import { blogPosts } from '@/lib/blog-posts.tsx';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import { Calendar, User } from 'lucide-react';
+import { Calendar, User, ChevronsRight, Home } from 'lucide-react';
 import type { Metadata, ResolvingMetadata } from 'next';
 import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
+import { slugify } from '@/lib/utils';
+import { Breadcrumbs } from '@/components/blog/Breadcrumbs';
 
 type Props = {
   params: { slug: string };
@@ -25,6 +27,28 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.viandmo.com';
   const imageUrl = post.image.startsWith('http') ? post.image : `${siteUrl}${post.image}`;
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.summary,
+    image: imageUrl,
+    author: {
+      '@type': 'Organization',
+      name: 'VI&MO',
+      url: siteUrl,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'VI&MO',
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteUrl}/viandmo_logo.png`,
+      },
+    },
+    datePublished: new Date(post.date).toISOString(),
+  };
 
   return {
     title: post.title,
@@ -50,6 +74,9 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
       title: post.title,
       description: post.summary,
       images: [imageUrl],
+    },
+    alternates: {
+      canonical: `${siteUrl}/blog/${post.slug}`,
     },
   };
 }
@@ -111,9 +138,18 @@ export default function BlogPostPage({ params }: Props) {
     notFound();
   }
 
+  const breadcrumbItems = [
+    { label: 'Blog', href: '/blog' },
+    { label: post.category, href: `/blog/kategoria/${slugify(post.category)}` },
+    { label: post.title, href: `/blog/${post.slug}`, active: true },
+  ];
+
   return (
     <article className="py-12 md:py-20">
       <div className="container max-w-4xl mx-auto">
+
+        <Breadcrumbs items={breadcrumbItems} />
+
         {/* Header */}
         <header className="mb-8 md:mb-12 text-center">
           <h1 className="text-3xl md:text-5xl font-headline text-primary mb-4 leading-tight">{post.title}</h1>
@@ -142,8 +178,18 @@ export default function BlogPostPage({ params }: Props) {
         </div>
 
         {/* Content */}
-        <div className="prose prose-lg max-w-none text-foreground/90 prose-h2:font-headline prose-h2:text-primary prose-h3:font-headline prose-h3:text-primary prose-p:leading-relaxed">
+        <div className="prose prose-lg max-w-none text-foreground/90 prose-h2:font-headline prose-h2:text-primary prose-h3:font-headline prose-h3:text-primary prose-p:leading-relaxed prose-a:text-primary hover:prose-a:text-primary/80 prose-strong:text-foreground">
            {post.content}
+        </div>
+
+        <div className="mt-8 flex flex-wrap gap-2">
+            {post.tags.map(tag => (
+                <Link href={`/blog/tag/${slugify(tag)}`} key={tag}>
+                    <span className="bg-muted text-muted-foreground text-xs font-semibold px-3 py-1 rounded-full hover:bg-primary hover:text-primary-foreground transition-colors">
+                        # {tag}
+                    </span>
+                </Link>
+            ))}
         </div>
 
         <OtherPosts currentSlug={post.slug} />
@@ -151,3 +197,5 @@ export default function BlogPostPage({ params }: Props) {
     </article>
   );
 }
+
+    

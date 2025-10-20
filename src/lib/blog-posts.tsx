@@ -11,6 +11,8 @@ export interface BlogPost {
   author: string;
   image: string;
   image_alt: string;
+  category: string;
+  tags: string[];
   content: ReactNode;
 }
 
@@ -23,6 +25,8 @@ export const blogPosts: BlogPost[] = [
     author: 'Tím VI&MO',
     image: imageData.blogPost1.src,
     image_alt: 'Profesionálna sťahovacia služba v Bratislave nakladá nábytok do dodávky',
+    category: 'Tipy a triky',
+    tags: ['sťahovanie', 'Bratislava', 'výber firmy'],
     content: (
       <>
         <p>Plánujete sťahovanie v Bratislave a neviete, kde začať? Výber spoľahlivej sťahovacej firmy je kľúčový krok, ktorý ovplyvní celý priebeh vášho presunu. Aby sme vám rozhodovanie uľahčili, pripravili sme pre vás 5 praktických tipov, na čo sa zamerať.</p>
@@ -48,6 +52,8 @@ export const blogPosts: BlogPost[] = [
     author: 'Tím VI&MO',
     image: imageData.blogPost2.src,
     image_alt: 'Chyby pri sťahovaní - preplnené krabice a chaos',
+    category: 'Tipy a triky',
+    tags: ['sťahovanie', 'chyby', 'organizácia'],
     content: (
       <>
         <p>Sťahovanie je komplexný proces a v dynamickom prostredí Bratislavy to platí dvojnásobne. Zlá organizácia môže viesť k zbytočnému stresu, strate času a dokonca aj k finančným stratám. Pozrite sa s nami na najčastejšie chyby a ako sa im vyhnúť.</p>
@@ -73,6 +79,8 @@ export const blogPosts: BlogPost[] = [
     author: 'Tím VI&MO',
     image: imageData.blogPost3.src,
     image_alt: 'Paneláky v Bratislave Petržalke - miesto pre sťahovanie bytov',
+    category: 'Lokality',
+    tags: ['sťahovanie', 'Bratislava', 'Petržalka'],
     content: (
       <>
         <p>Sťahovanie bytu v Petržalke, najľudnatejšej mestskej časti Slovenska, si vyžaduje špecifickú prípravu. Vysoká hustota obyvateľstva, parkovacia politika a logistika vo výškových budovách sú faktory, na ktoré treba myslieť vopred. Ako to celé zvládnuť čo najhladšie?</p>
