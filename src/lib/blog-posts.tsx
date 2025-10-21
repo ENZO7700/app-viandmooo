@@ -1,4 +1,3 @@
-
 import type { ReactNode } from 'react';
 import Image from 'next/image';
 import imageData from '@/lib/placeholder-images.json';
@@ -99,5 +98,3 @@ export const blogPosts: BlogPost[] = [
     ),
   },
 ];
-
-    
