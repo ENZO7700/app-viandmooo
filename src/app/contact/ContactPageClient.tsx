@@ -1,10 +1,8 @@
 
 'use client';
 
-import Image from 'next/image';
 import { Mail, MapPin, Phone } from 'lucide-react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import imageData from '@/lib/placeholder-images.json';
 import { ContactForm } from '@/components/contact/ContactForm';
 
 export default function ContactPageClient() {

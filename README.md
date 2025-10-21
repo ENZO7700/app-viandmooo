@@ -10,6 +10,7 @@ Toto je Next.js aplikácia vytvorená vo Firebase Studio, nakonfigurovaná na ge
 - **Core Web Vitals:** Dôraz na výkon s optimalizovanými obrázkami (`next/image`), správnym načítavaním fontov a minimalizáciou layout shiftu (CLS).
 - **Responzívny Dizajn:** Moderný vzhľad vďaka Tailwind CSS a ShadCN UI.
 - **Blogovací Systém:** Staticky generovaný blog z Markdown súborov s podporou pre kategórie a tagy.
+- **Kontaktný formulár:** Integrácia so službou Formspree pre jednoduché spracovanie správ bez potreby vlastného backendu.
 
 ## Spustenie a Vývoj
 
@@ -18,7 +19,21 @@ Toto je Next.js aplikácia vytvorená vo Firebase Studio, nakonfigurovaná na ge
     npm install
     ```
 
-2.  **Spustenie vývojového servera:**
+2.  **Nastavenie Environmentálnych Premenných (DÔLEŽITÉ):**
+    Pre lokálny vývoj a pre nasadenie je potrebné nastaviť dve premenné. Vytvorte súbor `.env.local` v hlavnom priečinku projektu a vložte doň nasledujúci obsah. **Nahraďte hodnoty za vaše vlastné.**
+
+    ```env
+    # Súbor: .env.local
+
+    # Hlavná URL adresa vašej finálnej stránky (používa sa na generovanie sitemap.xml a kanonických URL)
+    NEXT_PUBLIC_SITE_URL="https://vasa-domena.sk"
+
+    # URL endpoint pre Formspree kontaktný formulár
+    # Vytvorte si účet na formspree.io, vytvorte nový formulár a skopírujte sem jeho URL.
+    NEXT_PUBLIC_FORMSPREE_ENDPOINT="https://formspree.io/f/xxxxxxxx"
+    ```
+
+3.  **Spustenie vývojového servera:**
     ```bash
     npm run dev
     ```
@@ -41,35 +56,24 @@ Toto je Next.js aplikácia vytvorená vo Firebase Studio, nakonfigurovaná na ge
 3.  **Nasadenie na Vercel (Odporúčané):**
     - Prepojte svoje GitHub úložisko s Vercel účtom.
     - Vercel automaticky rozpozná, že ide o Next.js projekt.
-    - **Dôležité:** V nastaveniach projektu na Verceli **nemusíte** nastavovať žiadne environmentálne premenné, keďže všetky kľúče sú už súčasťou statického buildu (viď sekcia nižšie). Framework preset by mal byť `Next.js`.
+    - **Dôležité:** V nastaveniach projektu na Verceli (Settings -> Environment Variables) nastavte tie isté premenné ako v súbore `.env.local`: `NEXT_PUBLIC_SITE_URL` a `NEXT_PUBLIC_FORMSPREE_ENDPOINT`.
+    - Po nastavení premenných spustite nové nasadenie (Deploy).
 
 4.  **Nasadenie na Firebase Hosting:**
     - Uistite sa, že máte nainštalované Firebase CLI (`npm install -g firebase-tools`).
     - Prihláste sa: `firebase login`.
     - Inicializujte hosting: `firebase init hosting`. Ako verejný adresár zadajte `out`.
     - Nasaďte projekt: `firebase deploy --only hosting`.
-
-## Environmentálne Premenné
-
-Keďže táto verzia projektu je plne statická (`output: 'export'`), všetky `NEXT_PUBLIC_` premenné sú vložené priamo do vygenerovaných súborov počas `npm run build`. Preto **nie je nutné** nastavovať ich na hostingovej platforme.
-
-Pre lokálny vývoj si vytvorte súbor `.env.local` a vložte doň nasledujúce premenné (používajú sa napr. na generovanie sitemap.xml):
-
-```env
-# Súbor: .env.local
-
-# Hlavná URL adresa vašej finálnej stránky
-NEXT_PUBLIC_SITE_URL="https://app.viandmo.com"
-```
+    - **Poznámka:** Pre Firebase hosting musíte mať environmentálne premenné nastavené počas `build` procesu, pretože ich Firebase nepodporuje pre statické stránky rovnako ako Vercel.
 
 ## SEO a Výkon (Core Web Vitals)
 
 ### SEO Checklist
 
--   **Unikátne titulky a popisy:** Každá stránka má vlastný `<title>` a `<meta name="description">` v `src/app/(marketing)/.../page.tsx`.
--   **Štruktúrované dáta (JSON-LD):** V hlavnom layoute (`src/app/layout.tsx`) sú definované dáta pre `MovingCompany`, ktoré popisujú vašu firmu pre Google. Blogové články majú vlastné `BlogPosting` dáta.
+-   **Unikátne titulky a popisy:** Každá stránka má vlastný `<title>` a `<meta name="description">`.
+-   **Štruktúrované dáta (JSON-LD):** V hlavnom layoute sú definované dáta pre `MovingCompany`. Blogové články majú `BlogPosting` a FAQ sekcie majú `FAQPage` schému.
 -   **Sitemap:** Súbor `src/app/sitemap.ts` automaticky generuje `sitemap.xml` so všetkými verejnými stránkami počas buildu.
--   **Robots.txt:** Súbor `src/app/robots.txt` dáva vyhľadávačom inštrukcie, čo môžu a nemôžu indexovať.
+-   **Robots.txt:** Súbor `src/app/robots.ts` dáva vyhľadávačom inštrukcie, čo môžu a nemôžu indexovať.
 
 ### Optimalizácia Core Web Vitals (CWV)
 

@@ -1,10 +1,10 @@
-# Návod na nasadenie aplikácie
+# Návod na nasadenie aplikácie na Vercel
 
 Tento súbor obsahuje všetky potrebné kroky a príkazy na úspešné nasadenie vašej aplikácie na Vercel pomocou GitHubu.
 
-## Krok 1: Nahratie kódu na GitHub
+## Krok 1: Príprava a Nahratie kódu na GitHub
 
-Predpokladom je, že máte vytvorený prázdny repozitár na GitHube. Jeho URL adresa musí presne zodpovedať tejto: `https://github.com/ENZO7700/app-viandmooo`.
+Predpokladom je, že máte vytvorený prázdny repozitár na GitHube.
 
 Spustite nasledujúce príkazy vo vašom termináli, v hlavnom priečinku projektu.
 
@@ -14,32 +14,25 @@ Spustite nasledujúce príkazy vo vašom termináli, v hlavnom priečinku projek
     ```
 
 2.  **Nastavenie prepojenia s GitHub repozitárom:**
-    Najprv skúste pridať nové prepojenie. Nahraďte URL adresu za vašu:
+    Nahraďte URL adresu za vašu vlastnú.
     ```bash
-    git remote add origin https://github.com/ENZO7700/app-viandmooo
+    git remote add origin https://github.com/MENO_UZIVATELA/NAZOV_REPOZITARA
     ```
-    *   **Ak príkaz prebehne bez chyby,** pokračujte krokom 3.
-    *   **Ak sa zobrazí chyba `error: remote origin already exists.`,** znamená to, že prepojenie už existuje. V tom prípade použite nasledujúci príkaz na jeho aktualizáciu:
+    *   **Ak sa zobrazí chyba `error: remote origin already exists.`,** aktualizujte prepojenie príkazom:
         ```bash
-        git remote set-url origin https://github.com/ENZO7700/app-viandmooo
+        git remote set-url origin https://github.com/MENO_UZIVATELA/NAZOV_REPOZITARA
         ```
 
-3.  **Pridanie všetkých súborov:**
+3.  **Pridanie všetkých súborov a vytvorenie commitu:**
     ```bash
     git add .
+    git commit -m "Pripravené na nasadenie na Vercel"
     ```
 
-4.  **Vytvorenie záznamu o zmenách (commit):**
-    ```bash
-    git commit -m "Pripravené na nasadenie"
-    ```
-
-5.  **Nahratie súborov na GitHub:**
+4.  **Nahratie súborov na GitHub:**
     ```bash
     git push -u origin main
     ```
-
-Po tomto kroku budú vaše súbory na GitHube. Ak sa pri `git push` zobrazí chyba `fatal: repository not found`, skontrolujte, či URL adresa repozitára na GitHube presne sedí a či je repozitár verejný.
 
 ---
 
@@ -50,19 +43,23 @@ Po tomto kroku budú vaše súbory na GitHube. Ak sa pri `git push` zobrazí chy
 
 2.  **Importujte projekt:**
     *   Na vašom Vercel dashboarde kliknite na "Add New... -> Project".
-    *   Vyberte GitHub repozitár, do ktorého ste práve nahrali kód (`app-viandmooo`).
+    *   Vyberte GitHub repozitár, do ktorého ste práve nahrali kód.
     *   Vercel automaticky rozpozná, že ide o Next.js projekt a predvyplní všetky nastavenia. **Nemeňte ich.**
 
-3.  **Nastavte environmentálne premenné (KĽÚČOVÝ KROK):**
+3.  **Nastavte Environmentálne Premenné (KĽÚČOVÝ KROK):**
     *   Pred kliknutím na "Deploy" rozbaľte sekciu **Environment Variables**.
     *   Budete pridávať premenné jednu po druhej. Skopírujte **Názov (Name)** a **Hodnotu (Value)** z tabuľky nižšie a vložte ich do príslušných polí vo Verceli.
 
-| Názov (Name) | Hodnota (Value) |
-| :--- | :--- |
-| `NEXT_PUBLIC_SITE_URL` | `https://app.viandmo.com` |
+| Názov (Name)                     | Hodnota (Value)                                     |
+| :------------------------------- | :-------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL`           | `https://vasa-finalna-domena.sk`                      |
+| `NEXT_PUBLIC_FORMSPREE_ENDPOINT` | `https://formspree.io/f/xxxxxxxx` (vaša URL z Formspree) |
 
-
-**Veľmi dôležité:** Pri vkladaní hodnoty (Value) sa uistite, že typ premennej je nastavený na **"Plaintext"**. Vedľa poľa pre hodnotu je prepínač, ktorý môže byť omylom nastavený na "Secret". Ak je nastavený na "Secret", Vercel bude hľadať kľúč s daným menom, čo spôsobí chybu. Uistite sa, že hodnotu vkladáte priamo ako obyčajný text.
+**Dôležité:**
+*   Hodnotu pre `NEXT_PUBLIC_SITE_URL` nahraďte URL adresou, na ktorej bude vaša stránka bežať (napr. tú, ktorú vám pridelí Vercel, alebo vašu vlastnú doménu).
+*   Hodnotu pre `NEXT_PUBLIC_FORMSPREE_ENDPOINT` získate po registrácii a vytvorení nového formulára na [formspree.io](https://formspree.io).
 
 4.  **Kliknite na "Deploy"**:
-    *   Vercel sa o všetko postará. Po dokončení vám poskytne URL adresu nasadenej aplikácie.
+    *   Vercel sa o všetko postará. Po dokončení vám poskytne URL adresu nasadenej aplikácie. Tento proces môže trvať niekoľko minút.
+
+Po úspešnom nasadení otestujte funkčnosť stránky, najmä odoslanie kontaktného formulára.

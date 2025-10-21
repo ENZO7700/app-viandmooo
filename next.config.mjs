@@ -2,13 +2,8 @@
 const nextConfig = {
   output: 'export',
   reactStrictMode: true,
-  images: {
-    unoptimized: true, // Required for next export
-  },
-  webpack: (config) => {
-    config.resolve.alias['@'] = require('path').resolve(__dirname, 'src');
-    return config;
-  },
+  // Odstránenie `images.unoptimized` zabezpečí, že Next.js bude obrázky optimalizovať.
+  // Pre statický export je dôležité, aby všetky obrázky mali definovanú šírku a výšku.
 };
 
 export default nextConfig;
