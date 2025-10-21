@@ -1,20 +1,6 @@
+
 {
   "projects": {
-    "viandmo": "aetherflow-6gd9p",
-    "app-viandmo": "studio-9970817292-3ce01",
-    "default": "studio-9970817292-3ce01"
-  },
-  "targets": {
-    "studio-9970817292-3ce01": {
-      "hosting": {
-        "app-viandmo": [
-          "app-viandmo"
-        ],
-        "app": [
-          "469820488385"
-        ]
-      }
-    }
-  },
-  "etags": {}
+    "default": "NAZOV-VASHO-PROJEKTU"
+  }
 }
