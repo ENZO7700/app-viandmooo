@@ -1,12 +1,51 @@
 # Návod na nasadenie aplikácie na Vercel
 
-Tento súbor obsahuje všetky potrebné kroky a príkazy na úspešné nasadenie vašej aplikácie na Vercel pomocou GitHubu.
+Tento súbor obsahuje všetky potrebné kroky a príkazy na úspešné nasadenie vašej aplikácie na Vercel. Máte dve možnosti: cez GitHub (odporúčané pre automatizáciu) alebo priamo z príkazového riadku (najrýchlejšie).
 
-## Krok 1: Príprava a Nahratie kódu na GitHub
+---
+
+## Možnosť 1: Nasadenie cez Príkazový Riadok (Najrýchlejšie)
+
+Tento spôsob je ideálny na rýchle nasadenie priamo z vášho počítača.
+
+1.  **Inštalácia Vercel CLI (ak ho ešte nemáte):**
+    Spustite tento príkaz vo vašom termináli:
+    ```bash
+    npm install -g vercel
+    ```
+
+2.  **Spustenie nasadenia:**
+    V hlavnom priečinku projektu spustite nasledujúci príkaz. Prevedie vás celým procesom.
+    ```bash
+    vercel
+    ```
+    *   **Link to existing project?** Odpovedzte `N` (Nie).
+    *   Potvrďte názov projektu a umiestnenie kódu (väčšinou stačí stlačiť `Enter`).
+    *   Vercel automaticky rozpozná nastavenia pre Next.js. **Nemeňte ich.**
+
+3.  **Nastavenie Environmentálnych Premenných (KĽÚČOVÝ KROK):**
+    Počas procesu sa vás terminál opýta na premenné. Zadajte ich jednu po druhej.
+
+| Názov (Name)                     | Hodnota (Value)                                     |
+| :------------------------------- | :-------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL`           | `https://vasa-finalna-domena.sk`                      |
+| `NEXT_PUBLIC_FORMSPREE_ENDPOINT` | `https://formspree.io/f/xxxxxxxx` (vaša URL z Formspree) |
+
+**Dôležité:**
+*   Hodnotu pre `NEXT_PUBLIC_SITE_URL` nahraďte URL adresou, ktorú vám Vercel pridelí po prvom nasadení.
+*   Hodnotu pre `NEXT_PUBLIC_FORMSPREE_ENDPOINT` získate po registrácii a vytvorení nového formulára na [formspree.io](https://formspree.io).
+
+Po zadaní premenných Vercel aplikáciu nasadí a poskytne vám finálnu URL.
+
+---
+
+## Možnosť 2: Nasadenie cez GitHub (Odporúčané pre automatizáciu)
+
+Tento spôsob je ideálny pre dlhodobú správu, pretože každá zmena nahratá na GitHub automaticky spustí nové nasadenie.
+
+### Krok 1: Príprava a Nahratie kódu na GitHub
 
 Predpokladom je, že máte vytvorený prázdny repozitár na GitHube.
-
-Spustite nasledujúce príkazy vo vašom termináli, v hlavnom priečinku projektu.
 
 1.  **Inicializácia Git-u (ak ste tak ešte neurobili):**
     ```bash
@@ -18,10 +57,6 @@ Spustite nasledujúce príkazy vo vašom termináli, v hlavnom priečinku projek
     ```bash
     git remote add origin URL_ADRESA_VASHO_REPOZITARA
     ```
-    *   **Ak sa zobrazí chyba `error: remote origin already exists.`,** aktualizujte prepojenie príkazom:
-        ```bash
-        git remote set-url origin URL_ADRESA_VASHO_REPOZITARA
-        ```
 
 3.  **Pridanie všetkých súborov a vytvorenie commitu:**
     ```bash
@@ -34,9 +69,7 @@ Spustite nasledujúce príkazy vo vašom termináli, v hlavnom priečinku projek
     git push -u origin main
     ```
 
----
-
-## Krok 2: Nasadenie na Vercel
+### Krok 2: Nasadenie na Vercel
 
 1.  **Prihláste sa na Vercel:**
     *   Prejdite na stránku [vercel.com](https://vercel.com) a prihláste sa pomocou svojho GitHub účtu.
@@ -46,20 +79,11 @@ Spustite nasledujúce príkazy vo vašom termináli, v hlavnom priečinku projek
     *   Vyberte GitHub repozitár, do ktorého ste práve nahrali kód.
     *   Vercel automaticky rozpozná, že ide o Next.js projekt a predvyplní všetky nastavenia. **Nemeňte ich.**
 
-3.  **Nastavte Environmentálne Premenné (KĽÚČOVÝ KROK):**
+3.  **Nastavte Environmentálne Premenné:**
     *   Pred kliknutím na "Deploy" rozbaľte sekciu **Environment Variables**.
-    *   Budete pridávať premenné jednu po druhej. Skopírujte **Názov (Name)** a **Hodnotu (Value)** z tabuľky nižšie a vložte ich do príslušných polí vo Verceli.
-
-| Názov (Name)                     | Hodnota (Value)                                     |
-| :------------------------------- | :-------------------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL`           | `https://vasa-finalna-domena.sk`                      |
-| `NEXT_PUBLIC_FORMSPREE_ENDPOINT` | `https://formspree.io/f/xxxxxxxx` (vaša URL z Formspree) |
-
-**Dôležité:**
-*   Hodnotu pre `NEXT_PUBLIC_SITE_URL` nahraďte URL adresou, ktorú vám Vercel pridelí po prvom nasadení, alebo vašou vlastnou finálnou doménou.
-*   Hodnotu pre `NEXT_PUBLIC_FORMSPREE_ENDPOINT` získate po registrácii a vytvorení nového formulára na [formspree.io](https://formspree.io).
+    *   Pridajte premenné podľa tabuľky vyššie (`NEXT_PUBLIC_SITE_URL` a `NEXT_PUBLIC_FORMSPREE_ENDPOINT`).
 
 4.  **Kliknite na "Deploy"**:
-    *   Vercel sa o všetko postará. Po dokončení vám poskytne URL adresu nasadenej aplikácie. Tento proces môže trvať niekoľko minút.
+    *   Vercel sa o všetko postará. Po dokončení vám poskytne URL adresu nasadenej aplikácie.
 
 Po úspešnom nasadení otestujte funkčnosť stránky, najmä odoslanie kontaktného formulára.
