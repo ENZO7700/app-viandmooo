@@ -8,6 +8,7 @@ Toto je Next.js aplikácia vytvorená vo Firebase Studio, nakonfigurovaná na ge
 - **Statická Generácia (SSG):** Extrémne rýchle načítanie a vysoká bezpečnosť vďaka `output: 'export'` v Next.js. Žiadny serverový kód v produkcii.
 - **Optimalizácia pre SEO:** Detailné metadáta, JSON-LD štruktúrované dáta, generovaná sitemap.xml a optimalizovaný `robots.txt`.
 - **Core Web Vitals:** Dôraz na výkon s optimalizovanými obrázkami (`next/image`), správnym načítavaním fontov a minimalizáciou layout shiftu (CLS).
+_Poznámka: Pre statický export je serverová optimalizácia obrázkov vypnutá (`unoptimized: true`)._
 - **Responzívny Dizajn:** Moderný vzhľad vďaka Tailwind CSS a ShadCN UI.
 - **Blogovací Systém:** Staticky generovaný blog z Markdown súborov s podporou pre kategórie a tagy.
 - **Kontaktný formulár:** Integrácia so službou Formspree pre jednoduché spracovanie správ bez potreby vlastného backendu.
