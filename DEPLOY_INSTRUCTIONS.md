@@ -14,13 +14,13 @@ Spustite nasledujúce príkazy vo vašom termináli, v hlavnom priečinku projek
     ```
 
 2.  **Nastavenie prepojenia s GitHub repozitárom:**
-    Nahraďte URL adresu za vašu vlastnú.
+    Nahraďte `URL_ADRESA_VASHO_REPOZITARA` za vašu vlastnú.
     ```bash
-    git remote add origin https://github.com/MENO_UZIVATELA/NAZOV_REPOZITARA
+    git remote add origin URL_ADRESA_VASHO_REPOZITARA
     ```
     *   **Ak sa zobrazí chyba `error: remote origin already exists.`,** aktualizujte prepojenie príkazom:
         ```bash
-        git remote set-url origin https://github.com/MENO_UZIVATELA/NAZOV_REPOZITARA
+        git remote set-url origin URL_ADRESA_VASHO_REPOZITARA
         ```
 
 3.  **Pridanie všetkých súborov a vytvorenie commitu:**
@@ -56,7 +56,7 @@ Spustite nasledujúce príkazy vo vašom termináli, v hlavnom priečinku projek
 | `NEXT_PUBLIC_FORMSPREE_ENDPOINT` | `https://formspree.io/f/xxxxxxxx` (vaša URL z Formspree) |
 
 **Dôležité:**
-*   Hodnotu pre `NEXT_PUBLIC_SITE_URL` nahraďte URL adresou, na ktorej bude vaša stránka bežať (napr. tú, ktorú vám pridelí Vercel, alebo vašu vlastnú doménu).
+*   Hodnotu pre `NEXT_PUBLIC_SITE_URL` nahraďte URL adresou, ktorú vám Vercel pridelí po prvom nasadení, alebo vašou vlastnou finálnou doménou.
 *   Hodnotu pre `NEXT_PUBLIC_FORMSPREE_ENDPOINT` získate po registrácii a vytvorení nového formulára na [formspree.io](https://formspree.io).
 
 4.  **Kliknite na "Deploy"**:
