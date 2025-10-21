@@ -2,7 +2,7 @@
 'use client';
 
 import { useState } from 'react';
-import { blogPosts } from '@/lib/blog-posts.tsx';
+import { blogPosts } from '@/lib/blog-posts';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';

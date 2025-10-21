@@ -1,7 +1,7 @@
 
 // @ts-nocheck
 
-import { blogPosts } from '@/lib/blog-posts.tsx';
+import { blogPosts } from '@/lib/blog-posts';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { Calendar, User, ChevronsRight, Home } from 'lucide-react';
