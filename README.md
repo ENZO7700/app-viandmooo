@@ -54,17 +54,7 @@ Toto je Next.js aplikácia vytvorená vo Firebase Studio, nakonfigurovaná na ge
     ```
 
 3.  **Nasadenie na Vercel (Odporúčané):**
-    - Prepojte svoje GitHub úložisko s Vercel účtom.
-    - Vercel automaticky rozpozná, že ide o Next.js projekt.
-    - **Dôležité:** V nastaveniach projektu na Verceli (Settings -> Environment Variables) nastavte tie isté premenné ako v súbore `.env.local`: `NEXT_PUBLIC_SITE_URL` a `NEXT_PUBLIC_FORMSPREE_ENDPOINT`.
-    - Po nastavení premenných spustite nové nasadenie (Deploy).
-
-4.  **Nasadenie na Firebase Hosting:**
-    - Uistite sa, že máte nainštalované Firebase CLI (`npm install -g firebase-tools`).
-    - Prihláste sa: `firebase login`.
-    - Inicializujte hosting: `firebase init hosting`. Ako verejný adresár zadajte `out`.
-    - Nasaďte projekt: `firebase deploy --only hosting`.
-    - **Poznámka:** Pre Firebase hosting musíte mať environmentálne premenné nastavené počas `build` procesu, pretože ich Firebase nepodporuje pre statické stránky rovnako ako Vercel.
+    Pre detailný postup nasadenia na Vercel si pozrite súbor `DEPLOY_INSTRUCTIONS.md`.
 
 ## SEO a Výkon (Core Web Vitals)
 

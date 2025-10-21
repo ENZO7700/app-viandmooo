@@ -19,6 +19,7 @@ Tento spôsob je ideálny na rýchle nasadenie priamo z vášho počítača.
     ```bash
     vercel
     ```
+    *   Po spustení sa prihláste do svojho Vercel účtu.
     *   **Link to existing project?** Odpovedzte `N` (Nie).
     *   Potvrďte názov projektu a umiestnenie kódu (väčšinou stačí stlačiť `Enter`).
     *   Vercel automaticky rozpozná nastavenia pre Next.js. **Nemeňte ich.**
