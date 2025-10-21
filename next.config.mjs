@@ -1,9 +1,14 @@
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  // Configure pageExtensions to include md and mdx
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   reactStrictMode: true,
-  // Odstránenie `images.unoptimized` zabezpečí, že Next.js bude obrázky optimalizovať.
-  // Pre statický export je dôležité, aby všetky obrázky mali definovanú šírku a výšku.
+  // Force static export
+  output: 'export',
+  images: {
+    unoptimized: true,
+  },
 };
 
 export default nextConfig;
