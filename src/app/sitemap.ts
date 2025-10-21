@@ -13,6 +13,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/contact',
     '/blog',
     '/privacy-policy',
+    '/stahovanie-bytov-bratislava',
+    '/stahovanie-klavirov',
+    '/vypratavanie-a-likvidacia',
   ].map((slug) => ({
     url: `${siteUrl}${slug}`,
     lastModified: new Date().toISOString(),
