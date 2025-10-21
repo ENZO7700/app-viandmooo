@@ -12,7 +12,7 @@ type Props = {
 }
 
 export async function generateStaticParams() {
-  const tags = [...new Set(blogPosts.flatMap((p) => p.tags))];
+  const tags = Array.from(new Set(blogPosts.flatMap((p) => p.tags)));
   return tags.map((tag) => ({
     tag: slugify(tag),
   }));

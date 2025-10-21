@@ -11,7 +11,7 @@ type Props = {
 }
 
 export async function generateStaticParams() {
-  const categories = [...new Set(blogPosts.map((p) => p.category))];
+  const categories = Array.from(new Set(blogPosts.map((p) => p.category)));
   return categories.map((category) => ({
     category: slugify(category),
   }));
