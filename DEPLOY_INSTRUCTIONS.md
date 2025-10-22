@@ -52,7 +52,6 @@ Predpokladom je, že máte vytvorený prázdny repozitár na GitHube.
 | :------------------------------- | :-------------------------------------------------- |
 | `NEXT_PUBLIC_SITE_URL`           | `https://bratislava-stahovanie.info`                |
 | `NEXT_PUBLIC_FORMSPREE_ENDPOINT` | `https://formspree.io/f/xxxxxxxx` (vaša URL z Formspree) |
-| `GEMINI_API_KEY`                 | Váš tajný kľúč, ktorý získate z Google AI Studia |
 
 
 4.  **Kliknite na "Deploy"**:

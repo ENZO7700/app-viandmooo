@@ -9,9 +9,6 @@ import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
 import { slugify } from '@/lib/utils';
 import { Breadcrumbs } from '@/components/blog/Breadcrumbs';
-import { getRelatedArticles } from '@/ai/flows/related-articles-flow';
-import { Suspense } from 'react';
-import { Skeleton } from '@/components/ui/skeleton';
 
 type Props = {
   params: { slug: string };
@@ -68,85 +65,7 @@ export async function generateStaticParams() {
   }));
 }
 
-async function RelatedPosts({ currentSlug }: { currentSlug: string }) {
-  const currentPost = blogPosts.find(p => p.slug === currentSlug);
-  if (!currentPost) return null;
-
-  // For the purpose of getting related articles, we can create a simple string representation
-  // In a real app, you might render JSX to string or use a different content format
-  const contentAsString = `${currentPost.title}\n${currentPost.summary}`;
-
-  const otherAvailableArticles = blogPosts
-    .filter(p => p.slug !== currentSlug)
-    .map(p => ({ slug: p.slug, title: p.title }));
-
-  try {
-    const relatedSlugs = await getRelatedArticles({
-        currentArticleContent: contentAsString,
-        availableArticles: otherAvailableArticles
-    });
-
-    const related = blogPosts.filter(p => relatedSlugs.includes(p.slug));
-
-    if (related.length === 0) return null;
-
-    return (
-        <aside className="mt-12 md:mt-16">
-            <h2 className="text-2xl md:text-3xl font-headline text-primary mb-6">Súvisiace články</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {related.map(post => (
-                    <Card key={post.slug} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl">
-                    <Link href={`/blog/${post.slug}`} className="block">
-                      <div className="relative h-48 w-full">
-                        <Image
-                          src={post.image}
-                          alt={post.image_alt}
-                          fill
-                          className="object-cover"
-                          data-ai-hint={post.image_alt}
-                        />
-                      </div>
-                    </Link>
-                    <CardContent className="p-4">
-                      <h3 className="text-lg font-headline leading-snug mb-2">
-                        <Link href={`/blog/${post.slug}`} className="hover:text-primary transition-colors">
-                          {post.title}
-                        </Link>
-                      </h3>
-                        <p className="text-sm text-muted-foreground">
-                        {post.summary.substring(0, 100)}...
-                      </p>
-                    </CardContent>
-                  </Card>
-                ))}
-            </div>
-        </aside>
-    )
-  } catch (error) {
-    // Fallback to simple "other posts" if AI fails, do not log error in production
-    return <OtherPostsFallback currentSlug={currentSlug} />;
-  }
-}
-
-const RelatedPostsSkeleton = () => (
-    <aside className="mt-12 md:mt-16">
-        <h2 className="text-2xl md:text-3xl font-headline text-primary mb-6">Súvisiace články</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[...Array(3)].map((_, i) => (
-                <Card key={i} className="rounded-xl">
-                    <Skeleton className="h-48 w-full" />
-                    <CardContent className="p-4 space-y-2">
-                        <Skeleton className="h-6 w-3/4" />
-                        <Skeleton className="h-4 w-full" />
-                        <Skeleton className="h-4 w-5/6" />
-                    </CardContent>
-                </Card>
-            ))}
-        </div>
-    </aside>
-);
-
-const OtherPostsFallback = ({ currentSlug }: { currentSlug: string }) => {
+const RelatedPosts = ({ currentSlug }: { currentSlug: string }) => {
   const other = blogPosts
     .filter((p) => p.slug !== currentSlug)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
@@ -276,9 +195,7 @@ export default async function BlogPostPage({ params }: Props) {
             ))}
         </div>
 
-        <Suspense fallback={<RelatedPostsSkeleton />}>
-          <RelatedPosts currentSlug={post.slug} />
-        </Suspense>
+        <RelatedPosts currentSlug={post.slug} />
       </div>
     </article>
   );

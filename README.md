@@ -12,7 +12,6 @@ _Poznámka: Pre statický export je serverová optimalizácia obrázkov vypnutá
 - **Responzívny Dizajn:** Moderný vzhľad vďaka Tailwind CSS a ShadCN UI.
 - **Blogovací Systém:** Staticky generovaný blog z Markdown súborov s podporou pre kategórie a tagy.
 - **Kontaktný formulár:** Integrácia so službou Formspree pre jednoduché spracovanie správ bez potreby vlastného backendu.
-- **AI Funkcionalita:** Odporúčanie súvisiacich článkov pomocou Genkit a Google AI.
 
 ## Spustenie a Vývoj
 
@@ -22,7 +21,7 @@ _Poznámka: Pre statický export je serverová optimalizácia obrázkov vypnutá
     ```
 
 2.  **Nastavenie Environmentálnych Premenných (DÔLEŽITÉ):**
-    Pre plnú funkčnosť (kontaktný formulár, AI funkcie) je potrebné nastaviť premenné prostredia. Pre lokálny vývoj môžete vytvoriť súbor `.env.local` skopírovaním z `.env.example`. Pri nasadení (napr. na Vercel) je potrebné tieto premenné nastaviť v administrácii daného projektu.
+    Pre plnú funkčnosť (kontaktný formulár) je potrebné nastaviť premenné prostredia. Pre lokálny vývoj môžete vytvoriť súbor `.env.local` skopírovaním z `.env.example`. Pri nasadení (napr. na Vercel) je potrebné tieto premenné nastaviť v administrácii daného projektu.
 
     **Súbor: `.env.example`**
     ```env
@@ -31,9 +30,6 @@ _Poznámka: Pre statický export je serverová optimalizácia obrázkov vypnutá
 
     # URL endpoint pre Formspree kontaktný formulár
     NEXT_PUBLIC_FORMSPREE_ENDPOINT="https://formspree.io/f/xxxxxxxx"
-    
-    # API kľúč pre Gemini (Google AI) pre funkciu súvisiacich článkov
-    GEMINI_API_KEY="AIza..."
     ```
 
 3.  **Spustenie vývojového servera:**
