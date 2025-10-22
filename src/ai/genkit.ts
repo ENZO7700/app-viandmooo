@@ -8,9 +8,7 @@ process.env.GRPC_DNS_RESOLVER = "native";
 
 const plugins: any[] = [];
 if (process.env.GEMINI_API_KEY) {
-  plugins.push(googleAI({
-    apiVersion: ['v1', 'v1beta']
-  }));
+  plugins.push(googleAI());
 }
 
 export const ai = genkit({
