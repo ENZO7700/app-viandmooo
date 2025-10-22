@@ -145,8 +145,7 @@ async function RelatedPosts({ currentSlug }: { currentSlug: string }) {
         </aside>
     )
   } catch (error) {
-    console.error("Failed to get related articles:", error);
-    // Fallback to simple "other posts" if AI fails
+    // Fallback to simple "other posts" if AI fails, do not log error in production
     return <OtherPostsFallback currentSlug={currentSlug} />;
   }
 }

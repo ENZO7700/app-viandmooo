@@ -12,6 +12,7 @@ _Poznámka: Pre statický export je serverová optimalizácia obrázkov vypnutá
 - **Responzívny Dizajn:** Moderný vzhľad vďaka Tailwind CSS a ShadCN UI.
 - **Blogovací Systém:** Staticky generovaný blog z Markdown súborov s podporou pre kategórie a tagy.
 - **Kontaktný formulár:** Integrácia so službou Formspree pre jednoduché spracovanie správ bez potreby vlastného backendu.
+- **AI Funkcionalita:** Odporúčanie súvisiacich článkov pomocou Genkit a Google AI.
 
 ## Spustenie a Vývoj
 
@@ -21,17 +22,18 @@ _Poznámka: Pre statický export je serverová optimalizácia obrázkov vypnutá
     ```
 
 2.  **Nastavenie Environmentálnych Premenných (DÔLEŽITÉ):**
-    Pre lokálny vývoj a pre nasadenie je potrebné nastaviť dve premenné. Vytvorte súbor `.env.local` v hlavnom priečinku projektu a vložte doň nasledujúci obsah. **Nahraďte hodnoty za vaše vlastné.**
+    Pre plnú funkčnosť (kontaktný formulár, AI funkcie) je potrebné nastaviť premenné prostredia. Pre lokálny vývoj môžete vytvoriť súbor `.env.local` skopírovaním z `.env.example`. Pri nasadení (napr. na Vercel) je potrebné tieto premenné nastaviť v administrácii daného projektu.
 
+    **Súbor: `.env.example`**
     ```env
-    # Súbor: .env.local
-
     # Hlavná URL adresa vašej finálnej stránky (používa sa na generovanie sitemap.xml a kanonických URL)
     NEXT_PUBLIC_SITE_URL="https://vasa-domena.sk"
 
     # URL endpoint pre Formspree kontaktný formulár
-    # Vytvorte si účet na formspree.io, vytvorte nový formulár a skopírujte sem jeho URL.
     NEXT_PUBLIC_FORMSPREE_ENDPOINT="https://formspree.io/f/xxxxxxxx"
+    
+    # API kľúč pre Gemini (Google AI) pre funkciu súvisiacich článkov
+    GEMINI_API_KEY="AIza..."
     ```
 
 3.  **Spustenie vývojového servera:**
@@ -56,6 +58,10 @@ _Poznámka: Pre statický export je serverová optimalizácia obrázkov vypnutá
 
 3.  **Nasadenie na Vercel (Odporúčané):**
     Pre detailný postup nasadenia na Vercel si pozrite súbor `DEPLOY_INSTRUCTIONS.md`.
+
+4.  **Nasadenie na Firebase Hosting:**
+    Pre detailný postup nasadenia na Firebase si pozrite súbor `DEPLOY_FIREBASE.md`.
+
 
 ## SEO a Výkon (Core Web Vitals)
 
