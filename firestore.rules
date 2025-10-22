@@ -1,199 +1,167 @@
 /**
- * @file Firebase Security Rules for Papi Hair Design.
+ * @fileoverview Firestore Security Rules for the Papi Hair Design application.
  *
  * Core Philosophy:
- * This ruleset enforces a strict user-ownership model for user profiles, bookings, and orders.
- * Public read access is granted to services, stylists, product categories, and products.
+ * This ruleset enforces a strict user-ownership model for user profiles, appointments, orders, and order items.
+ * Only the authenticated user can read and write their own data. Public read access is allowed for services, stylists, and products.
  *
  * Data Structure:
- * - /users/{userId}: User profiles, accessible only by the user themselves.
- * - /users/{userId}/bookings/{bookingId}: Bookings owned by a specific user, accessible only by that user.
- * - /users/{userId}/orders/{orderId}: Orders placed by a specific user, accessible only by that user.
- * - /services/{serviceId}: Hair services offered. Publicly readable.
- * - /stylists/{stylistId}: Stylist information. Publicly readable.
- * - /product_categories/{productCategoryId}: Product categories. Publicly readable.
- * - /products/{productId}: Product information. Publicly readable.
- * - /order_items/{orderItemId}: Individual items within an order.  Owner-only access.
+ * - /users/{userId}: Stores user profile data.  Access is restricted to the owner.
+ * - /services/{serviceId}: Stores information about services. Public read access.
+ * - /stylists/{stylistId}: Stores information about stylists. Public read access.
+ * - /users/{userId}/appointments/{appointmentId}: Stores appointments for a specific user. Access restricted to the user.
+ * - /products/{productId}: Stores product information. Public read access.
+ * - /users/{userId}/orders/{orderId}: Stores orders placed by a user. Access restricted to the user.
+ * - /users/{userId}/orders/{orderId}/orderItems/{orderItemId}: Stores order items for a specific order. Access restricted to the user.
  *
  * Key Security Decisions:
- * - User data is strictly controlled, accessible only by the authenticated user.
- * - Listing of user-owned subcollections (bookings, orders) is allowed only for the owner.
- * - Global data (services, stylists, product categories, products) is publicly readable.
- * - Write access to global data is not defined and should be secured via other means (e.g., Cloud Functions).
- * - No custom claims (DBAC) are used; authorization relies solely on `request.auth.uid` and path-based ownership.
- *
- * Denormalization for Authorization:
- * Not explicitly used, but the path-based structure inherently avoids `get()` calls for authorization. The `userId` is part of the path for bookings and orders, allowing direct ownership checks.
- *
- * Structural Segregation:
- * Private user data (profiles, bookings, orders) is segregated under the `/users/{userId}` path, while public data (services, stylists, product categories, products) resides in top-level collections.
+ * - User listing is disallowed to protect user privacy.
+ * - Public read access is granted to /services, /stylists, and /products.
+ * - Data validation is minimal for rapid prototyping. Only authorization-critical fields are validated.
+ * - All write operations are protected by authorization checks based on path-based ownership.
  */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
     /**
-     * @description Secures user profiles, allowing only the authenticated user to read and write their own data.
+     * @description Secure user profiles. Only the authenticated user can access their own profile.
      * @path /users/{userId}
-     * @allow (create) - Authenticated user creates their profile: request.auth.uid == userId
-     * @allow (get, update, delete) - Authenticated user accesses their profile: request.auth.uid == userId
-     * @deny (create) - Authenticated user attempts to create another user's profile: request.auth.uid != userId
-     * @deny (get, update, delete) - Authenticated user attempts to access another user's profile: request.auth.uid != userId
-     * @principle Enforces document ownership for all operations on user profiles.
+     * @allow (create) User with ID 'user123' creates their profile.
+     * @allow (get) User with ID 'user123' reads their profile.
+     * @allow (update) User with ID 'user123' updates their profile.
+     * @allow (delete) User with ID 'user123' deletes their profile.
+     * @deny (create) User with ID 'user123' tries to create a profile with ID 'user456'.
+     * @deny (get) User with ID 'user123' tries to read the profile of user 'user456'.
+     * @principle Enforces document ownership for writes.
      */
     match /users/{userId} {
-      function isSignedIn() {
-        return request.auth != null;
-      }
-
-      function isOwner(userId) {
-        return request.auth.uid == userId;
-      }
-
-      function isExistingOwner(userId) {
-        return isOwner(userId) && resource != null;
-      }
-
       allow get: if isOwner(userId);
       allow list: if false;
-      allow create: if isSignedIn() && isOwner(userId) && request.resource.data.id == userId;
-      allow update: if isExistingOwner(userId) && request.resource.data.id == resource.data.id;
+      allow create: if isOwner(userId);
+      allow update: if isExistingOwner(userId);
       allow delete: if isExistingOwner(userId);
     }
 
     /**
-     * @description Secures bookings associated with a user, allowing only the authenticated user to manage their own bookings.
-     * @path /users/{userId}/bookings/{bookingId}
-     * @allow (create) - Authenticated user creates a booking for themselves: request.auth.uid == userId
-     * @allow (get, update, delete) - Authenticated user accesses their own booking: request.auth.uid == userId
-     * @deny (create) - Authenticated user attempts to create a booking for another user: request.auth.uid != userId
-     * @deny (get, update, delete) - Authenticated user attempts to access another user's booking: request.auth.uid != userId
-     * @principle Enforces document ownership for all operations on user bookings.
-     */
-    match /users/{userId}/bookings/{bookingId} {
-      function isSignedIn() {
-        return request.auth != null;
-      }
-
-      function isOwner(userId) {
-        return request.auth.uid == userId;
-      }
-
-      function isExistingOwner(userId) {
-        return isOwner(userId) && resource != null;
-      }
-
-      allow get: if isOwner(userId);
-      allow list: if isOwner(userId);
-      allow create: if isSignedIn() && isOwner(userId) && request.resource.data.userId == userId;
-      allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
-      allow delete: if isExistingOwner(userId);
-    }
-
-    /**
-     * @description Secures orders associated with a user, allowing only the authenticated user to manage their own orders.
-     * @path /users/{userId}/orders/{orderId}
-     * @allow (create) - Authenticated user creates an order for themselves: request.auth.uid == userId
-     * @allow (get, update, delete) - Authenticated user accesses their own order: request.auth.uid == userId
-     * @deny (create) - Authenticated user attempts to create an order for another user: request.auth.uid != userId
-     * @deny (get, update, delete) - Authenticated user attempts to access another user's order: request.auth.uid != userId
-     * @principle Enforces document ownership for all operations on user orders.
-     */
-    match /users/{userId}/orders/{orderId} {
-      function isSignedIn() {
-        return request.auth != null;
-      }
-
-      function isOwner(userId) {
-        return request.auth.uid == userId;
-      }
-
-      function isExistingOwner(userId) {
-        return isOwner(userId) && resource != null;
-      }
-
-      allow get: if isOwner(userId);
-      allow list: if isOwner(userId);
-      allow create: if isSignedIn() && isOwner(userId) && request.resource.data.userId == userId;
-      allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
-      allow delete: if isExistingOwner(userId);
-    }
-
-    /**
-     * @description Allows public read access to hair services. Write access is not defined in this prototype and should be secured via other means.
+     * @description Secure salon services. Public read access is allowed.
      * @path /services/{serviceId}
-     * @allow (get, list) - Any user can read service information.
-     * @deny (create, update, delete) - No direct client-side writes allowed; these should be handled by a secure backend.
-     * @principle Public read access with restricted write access.
+     * @allow (get) Any user can read service details.
+     * @allow (list) Any user can list all services.
+     * @deny (create) No user can create service documents.
+     * @deny (update) No user can update service documents.
+     * @deny (delete) No user can delete service documents.
+     * @principle Public read access with no write access.
      */
     match /services/{serviceId} {
-      allow get: if true;
-      allow list: if true;
+      allow get, list: if true;
       allow create: if false;
       allow update: if false;
       allow delete: if false;
     }
 
     /**
-     * @description Allows public read access to stylist information. Write access is not defined in this prototype and should be secured via other means.
+     * @description Secure stylist information. Public read access is allowed.
      * @path /stylists/{stylistId}
-     * @allow (get, list) - Any user can read stylist information.
-     * @deny (create, update, delete) - No direct client-side writes allowed; these should be handled by a secure backend.
-     * @principle Public read access with restricted write access.
+     * @allow (get) Any user can read stylist details.
+     * @allow (list) Any user can list all stylists.
+     * @deny (create) No user can create stylist documents.
+     * @deny (update) No user can update stylist documents.
+     * @deny (delete) No user can delete stylist documents.
+     * @principle Public read access with no write access.
      */
     match /stylists/{stylistId} {
-      allow get: if true;
-      allow list: if true;
+      allow get, list: if true;
       allow create: if false;
       allow update: if false;
       allow delete: if false;
     }
 
     /**
-     * @description Allows public read access to product categories. Write access is not defined in this prototype and should be secured via other means.
-     * @path /product_categories/{productCategoryId}
-     * @allow (get, list) - Any user can read product category information.
-     * @deny (create, update, delete) - No direct client-side writes allowed; these should be handled by a secure backend.
-     * @principle Public read access with restricted write access.
+     * @description Secure appointments. Only the authenticated user can access their own appointments.
+     * @path /users/{userId}/appointments/{appointmentId}
+     * @allow (create) User with ID 'user123' creates an appointment for themselves.
+     * @allow (get) User with ID 'user123' reads their appointment.
+     * @allow (update) User with ID 'user123' updates their appointment.
+     * @allow (delete) User with ID 'user123' deletes their appointment.
+     * @deny (create) User with ID 'user123' tries to create an appointment for user 'user456'.
+     * @deny (get) User with ID 'user123' tries to read the appointment of user 'user456'.
+     * @principle Enforces document ownership for writes.
      */
-    match /product_categories/{productCategoryId} {
-      allow get: if true;
-      allow list: if true;
-      allow create: if false;
-      allow update: if false;
-      allow delete: if false;
+    match /users/{userId}/appointments/{appointmentId} {
+      allow get: if isOwner(userId);
+      allow list: if isOwner(userId);
+      allow create: if isOwner(userId) && request.resource.data.userId == userId;
+      allow update: if isExistingOwner(userId) && resource.data.userId == userId;
+      allow delete: if isExistingOwner(userId);
     }
 
     /**
-     * @description Allows public read access to product information. Write access is not defined in this prototype and should be secured via other means.
+     * @description Secure product information. Public read access is allowed.
      * @path /products/{productId}
-     * @allow (get, list) - Any user can read product information.
-     * @deny (create, update, delete) - No direct client-side writes allowed; these should be handled by a secure backend.
-     * @principle Public read access with restricted write access.
+     * @allow (get) Any user can read product details.
+     * @allow (list) Any user can list all products.
+     * @deny (create) No user can create product documents.
+     * @deny (update) No user can update product documents.
+     * @deny (delete) No user can delete product documents.
+     * @principle Public read access with no write access.
      */
     match /products/{productId} {
-      allow get: if true;
-      allow list: if true;
+      allow get, list: if true;
       allow create: if false;
       allow update: if false;
       allow delete: if false;
     }
 
     /**
-     * @description Secures order items, allowing only the owner to read and write their own data.  Since order items are not rooted under `/users/{userId}`, there is no clear ownership and these rules are simply a placeholder.  The product should probably be refactored to be under the order.
-     * @path /order_items/{orderItemId}
-     * @allow (create) - Not applicable - Owner required.
-     * @allow (get, update, delete) - Not applicable - Owner required.
-     * @deny (create) - No direct client-side writes allowed; these should be handled by a secure backend.
-     * @deny (get, update, delete) - Not applicable - No owner set.
-     * @principle Requires Owner
+     * @description Secure orders. Only the authenticated user can access their own orders.
+     * @path /users/{userId}/orders/{orderId}
+     * @allow (create) User with ID 'user123' creates an order for themselves.
+     * @allow (get) User with ID 'user123' reads their order.
+     * @allow (update) User with ID 'user123' updates their order.
+     * @allow (delete) User with ID 'user123' deletes their order.
+     * @deny (create) User with ID 'user123' tries to create an order for user 'user456'.
+     * @deny (get) User with ID 'user123' tries to read the order of user 'user456'.
+     * @principle Enforces document ownership for writes.
      */
-    match /order_items/{orderItemId} {
-      allow get: if false;
-      allow list: if false;
-      allow create: if false;
-      allow update: if false;
-      allow delete: if false;
+    match /users/{userId}/orders/{orderId} {
+      allow get: if isOwner(userId);
+      allow list: if isOwner(userId);
+      allow create: if isOwner(userId) && request.resource.data.userId == userId;
+      allow update: if isExistingOwner(userId) && resource.data.userId == userId;
+      allow delete: if isExistingOwner(userId);
     }
+
+    /**
+     * @description Secure order items. Only the authenticated user can access order items within their own orders.
+     * @path /users/{userId}/orders/{orderId}/orderItems/{orderItemId}
+     * @allow (create) User with ID 'user123' creates an order item within their order.
+     * @allow (get) User with ID 'user123' reads their order item.
+     * @allow (update) User with ID 'user123' updates their order item.
+     * @allow (delete) User with ID 'user123' deletes their order item.
+     * @deny (create) User with ID 'user123' tries to create an order item for user 'user456'.
+     * @deny (get) User with ID 'user123' tries to read the order item of user 'user456'.
+     * @principle Enforces document ownership for writes.
+     */
+    match /users/{userId}/orders/{orderId}/orderItems/{orderItemId} {
+      allow get: if isOwner(userId);
+      allow list: if isOwner(userId);
+      allow create: if isOwner(userId);
+      allow update: if isExistingOwner(userId);
+      allow delete: if isExistingOwner(userId);
+    }
+  }
+
+  // Helper functions
+  function isSignedIn() {
+    return request.auth != null;
+  }
+
+  function isOwner(userId) {
+    return isSignedIn() && request.auth.uid == userId;
+  }
+
+    function isExistingOwner(userId) {
+    return isOwner(userId) && resource != null;
   }
 }
