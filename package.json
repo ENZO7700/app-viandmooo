@@ -1,4 +1,3 @@
-
 {
   "name": "vi-mo-static",
   "version": "1.0.0",
@@ -7,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "deploy": "npm run build && firebase deploy --only hosting"
+    "lint": "next lint"
   },
   "dependencies": {
     "@genkit-ai/google-genai": "^1.0.0",

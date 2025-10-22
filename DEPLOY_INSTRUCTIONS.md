@@ -4,43 +4,7 @@ Tento súbor obsahuje všetky potrebné kroky a príkazy na úspešné nasadenie
 
 ---
 
-## Možnosť 1: Nasadenie cez Príkazový Riadok (Najrýchlejšie)
-
-Tento spôsob je ideálny na rýchle nasadenie priamo z vášho počítača.
-
-1.  **Inštalácia Vercel CLI (ak ho ešte nemáte):**
-    Spustite tento príkaz vo vašom termináli:
-    ```bash
-    npm install -g vercel
-    ```
-
-2.  **Spustenie nasadenia:**
-    V hlavnom priečinku projektu spustite nasledujúci príkaz. Prevedie vás celým procesom.
-    ```bash
-    vercel
-    ```
-    - Po spustení sa prihláste do svojho Vercel účtu (otvorí sa prehliadač).
-    - **Link to existing project?** Odpovedzte `N` (Nie).
-    - Potvrďte názov projektu a umiestnenie kódu (väčšinou stačí stlačiť `Enter`).
-    - Vercel automaticky rozpozná nastavenia pre Next.js. **Nemeňte ich.**
-
-3.  **Nastavenie Environmentálnych Premenných (KĽÚČOVÝ KROK):**
-    Počas procesu sa vás terminál opýta na premenné. Zadajte ich jednu po druhej.
-
-| Názov (Name)                     | Hodnota (Value)                                     |
-| :------------------------------- | :-------------------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL`           | `https://vasa-finalna-domena.sk`                      |
-| `NEXT_PUBLIC_FORMSPREE_ENDPOINT` | `https://formspree.io/f/xxxxxxxx` (vaša URL z Formspree) |
-
-**Dôležité:**
-*   Hodnotu pre `NEXT_PUBLIC_SITE_URL` nahraďte URL adresou, ktorú vám Vercel pridelí po prvom nasadení (napr. `https://nazov-projektu.vercel.app`).
-*   Hodnotu pre `NEXT_PUBLIC_FORMSPREE_ENDPOINT` získate po registrácii a vytvorení nového formulára na [formspree.io](https://formspree.io).
-
-Po zadaní premenných Vercel aplikáciu nasadí a poskytne vám finálnu URL.
-
----
-
-## Možnosť 2: Nasadenie cez GitHub (Odporúčané pre automatizáciu)
+## Možnosť 1: Nasadenie cez GitHub (Odporúčané pre automatizáciu)
 
 Tento spôsob je ideálny pre dlhodobú správu, pretože každá zmena nahratá na GitHub automaticky spustí nové nasadenie.
 
@@ -80,11 +44,43 @@ Predpokladom je, že máte vytvorený prázdny repozitár na GitHube.
     -   Vyberte GitHub repozitár, do ktorého ste práve nahrali kód.
     -   Vercel automaticky rozpozná, že ide o Next.js projekt a predvyplní všetky nastavenia. **Nemeňte ich.**
 
-3.  **Nastavte Environmentálne Premenné:**
+3.  **Nastavte Environmentálne Premenné (KĽÚČOVÝ KROK):**
     -   Pred kliknutím na "Deploy" rozbaľte sekciu **Environment Variables**.
-    -   Pridajte premenné podľa tabuľky vyššie (`NEXT_PUBLIC_SITE_URL` a `NEXT_PUBLIC_FORMSPREE_ENDPOINT`).
+    -   Skopírujte obsah vášho `.env.example` súboru a vložte premenné do Vercel administrácie. Pre každú premennú zadajte jej názov a reálnu hodnotu.
+
+| Názov (Name)                     | Hodnota (Value)                                     |
+| :------------------------------- | :-------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL`           | `https://bratislava-stahovanie.info`                |
+| `NEXT_PUBLIC_FORMSPREE_ENDPOINT` | `https://formspree.io/f/xxxxxxxx` (vaša URL z Formspree) |
+| `GEMINI_API_KEY`                 | Váš tajný kľúč, ktorý získate z Google AI Studia |
+
 
 4.  **Kliknite na "Deploy"**:
-    -   Vercel sa o všetko postará. Po dokončení vám poskytne URL adresu nasadenej aplikácie.
+    -   Vercel sa o všetko postará. Po dokončení vám poskytne URL adresu nasadenej aplikácie, ktorú môžete neskôr prepojiť s vašou doménou `bratislava-stahovanie.info`.
 
-Po úspešnom nasadení otestujte funkčnosť stránky, najmä odoslanie kontaktného formulára.
+Po úspešnom nasadení otestujte funkčnosť stránky, najmä odoslanie kontaktného formulára a zobrazenie blogových článkov.
+
+---
+
+## Možnosť 2: Nasadenie cez Príkazový Riadok (Najrýchlejšie)
+
+Tento spôsob je ideálny na rýchle jednorazové nasadenie priamo z vášho počítača.
+
+1.  **Inštalácia Vercel CLI (ak ho ešte nemáte):**
+    Spustite tento príkaz vo vašom termináli:
+    ```bash
+    npm install -g vercel
+    ```
+
+2.  **Spustenie nasadenia:**
+    V hlavnom priečinku projektu spustite nasledujúci príkaz. Prevedie vás celým procesom.
+    ```bash
+    vercel --prod
+    ```
+    - Po spustení sa prihláste do svojho Vercel účtu (otvorí sa prehliadač).
+    - **Link to existing project?** Odpovedzte `N` (Nie).
+    - Potvrďte názov projektu a umiestnenie kódu (väčšinou stačí stlačiť `Enter`).
+    - Vercel automaticky rozpozná nastavenia pre Next.js. **Nemeňte ich.**
+    - Počas procesu sa vás terminál opýta na premenné prostredia. Zadajte ich jednu po druhej podľa tabuľky vyššie.
+
+Po zadaní premenných Vercel aplikáciu nasadí a poskytne vám finálnu produkčnú URL.
