@@ -30,28 +30,6 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.viandmo.com';
   const imageUrl = post.image.startsWith('http') ? post.image : `${siteUrl}${post.image}`;
 
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
-    headline: post.title,
-    description: post.summary,
-    image: imageUrl,
-    author: {
-      '@type': 'Organization',
-      name: 'VI&MO',
-      url: siteUrl,
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'VI&MO',
-      logo: {
-        '@type': 'ImageObject',
-        url: `${siteUrl}/viandmo_logo.png`,
-      },
-    },
-    datePublished: new Date(post.date).toISOString(),
-  };
-
   return {
     title: post.title,
     description: post.summary,
@@ -218,6 +196,28 @@ export default async function BlogPostPage({ params }: Props) {
     notFound();
   }
 
+    const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.summary,
+    image: post.image.startsWith('http') ? post.image : `${process.env.NEXT_PUBLIC_SITE_URL}${post.image}`,
+    author: {
+      '@type': 'Organization',
+      name: 'VI&MO',
+      url: process.env.NEXT_PUBLIC_SITE_URL,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'VI&MO',
+      logo: {
+        '@type': 'ImageObject',
+        url: `${process.env.NEXT_PUBLIC_SITE_URL}/viandmo_logo.png`,
+      },
+    },
+    datePublished: new Date(post.date).toISOString(),
+  };
+
   const breadcrumbItems = [
     { label: 'Blog', href: '/blog' },
     { label: post.category, href: `/blog/kategoria/${slugify(post.category)}` },
@@ -226,6 +226,10 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <article className="py-12 md:py-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="container max-w-4xl mx-auto">
 
         <Breadcrumbs items={breadcrumbItems} />
