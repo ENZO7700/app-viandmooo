@@ -1,4 +1,5 @@
 
+
 'use client'
 
 import { Button } from '@/components/ui/button';
@@ -6,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Truck, Box, Trash2, Sparkles, Award, Clock, ShieldCheck, Handshake, CalendarCheck, Wallet, UserCheck } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useReducedMotion } from '@/hooks/use-reduced-motion';
 import imageData from '@/lib/placeholder-images.json';
 import { InteractiveCalculator } from '@/components/pricing/InteractiveCalculator';
@@ -54,17 +55,10 @@ const sectionVariants = {
 
 const HeroSection = () => {
   const shouldReduceMotion = useReducedMotion();
-  const mouseX = useMotionValue(Infinity);
 
   return (
     <section 
       className="relative h-screen w-full flex items-center justify-center text-center overflow-hidden bg-[#00202e]"
-      onMouseMove={(e) => {
-        if (!shouldReduceMotion) {
-          mouseX.set(e.pageX);
-        }
-      }}
-      onMouseLeave={() => !shouldReduceMotion && mouseX.set(Infinity)}
     >
         <Image
           src={imageData.loginBackground.src}
@@ -84,17 +78,6 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           Sťahovanie Bratislava
-           <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-mirror-shine"
-            style={{
-               opacity: useTransform(
-                mouseX,
-                [0, typeof window !== 'undefined' ? window.innerWidth / 2 : 300, typeof window !== 'undefined' ? window.innerWidth : 600],
-                [0.2, 1, 0.2]
-              ),
-              backgroundPosition: useTransform(mouseX, (newX) => `${newX}px 0px`),
-            }}
-           />
         </motion.h1>
         <motion.p 
           className="mt-4 text-lg md:text-xl max-w-3xl mx-auto text-muted-foreground/80"

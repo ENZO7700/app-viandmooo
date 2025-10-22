@@ -60,18 +60,3 @@
     @apply font-bold;
   }
 }
-
-@layer utilities {
-  .animate-mirror-shine {
-    animation: mirrorShine 4s linear infinite;
-    background-size: 200% 100%;
-  }
-  @keyframes mirrorShine {
-    0% {
-      background-position: 200% 0;
-    }
-    100% {
-      background-position: -200% 0;
-    }
-  }
-}
