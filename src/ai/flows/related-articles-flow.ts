@@ -1,10 +1,10 @@
-
 'use server';
 /**
  * @fileOverview Flow to get related blog articles.
  */
 
 import { ai } from '@/ai/genkit';
+import { googleAI } from '@genkit-ai/google-genai';
 import { z } from 'genkit';
 
 const RelatedArticlesInputSchema = z.object({
@@ -14,10 +14,11 @@ const RelatedArticlesInputSchema = z.object({
     title: z.string(),
   })).describe('A list of other available articles to choose from.'),
 });
+export type RelatedArticlesInput = z.infer<typeof RelatedArticlesInputSchema>;
 
 const RelatedArticlesOutputSchema = z.array(z.string()).length(3).describe('An array of 3 slugs of the most related articles.');
 
-export async function getRelatedArticles(input: z.infer<typeof RelatedArticlesInputSchema>): Promise<string[]> {
+export async function getRelatedArticles(input: RelatedArticlesInput): Promise<string[]> {
     return relatedArticlesFlow(input);
 }
 
@@ -27,7 +28,7 @@ const relatedArticlesFlow = ai.defineFlow(
     inputSchema: RelatedArticlesInputSchema,
     outputSchema: RelatedArticlesOutputSchema,
   },
-  async (input: z.infer<typeof RelatedArticlesInputSchema>) => {
+  async (input: RelatedArticlesInput) => {
     const prompt = `
         You are a blog assistant. Based on the content of the current article, your task is to find the 3 most thematically related articles from the provided list.
         Return only an array of 3 slugs for the articles you have chosen as the most relevant. Do not include the current article in the recommendations.
@@ -45,7 +46,7 @@ const relatedArticlesFlow = ai.defineFlow(
 
     const llmResponse = await ai.generate({
         // Note: Using a more capable model might yield better results for this kind of task.
-        model: 'googleai/gemini-pro', 
+        model: googleAI.model('gemini-pro'), 
         prompt: prompt,
         output: {
             schema: RelatedArticlesOutputSchema
