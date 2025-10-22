@@ -1,5 +1,5 @@
 
-import { genkit, Ai } from 'genkit';
+import { genkit } from 'genkit';
 import { googleAI } from '@genkit-ai/google-genai';
 
 // This is a workaround for a known issue with the Google AI plugin.
@@ -13,7 +13,7 @@ if (process.env.GEMINI_API_KEY) {
   }));
 }
 
-export const ai: Ai = genkit({
+export const ai = genkit({
   plugins,
   logLevel: 'debug',
   enableTracingAndMetrics: true,
