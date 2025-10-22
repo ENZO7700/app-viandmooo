@@ -73,7 +73,7 @@ const HeroSection = () => {
       >
         <motion.h1 
           className="text-5xl md:text-8xl font-headline font-extrabold text-white"
-          style={{ textShadow: '0 2px 4px rgba(100,100,100,0.5), 0 5px 15px rgba(0,0,0,0.4)' }}
+          style={{ textShadow: '0 2px 2px rgba(128,128,128,0.7), 0 4px 5px rgba(0,0,0,0.5), 0 6px 10px rgba(0,0,0,0.4)' }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -117,12 +117,12 @@ const ServicesSection = () => {
                 whileHover={shouldReduceMotion ? {} : { y: -5, scale: 1.02 }}
                 transition={{ duration: 0.3 }}
               >
-                  <Card className={`text-left p-6 flex flex-col items-start shadow-lg rounded-xl transition-all duration-300 h-full bg-card border`}>
-                     <div className={`p-3 rounded-full mb-4 bg-primary/10`}>
+                  <Card className={'text-left p-6 flex flex-col items-start shadow-lg rounded-xl transition-all duration-300 h-full bg-card border'}>
+                     <div className={'p-3 rounded-full mb-4 bg-primary/10'}>
                         {service.icon}
                     </div>
-                    <h3 className={`text-xl font-headline font-semibold mb-2 text-foreground`}>{service.title}</h3>
-                    <p className={`flex-grow text-muted-foreground`}>{service.description}</p>
+                    <h3 className={'text-xl font-headline font-semibold mb-2 text-foreground'}>{service.title}</h3>
+                    <p className={'flex-grow text-muted-foreground'}>{service.description}</p>
                      <Button asChild variant={service.featured ? 'default' : 'outline'} className="mt-6 w-full rounded-full shadow-lg transition-transform duration-300 hover:scale-105">
                         <Link href={service.href}>{service.featured ? 'Cenová ponuka' : 'Viac o službe'}</Link>
                     </Button>
@@ -298,3 +298,5 @@ export default function HomePage() {
     </>
   );
 }
+
+    
