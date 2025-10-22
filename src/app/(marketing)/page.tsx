@@ -72,7 +72,8 @@ const HeroSection = () => {
         className="relative z-10 p-4 flex flex-col items-center"
       >
         <motion.h1 
-          className="relative text-5xl md:text-8xl font-headline font-extrabold leading-tight text-transparent bg-clip-text bg-gradient-to-br from-foreground to-muted-foreground text-shadow-amuled"
+          className="text-5xl md:text-8xl font-headline font-extrabold text-white"
+          style={{ textShadow: '0 2px 4px rgba(100,100,100,0.5), 0 5px 15px rgba(0,0,0,0.4)' }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
