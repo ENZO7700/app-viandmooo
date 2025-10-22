@@ -27,7 +27,7 @@ const relatedArticlesFlow = ai.defineFlow(
     inputSchema: RelatedArticlesInputSchema,
     outputSchema: RelatedArticlesOutputSchema,
   },
-  async (input) => {
+  async (input: z.infer<typeof RelatedArticlesInputSchema>) => {
     const prompt = `
         You are a blog assistant. Based on the content of the current article, your task is to find the 3 most thematically related articles from the provided list.
         Return only an array of 3 slugs for the articles you have chosen as the most relevant. Do not include the current article in the recommendations.
